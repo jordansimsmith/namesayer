@@ -1,2 +1,2 @@
-# namesayer-part03
-Third iteration of the NameSayer application.
+# NameSayer Part Three
+Third iteration of the NameSayer application. This application allows a user to practise the pronounciation of names from a database. 
