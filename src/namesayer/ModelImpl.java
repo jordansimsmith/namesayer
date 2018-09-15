@@ -1,14 +1,10 @@
 package namesayer;
 
 import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ModelImpl implements Model {
 
@@ -35,7 +31,7 @@ public class ModelImpl implements Model {
             // create name version object
             NameVersion name = new NameVersion(parsedName, file);
 
-            // do other versions of this name already exist
+            // do other versions of this name already exist?
             if (rootName.containName(parsedName)){
                 Name nameGroup = rootName.getNameByString(parsedName);
                 nameGroup.addName(name);
@@ -50,7 +46,7 @@ public class ModelImpl implements Model {
         }
 
         // generate tree root
-        TreeItem<Name> root = new TreeItem<>(rootName);
+        CheckBoxTreeItem<Name> root = new CheckBoxTreeItem<>(rootName);
         root.setExpanded(true);
 
         // iterate over all name groups
@@ -70,5 +66,10 @@ public class ModelImpl implements Model {
         tree.setCellFactory(CheckBoxTreeCell.forTreeView());
 
         return tree;
+    }
+
+    @Override
+    public void lowQualityName(Name name) {
+        // stub
     }
 }
