@@ -17,5 +17,5 @@ public interface Model {
      * This method records a name as having bad quality. It is written to a file in the project folder.
      * @param name: the Name object that is of low quality
      */
-    void lowQualityName(Name name);
+    void lowQualityName(Name name) throws IllegalArgumentException;
 }

@@ -5,6 +5,9 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class ModelImpl implements Model {
 
@@ -69,7 +72,25 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void lowQualityName(Name name) {
-        // stub
+    public void lowQualityName(Name name) throws IllegalArgumentException {
+
+        // assert input is a name version not a name group
+        if (!(name instanceof NameVersion)) {
+            throw new IllegalArgumentException("Argument must be a name version not a name group");
+        }
+
+        // get file name
+        String fileName = ((NameVersion) name).getFile().getName();
+
+        try {
+            FileWriter writer = new FileWriter("badnames.txt", true);
+            PrintWriter printer = new PrintWriter(writer);
+
+            printer.printf("%s" + "%n", fileName);
+            printer.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 }
