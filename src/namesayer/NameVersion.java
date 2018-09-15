@@ -2,27 +2,17 @@ package namesayer;
 
 import java.io.File;
 
-public class NameVersion {
+public class NameVersion extends Name{
 
-    private String name;
     private File file;
 
     public NameVersion(String name, File file) {
+        super(name);
 
-        this.name = name;
         this.file = file;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 
     public File getFile() {
         return file;
-    }
-
-    public String getName() {
-        return name;
     }
 }
