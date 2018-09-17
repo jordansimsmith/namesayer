@@ -130,4 +130,16 @@ public class ModelImpl implements Model {
 
         return checked;
     }
+
+    @Override
+    public RecordWorker getRecordWorker(Name name) throws IllegalArgumentException {
+
+        // verify the input type
+        if (!(name instanceof NameVersion)) {
+            throw new IllegalArgumentException("Argument must be a name version not a name group");
+        }
+
+        // safe to cast
+        return new RecordWorker((NameVersion) name);
+    }
 }

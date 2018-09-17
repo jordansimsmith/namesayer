@@ -27,4 +27,13 @@ public interface Model {
      * @return a list of NameVersion objects that are currently selected.
      */
     List<NameVersion> getCheckedNames();
+
+    /**
+     * This method returns a RecordWorker (task) object that can be bound to a progress indicator and executed on a new
+     * thread to record audio in the background.
+     * @param name: NameVersion object that is being recorded against.
+     * @return a RecordWorker object for concurrent execution.
+     * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
+     */
+    RecordWorker getRecordWorker(Name name) throws IllegalArgumentException;
 }
