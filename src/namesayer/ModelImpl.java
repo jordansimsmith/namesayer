@@ -11,9 +11,18 @@ import java.io.PrintWriter;
 
 public class ModelImpl implements Model {
 
+    private TreeView tree;
+
+    public ModelImpl() {
+        generateTreeView();
+    }
+
     @Override
     public TreeView getTreeView() {
+        return tree;
+    }
 
+    private void generateTreeView() {
         // declare folder to search for files
         File folder = new File("names/");
 
@@ -68,7 +77,8 @@ public class ModelImpl implements Model {
 
         tree.setCellFactory(CheckBoxTreeCell.forTreeView());
 
-        return tree;
+        // set field
+        this.tree = tree;
     }
 
     @Override
