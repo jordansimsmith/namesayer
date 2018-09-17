@@ -8,12 +8,24 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModelImpl implements Model {
 
+    private TreeView<Name> tree;
+    private List<NameVersion> checked = new ArrayList<>();
+
+    public ModelImpl() {
+        generateTreeView();
+    }
+
     @Override
     public TreeView getTreeView() {
+        return tree;
+    }
 
+    private void generateTreeView() {
         // declare folder to search for files
         File folder = new File("names/");
 
@@ -59,7 +71,25 @@ public class ModelImpl implements Model {
 
             // iterate over all name versions
             for (Name nameVersion: nameGroup.getNames()) {
-                groupItem.getChildren().add(new CheckBoxTreeItem<>(nameVersion));
+
+                CheckBoxTreeItem<Name> checkBoxTreeItem = new CheckBoxTreeItem<>(nameVersion);
+
+                // add checked selection listener
+                checkBoxTreeItem.selectedProperty().addListener((obs, oldVal, newVal) -> {
+
+                    // deselected
+                    if (oldVal && !newVal) {
+                        checked.remove(checkBoxTreeItem.getValue());
+                    }
+
+                    // selected
+                    if (!oldVal && newVal) {
+                        checked.add((NameVersion)checkBoxTreeItem.getValue());
+                    }
+
+                });
+
+                groupItem.getChildren().add(checkBoxTreeItem);
             }
         }
 
@@ -68,7 +98,8 @@ public class ModelImpl implements Model {
 
         tree.setCellFactory(CheckBoxTreeCell.forTreeView());
 
-        return tree;
+        // set field
+        this.tree = tree;
     }
 
     @Override
@@ -92,5 +123,11 @@ public class ModelImpl implements Model {
             ioe.printStackTrace();
         }
 
+    }
+
+    @Override
+    public List<NameVersion> getCheckedNames() {
+
+        return checked;
     }
 }
