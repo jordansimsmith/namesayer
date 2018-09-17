@@ -28,3 +28,5 @@ out/
 
 names/
 src/test
+
+*.txt
