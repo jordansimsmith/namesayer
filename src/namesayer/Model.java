@@ -40,4 +40,14 @@ public interface Model {
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
     RecordWorker getRecordWorker(Name name) throws IllegalArgumentException;
+
+    /**
+     * This method searches the database for all user practice recordings for a specific name version and returns them
+     * in a list. Note that the input must be of type nameVersion, not name.
+     *
+     * @param name: NameVersion object that user recordings are being searched against.
+     * @return A list of NameVersion objects representing the user practice recordings for that specific name.
+     * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
+     */
+    List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException;
 }

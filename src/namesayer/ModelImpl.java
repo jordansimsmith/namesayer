@@ -142,4 +142,10 @@ public class ModelImpl implements Model {
         // safe to cast
         return new RecordWorker((NameVersion) name);
     }
+
+    @Override
+    public List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException {
+        // TODO
+        return null;
+    }
 }
