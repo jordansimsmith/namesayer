@@ -22,22 +22,39 @@
    <TreeView fx:id="treeView" prefHeight="144.0" prefWidth="159.0" GridPane.rowIndex="1" GridPane.rowSpan="5">
       <effect>
          <Blend />
-      </effect></TreeView>
+      </effect>
+   </TreeView>
 
-   <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="76.0" text="Shuffle" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.halignment="CENTER"/>
-   <ListView fx:id="practiceList" prefHeight="153.0" prefWidth="116.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   <CheckBox fx:id="handleShuffle" mnemonicParsing="false" prefHeight="18.0" prefWidth="76.0" text="Shuffle" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+
+    <ListView fx:id="practiceList" prefHeight="153.0" prefWidth="116.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
      <!--<Button contentDisplay="CENTER" maxHeight="1.7976931348623157E308" onAction="#handleHomeButtonAction" prefWidth="160.0" text="Return to main menu" textAlignment="CENTER" />-->
-     <Button contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Playback" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-   <Label text="Selected files" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-   <Label text="Practices" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-   <Label text="Database" GridPane.rowIndex="0" />
-   <HBox alignment="CENTER" prefHeight="29.0" prefWidth="112.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+
+    <Button onAction="#playAction" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Playback" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+
+    <Label text="Selected files" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <Label text="Practices" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+    <Label text="Database" GridPane.rowIndex="0" />
+
+    <HBox alignment="CENTER" prefHeight="29.0" prefWidth="112.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
       <children>
-         <Button mnemonicParsing="false" text="+" fx:id="newPrac" />
-         <Button mnemonicParsing="false" text="-" fx:id="delPrac"/>
+         <Button onAction="#newPrac" mnemonicParsing="false" text="+">
+            <HBox.margin>
+               <Insets right="5.0" />
+            </HBox.margin></Button>
+         <Button onAction="#delPrac" mnemonicParsing="false" text="-">
+            <HBox.margin>
+               <Insets left="5.0" />
+            </HBox.margin></Button>
       </children>
+      <GridPane.margin>
+         <Insets top="5.0" />
+      </GridPane.margin>
    </HBox>
-   <ListView fx:id="playList" prefHeight="134.0" prefWidth="117.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+   <ListView fx:id="playList" prefHeight="134.0" prefWidth="117.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2"  />
+
+
 
 
 
