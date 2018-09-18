@@ -6,7 +6,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class RecordWorker extends Task<Void> {
+public class RecordWorker extends Task<Name> {
 
     private NameVersion name;
 
@@ -15,10 +15,7 @@ public class RecordWorker extends Task<Void> {
     }
 
     @Override
-    protected Void call() throws Exception {
-
-        System.out.println("Record worker is starting");
-
+    protected Name call() throws Exception {
 
         // make directory for recording
         String command = "mkdir -p recordings/" + name.getFile().getName();
@@ -30,22 +27,23 @@ public class RecordWorker extends Task<Void> {
         String timeStamp = new SimpleDateFormat("dd-mm-yyyy_HH-mm-ss").format(Calendar.getInstance().getTime());
 
         // capture audio from microphone
-        command = "ffmpeg -f alsa -i pulse -t 5 recordings/" + name.getFile().getName() + "/" + timeStamp + ".wav";
+        String filename = "user_" + timeStamp + "_" + name.getName() + ".wav";
+        command = "ffmpeg -f alsa -i pulse -t 5 recordings/" + name.getFile().getName() + "/" + filename;
         builder = new ProcessBuilder("/bin/bash", "-c", command);
         process = builder.start();
 
         // periodically update task progress
         for (int i = 1; i <= 5; i++) {
 
-            updateProgress(i,5);
+            updateProgress(i, 5);
             Thread.sleep(1200);
         }
 
         process.waitFor();
 
         // read newly created file
-        File file = new File("recordings/" + name.getFile().getName() + "/" + timeStamp + ".wav");
+        File file = new File("recordings/" + name.getFile().getName() + "/" + filename);
 
-        return null;
+        return new NameVersion(name.getName(), file);
     }
 }

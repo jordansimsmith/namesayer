@@ -12,7 +12,7 @@ public class Name {
         this.name = name;
     }
 
-    public void addName(Name name){
+    public void addName(Name name) {
         namesList.add(name);
     }
 
