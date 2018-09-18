@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class NameVersion extends Name{
+public class NameVersion extends Name {
 
     private File file;
     private Date date;
@@ -28,10 +28,9 @@ public class NameVersion extends Name{
 
 
         try {
-            Date parsedDate = sdf.parse(dateString);
-            this.date = parsedDate;
+            this.date = sdf.parse(dateString);
 
-        } catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
