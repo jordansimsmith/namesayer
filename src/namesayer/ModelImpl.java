@@ -145,7 +145,35 @@ public class ModelImpl implements Model {
 
     @Override
     public List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException {
-        // TODO
-        return null;
+
+        List<NameVersion> creations = new ArrayList<>();
+
+        // verify the input type
+        if (!(name instanceof NameVersion)) {
+            throw new IllegalArgumentException("Argument must be a name version not a name group");
+        }
+
+        // safe to cast
+        NameVersion nameVersion = (NameVersion) name;
+
+        // define folder to search for user creations
+        File folder = new File("recordings/" + nameVersion.getFile().getName());
+
+        // read directory
+        File[] files = folder.listFiles();
+
+        for (File file: files) {
+
+            // extract name
+            String rawName = file.getName();
+            String parsedName = rawName.substring(rawName.lastIndexOf("_") + 1, rawName.lastIndexOf("."));
+            // capitalise first letter
+            parsedName = parsedName.substring(0, 1).toUpperCase() + parsedName.substring(1);
+
+            // create name version object
+            creations.add(new NameVersion(parsedName, file));
+        }
+
+        return creations;
     }
 }
