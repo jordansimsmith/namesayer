@@ -25,6 +25,18 @@ public class ModelImpl implements Model {
         return tree;
     }
 
+    private String parseFileName(File file) {
+
+        // extract name
+        String rawName = file.getName();
+        String parsedName = rawName.substring(rawName.lastIndexOf("_") + 1, rawName.lastIndexOf("."));
+
+        // capitalise first letter
+        parsedName = parsedName.substring(0, 1).toUpperCase() + parsedName.substring(1);
+
+        return parsedName;
+    }
+
     private void generateTreeView() {
         // declare folder to search for files
         File folder = new File("names/");
@@ -37,11 +49,8 @@ public class ModelImpl implements Model {
         // create name objects for each file
         for (File file : files) {
 
-            // extract name
-            String rawName = file.getName();
-            String parsedName = rawName.substring(rawName.lastIndexOf("_") + 1, rawName.lastIndexOf("."));
-            // capitalise first letter
-            parsedName = parsedName.substring(0, 1).toUpperCase() + parsedName.substring(1);
+            // parse name
+            String parsedName = parseFileName(file);
 
             // create name version object
             NameVersion name = new NameVersion(parsedName, file);
@@ -162,13 +171,10 @@ public class ModelImpl implements Model {
         // read directory
         File[] files = folder.listFiles();
 
-        for (File file: files) {
+        for (File file : files) {
 
-            // extract name
-            String rawName = file.getName();
-            String parsedName = rawName.substring(rawName.lastIndexOf("_") + 1, rawName.lastIndexOf("."));
-            // capitalise first letter
-            parsedName = parsedName.substring(0, 1).toUpperCase() + parsedName.substring(1);
+            // parse name
+            String parsedName = parseFileName(file);
 
             // create name version object
             creations.add(new NameVersion(parsedName, file));
