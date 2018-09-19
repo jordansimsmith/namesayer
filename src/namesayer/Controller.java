@@ -34,26 +34,26 @@ public class Controller implements Initializable {
 
 
     @FXML
-    protected void handleMicTest(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("micTest.fxml"));
-        Stage window = new Stage();
-        window.setTitle("Mic Test");
-        window.setScene(new Scene(root, 300, 100));
-        window.setMinWidth(300);
-        window.setMinHeight(100);
-        window.show();
-    }
-
-
-    @FXML
-    protected void newPrac(ActionEvent event) {
+    public void handleDataName (ActionEvent event)
+    {
 
     }
 
     @FXML
-    protected void delPrac(ActionEvent event) {
+    public void handlePracName (ActionEvent event)
+    {
 
     }
+
+//    @FXML
+//    protected void newPrac(javafx.event.ActionEvent event) {
+//
+//    }
+//
+//    @FXML
+//    protected void delPrac(ActionEvent event) {
+//
+//    }
 
     @FXML private CheckBox handleShuffle;
 
