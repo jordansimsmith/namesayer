@@ -50,4 +50,14 @@ public interface Model {
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
     List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException;
+
+    /**
+     * This method utilises the ffplay command to play one or more recordings consecutively. The names must be of type
+     * NameVersion, not of type Name.
+     *
+     * @param names: List of NameVersion objects that should be played.
+     * @return the process of the audio playback so it can be cancelled or the process state can be queried.
+     * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.
+     */
+    Process playAudio(List<Name> names) throws IllegalArgumentException;
 }

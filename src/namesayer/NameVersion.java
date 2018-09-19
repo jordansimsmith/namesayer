@@ -39,9 +39,6 @@ public class NameVersion extends Name {
 
     }
 
-    public Media getMedia() {
-        return new Media(file.getPath());
-    }
 
     public File getFile() {
         return file;

@@ -182,4 +182,9 @@ public class ModelImpl implements Model {
 
         return creations;
     }
+
+    @Override
+    public Process playAudio(List<Name> names) throws IllegalArgumentException {
+        return null;
+    }
 }
