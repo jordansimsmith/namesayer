@@ -7,27 +7,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
 
 <GridPane fx:controller="namesayer.MediaPlayer" fx:id="mediaPlayer" alignment="CENTER" hgap="10" minHeight="200" minWidth="300" prefHeight="300.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
 
 
     <Text fx:id="infoPlay" text="Playing Creation" textAlignment="CENTER" GridPane.rowIndex="0" />
-    <MediaView fx:id="mediaViewer" fitHeight="200.0" fitWidth="300.0" GridPane.rowIndex="1" />
-    <HBox alignment="CENTER" GridPane.rowIndex="2" GridPane.halignment="CENTER">
+    <MediaView fx:id="mediaViewer" fitHeight="190.0" fitWidth="300.0" GridPane.rowIndex="1" />
 
-         <Button mnemonicParsing="false" rotate="90.0" text=":)">
-            <HBox.margin>
-               <Insets right="20.0" />
-            </HBox.margin>
-         </Button>
-         <Slider fx:id="volumeSlider" />
-         <Button onAction="#handleBadQuality" mnemonicParsing="false" rotate="90.0" text=":(">
-            <HBox.margin>
-               <Insets left="20.0" />
-            </HBox.margin>
-         </Button>
-    </HBox>
-    <Button GridPane.halignment="CENTER" onAction="#handleHome" GridPane.rowIndex="3" text="Return"/>
+
+        <Button onAction="#handleBadQuality" mnemonicParsing="false" rotate="90.0" text=":(" GridPane.rowIndex="2" />
+        <Slider fx:id="volumeSlider" GridPane.halignment="CENTER" GridPane.rowIndex="2" maxWidth="125" />
+        <Button onAction="#handleHome" text="Return" GridPane.rowIndex="2" GridPane.halignment="RIGHT" />
+
+
 
 </GridPane>

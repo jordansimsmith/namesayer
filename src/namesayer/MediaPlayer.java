@@ -51,11 +51,11 @@ public class MediaPlayer implements Initializable {
         window.setScene(viewScene);
         window.show();
     }
-
+    private String name = new String("");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("./names/" + "se206-" + "wav.mp4");
+        File file = new File("./names/" + "se206-" + name + "wav.mp4");
         String path = file.getAbsolutePath();
 
 
@@ -67,6 +67,15 @@ public class MediaPlayer implements Initializable {
             mediaViewer.setMediaPlayer(mp);
             mp.setAutoPlay(true);
 
+            volumeSlider.setValue(mp.getVolume() * 100);
+            volumeSlider.valueProperty().addListener(new InvalidationListener() {
+                public void invalidated(Observable ov) {
+                    if (volumeSlider.isValueChanging()) {
+                        mp.setVolume(volumeSlider.getValue() / 100.0);
+                    }
+                }
+            });
+
             mp.setOnEndOfMedia(new Runnable() {
                 public void run() {
                     //Code to run
@@ -75,13 +84,7 @@ public class MediaPlayer implements Initializable {
                 }
             });
 
-            volumeSlider.valueProperty().addListener(new InvalidationListener() {
-                public void invalidated(Observable ov) {
-                    if (volumeSlider.isValueChanging()) {
-                        mp.setVolume(volumeSlider.getValue() / 100.0);
-                    }
-                }
-            });
+
 
         }
         else {
