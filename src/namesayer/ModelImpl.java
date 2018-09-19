@@ -25,6 +25,18 @@ public class ModelImpl implements Model {
         return tree;
     }
 
+    private String parseFileName(File file) {
+
+        // extract name
+        String rawName = file.getName();
+        String parsedName = rawName.substring(rawName.lastIndexOf("_") + 1, rawName.lastIndexOf("."));
+
+        // capitalise first letter
+        parsedName = parsedName.substring(0, 1).toUpperCase() + parsedName.substring(1);
+
+        return parsedName;
+    }
+
     private void generateTreeView() {
         // declare folder to search for files
         File folder = new File("names/");
@@ -35,19 +47,16 @@ public class ModelImpl implements Model {
         Name rootName = new Name("Names List");
 
         // create name objects for each file
-        for (File file: files) {
+        for (File file : files) {
 
-            // extract name
-            String rawName = file.getName();
-            String parsedName = rawName.substring(rawName.lastIndexOf("_") + 1, rawName.lastIndexOf("."));
-            // capitalise first letter
-            parsedName = parsedName.substring(0,1).toUpperCase() + parsedName.substring(1);
+            // parse name
+            String parsedName = parseFileName(file);
 
             // create name version object
             NameVersion name = new NameVersion(parsedName, file);
 
             // do other versions of this name already exist?
-            if (rootName.containName(parsedName)){
+            if (rootName.containName(parsedName)) {
                 Name nameGroup = rootName.getNameByString(parsedName);
                 nameGroup.addName(name);
             } else {
@@ -65,12 +74,12 @@ public class ModelImpl implements Model {
         root.setExpanded(true);
 
         // iterate over all name groups
-        for (Name nameGroup: rootName.getNames()){
+        for (Name nameGroup : rootName.getNames()) {
             CheckBoxTreeItem<Name> groupItem = new CheckBoxTreeItem<>(nameGroup);
             root.getChildren().add(groupItem);
 
             // iterate over all name versions
-            for (Name nameVersion: nameGroup.getNames()) {
+            for (Name nameVersion : nameGroup.getNames()) {
 
                 CheckBoxTreeItem<Name> checkBoxTreeItem = new CheckBoxTreeItem<>(nameVersion);
 
@@ -84,7 +93,7 @@ public class ModelImpl implements Model {
 
                     // selected
                     if (!oldVal && newVal) {
-                        checked.add((NameVersion)checkBoxTreeItem.getValue());
+                        checked.add((NameVersion) checkBoxTreeItem.getValue());
                     }
 
                 });
@@ -129,5 +138,48 @@ public class ModelImpl implements Model {
     public List<NameVersion> getCheckedNames() {
 
         return checked;
+    }
+
+    @Override
+    public RecordWorker getRecordWorker(Name name) throws IllegalArgumentException {
+
+        // verify the input type
+        if (!(name instanceof NameVersion)) {
+            throw new IllegalArgumentException("Argument must be a name version not a name group");
+        }
+
+        // safe to cast
+        return new RecordWorker((NameVersion) name);
+    }
+
+    @Override
+    public List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException {
+
+        List<NameVersion> creations = new ArrayList<>();
+
+        // verify the input type
+        if (!(name instanceof NameVersion)) {
+            throw new IllegalArgumentException("Argument must be a name version not a name group");
+        }
+
+        // safe to cast
+        NameVersion nameVersion = (NameVersion) name;
+
+        // define folder to search for user creations
+        File folder = new File("recordings/" + nameVersion.getFile().getName());
+
+        // read directory
+        File[] files = folder.listFiles();
+
+        for (File file : files) {
+
+            // parse name
+            String parsedName = parseFileName(file);
+
+            // create name version object
+            creations.add(new NameVersion(parsedName, file));
+        }
+
+        return creations;
     }
 }

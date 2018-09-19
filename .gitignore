@@ -27,6 +27,7 @@ out/
 .idea/
 
 names/
+recordings/
 src/test
 
 *.txt

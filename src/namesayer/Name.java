@@ -6,13 +6,13 @@ import java.util.List;
 public class Name {
 
     protected String name;
-    protected List<Name> namesList = new ArrayList<Name>();
+    protected List<Name> namesList = new ArrayList<>();
 
     public Name(String name) {
         this.name = name;
     }
 
-    public void addName(Name name){
+    public void addName(Name name) {
         namesList.add(name);
     }
 
