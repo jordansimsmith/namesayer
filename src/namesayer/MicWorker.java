@@ -2,10 +2,42 @@ package namesayer;
 
 import javafx.concurrent.Task;
 
+import javax.sound.sampled.*;
+
 public class MicWorker extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
+
+        // initialise line in
+        AudioFormat format = new AudioFormat(44100,16, 2, true, true);
+
+        DataLine.Info targetInfo = new DataLine.Info(TargetDataLine.class, format);
+
+        TargetDataLine targetLine = (TargetDataLine) AudioSystem.getLine(targetInfo);
+        targetLine.open(format);
+        targetLine.start();
+
+        // declare temporary buffer
+        byte[] buffer = new byte[6000];
+
+        // sample microphone
+        int level = 0;
+        boolean stop = false;
+
+        while (!stop) {
+            if (targetLine.read(buffer, 0, buffer.length) > 0) {
+                level = calculateRMS(buffer);
+                System.out.println(level);
+            }
+        }
+
+        // close line
+        targetLine.close();
+
+
+
+
         return null;
     }
 
