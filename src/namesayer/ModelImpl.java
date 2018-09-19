@@ -185,6 +185,20 @@ public class ModelImpl implements Model {
 
     @Override
     public Process playAudio(List<Name> names) throws IllegalArgumentException {
+
+        String files = "";
+
+        // iterate through all provided names
+        for (Name name: names) {
+            // verify the input types
+            if (!(name instanceof NameVersion)) {
+                throw new IllegalArgumentException("Arguments must be of type name version not name group");
+            }
+
+            // safe to cast
+            files = files + " " + ((NameVersion) name).getFile().getPath();
+        }
+
         return null;
     }
 }
