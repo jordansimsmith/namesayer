@@ -6,6 +6,8 @@ import javax.sound.sampled.*;
 
 public class MicWorker extends Task<Void> {
 
+    private static final double MAX_LEVEL = 100d;
+
     @Override
     protected Void call() throws Exception {
 
@@ -19,16 +21,16 @@ public class MicWorker extends Task<Void> {
         targetLine.start();
 
         // declare temporary buffer
-        byte[] buffer = new byte[6000];
+        byte[] buffer = new byte[4000];
 
-        int level;
+        double level;
         boolean stop = false;
 
         while (!stop) {
             // sample microphone
             if (targetLine.read(buffer, 0, buffer.length) > 0) {
                 level = calculateRMS(buffer);
-                System.out.println(level);
+                updateProgress(level, MAX_LEVEL);
             }
 
             if (isCancelled()) {
@@ -48,7 +50,7 @@ public class MicWorker extends Task<Void> {
      * @param data: array of bytes for the audio capture.
      * @return the RMS level.
      */
-    private int calculateRMS(byte[] data) {
+    private double calculateRMS(byte[] data) {
 
         long sum = 0;
         for (byte point : data) {
@@ -64,6 +66,6 @@ public class MicWorker extends Task<Void> {
 
         double avgMS = sumMS / data.length;
 
-        return (int) (Math.pow(avgMS, 0.5d));
+        return (Math.pow(avgMS, 0.5d));
     }
 }
