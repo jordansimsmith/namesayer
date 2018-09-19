@@ -51,7 +51,7 @@ public class MediaPlayer implements Initializable {
         window.setScene(viewScene);
         window.show();
     }
-    private String name = new String("");
+    private String name = "";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,6 +67,7 @@ public class MediaPlayer implements Initializable {
             mediaViewer.setMediaPlayer(mp);
             mp.setAutoPlay(true);
 
+            // Volume controls
             volumeSlider.setValue(mp.getVolume() * 100);
             volumeSlider.valueProperty().addListener(new InvalidationListener() {
                 public void invalidated(Observable ov) {
