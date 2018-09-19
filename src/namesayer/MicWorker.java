@@ -10,7 +10,7 @@ public class MicWorker extends Task<Void> {
     protected Void call() throws Exception {
 
         // initialise line in
-        AudioFormat format = new AudioFormat(44100,16, 2, true, true);
+        AudioFormat format = new AudioFormat(44100, 16, 2, true, true);
 
         DataLine.Info targetInfo = new DataLine.Info(TargetDataLine.class, format);
 
@@ -21,47 +21,49 @@ public class MicWorker extends Task<Void> {
         // declare temporary buffer
         byte[] buffer = new byte[6000];
 
-        // sample microphone
-        int level = 0;
+        int level;
         boolean stop = false;
 
         while (!stop) {
+            // sample microphone
             if (targetLine.read(buffer, 0, buffer.length) > 0) {
                 level = calculateRMS(buffer);
                 System.out.println(level);
+            }
+
+            if (isCancelled()) {
+                stop = true;
             }
         }
 
         // close line
         targetLine.close();
 
-
-
-
         return null;
     }
 
     /**
      * This function returns the Root Mean Square (RMS) level for an array of bytes captured from the microphone.
+     *
      * @param data: array of bytes for the audio capture.
      * @return the RMS level.
      */
     private int calculateRMS(byte[] data) {
 
         long sum = 0;
-        for (byte point: data) {
+        for (byte point : data) {
             sum += point;
         }
 
-        double average = sum/(double)data.length;
+        double average = sum / (double) data.length;
         double sumMS = 0d;
 
-        for (byte point: data) {
+        for (byte point : data) {
             sumMS += Math.pow(point - average, 2d);
         }
 
-        double avgMS = sumMS/data.length;
+        double avgMS = sumMS / data.length;
 
-        return (int)(Math.pow(avgMS, 0.5d));
+        return (int) (Math.pow(avgMS, 0.5d));
     }
 }
