@@ -1,5 +1,7 @@
 package namesayer;
 
+import javafx.scene.media.Media;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +37,10 @@ public class NameVersion extends Name {
         }
 
 
+    }
+
+    public Media getMedia() {
+        return new Media(file.getPath());
     }
 
     public File getFile() {
