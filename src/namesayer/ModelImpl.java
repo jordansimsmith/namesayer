@@ -186,7 +186,7 @@ public class ModelImpl implements Model {
     @Override
     public Process playAudio(List<Name> names) throws IllegalArgumentException {
 
-        String files = "";
+        StringBuilder files = new StringBuilder();
 
         // iterate through all provided names
         for (Name name: names) {
@@ -196,9 +196,19 @@ public class ModelImpl implements Model {
             }
 
             // safe to cast
-            files = files + " " + ((NameVersion) name).getFile().getPath();
+            files.append(" ").append(((NameVersion) name).getFile().getPath());
         }
 
-        return null;
+        // execute ffplay command
+        String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
+        Process process = null;
+        try {
+            process = processBuilder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return process;
     }
 }
