@@ -5,12 +5,18 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Optional;
@@ -27,6 +33,16 @@ public class Controller implements Initializable {
     private ListView<String> playList;
 
 
+    @FXML
+    protected void handleMicTest(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("micTest.fxml"));
+        Stage window = new Stage();
+        window.setTitle("Mic Test");
+        window.setScene(new Scene(root, 300, 100));
+        window.setMinWidth(300);
+        window.setMinHeight(100);
+        window.show();
+    }
 
 
     @FXML
@@ -42,7 +58,7 @@ public class Controller implements Initializable {
     @FXML private CheckBox handleShuffle;
 
     @FXML
-    protected void playAction(ActionEvent event) {
+    protected void playAction(ActionEvent event) throws IOException {
 
         ObservableList<TreeItem<String>> selectedItems =  treeView.getSelectionModel().getSelectedItems();
 
@@ -52,6 +68,14 @@ public class Controller implements Initializable {
              */
             Collections.shuffle(selectedItems);
         }
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent viewParent = FXMLLoader.load(getClass().getResource("mediaPlayer.fxml"));
+        Scene viewScene = new Scene(viewParent);
+
+        window.setScene(viewScene);
+        window.show();
+
     }
 
 
@@ -67,11 +91,11 @@ public class Controller implements Initializable {
 
             @Override
             public void handle(Event event) {
-                ObservableList<TreeItem<String>> selectedItems =  treeView.getSelectionModel().getSelectedItems();
-
-                for(TreeItem<String> s : selectedItems){
-                    System.out.println("selected item " + s);
-                }
+//                ObservableList<TreeItem<String>> selectedItems =  treeView.getSelectionModel().getSelectedItems();
+//
+//                for(TreeItem<String> s : selectedItems){
+//                    System.out.println("selected item " + s);
+//                }
 
             }
 
