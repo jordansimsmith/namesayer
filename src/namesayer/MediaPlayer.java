@@ -1,7 +1,8 @@
 package namesayer;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,14 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -27,6 +25,8 @@ public class MediaPlayer implements Initializable {
 
     private List<Name> names;
 
+    private String name = "";
+
     public MediaPlayer(List<Name> names) {
         this.names = names;
     }
@@ -35,9 +35,6 @@ public class MediaPlayer implements Initializable {
     private MediaView mediaViewer;
 
     private javafx.scene.media.MediaPlayer mp;
-
-//    @FXML
-//    private Slider volumeSlider;
 
     @FXML
     private ListView playList;
@@ -51,13 +48,12 @@ public class MediaPlayer implements Initializable {
     private Text infoPlay;
 
     @FXML
-    public void handleNext(ActionEvent event){
+    public void handleNext(ActionEvent event) {
 
     }
 
-
     @FXML
-    public void handleReplay(ActionEvent event){
+    public void handleReplay(ActionEvent event) {
 
     }
 
@@ -73,7 +69,7 @@ public class MediaPlayer implements Initializable {
     }
 
     @FXML
-    public void handleBadQuality(javafx.event.ActionEvent event){
+    public void handleBadQuality(javafx.event.ActionEvent event) {
         /**
          * Bad quality recording
          */
@@ -86,52 +82,22 @@ public class MediaPlayer implements Initializable {
         Parent viewParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene viewScene = new Scene(viewParent);
 
-        // This line gets the stage info
+        // get stage info
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+        // change scene
         window.setScene(viewScene);
         window.setTitle("Name Sayer");
         window.show();
     }
-    private String name = "";
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("./names/" + "se206-" + name + "wav.mp4");
-        String path = file.getAbsolutePath();
 
-        infoPlay.setText("");
+        // set play list
+        ObservableList<Name> nameList = FXCollections.observableList(names);
+        playList.setItems(nameList);
 
-        if (file.exists()) {
-            media = new Media(new File(path).toURI().toString());
-            mp = new javafx.scene.media.MediaPlayer(media);
-
-            mediaViewer.setMediaPlayer(mp);
-            mp.setAutoPlay(true);
-
-//            // Volume controls
-//            volumeSlider.setValue(mp.getVolume() * 100);
-//            volumeSlider.valueProperty().addListener(new InvalidationListener() {
-//                public void invalidated(Observable ov) {
-//                    if (volumeSlider.isValueChanging()) {
-//                        mp.setVolume(volumeSlider.getValue() / 100.0);
-//                    }
-//                }
-//            });
-
-            mp.setOnEndOfMedia(new Runnable() {
-                public void run() {
-                    //Code to run
-                    mediaViewer.setMediaPlayer(null);
-
-                }
-            });
-
-
-
-        }
-        else {
-
-        }
     }
 }
