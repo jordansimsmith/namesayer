@@ -171,6 +171,11 @@ public class ModelImpl implements Model {
         // read directory
         File[] files = folder.listFiles();
 
+        // return if there are no files
+        if (files == null) {
+            return creations;
+        }
+
         for (File file : files) {
 
             // parse name

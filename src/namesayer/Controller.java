@@ -1,5 +1,7 @@
 package namesayer;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -79,8 +82,19 @@ public class Controller implements Initializable {
 
         treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        treeView.setOnMouseClicked(event -> {
-            // TODO update user creation list on mouse click
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+            // only consider name versions
+            if (!(newValue.getValue() instanceof NameVersion)){
+                return;
+            }
+
+            // get user creations
+            List<NameVersion> userCreations = model.getUserCreations(newValue.getValue());
+
+            ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
+
+            recordingsList.setItems(recordings);
         });
 
     }
