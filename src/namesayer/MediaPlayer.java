@@ -49,7 +49,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handleNext(ActionEvent event) {
 
-        if (currentIndex < names.size() -1){
+        if (currentIndex < names.size() - 1) {
             setCurrentName(currentIndex + 1);
         } else {
             setCurrentName(0);
@@ -62,7 +62,7 @@ public class MediaPlayer implements Initializable {
         if (currentIndex > 0) {
             setCurrentName(currentIndex - 1);
         } else {
-            setCurrentName(names.size()-1);
+            setCurrentName(names.size() - 1);
         }
     }
 
@@ -73,8 +73,21 @@ public class MediaPlayer implements Initializable {
 
     @FXML
     protected void handleMicTest(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("micTest.fxml"));
+
+        // new stage
         Stage window = new Stage();
+
+        // construct controller
+        micTestController controller = new micTestController();
+
+        // set on close action
+        window.setOnCloseRequest(event1 -> controller.cleanUp());
+
+        // set controller and fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("micTest.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
+
         window.setTitle("Mic Test");
         window.setScene(new Scene(root, 300, 100));
         window.setMinWidth(300);
@@ -134,7 +147,7 @@ public class MediaPlayer implements Initializable {
         }
 
         // safe to cast
-        this.currentName = (NameVersion)name;
+        this.currentName = (NameVersion) name;
 
         // set text
         infoPlay.setText(currentName.getName());

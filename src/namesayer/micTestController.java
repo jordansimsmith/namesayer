@@ -12,13 +12,19 @@ public class micTestController implements Initializable {
     @FXML
     private ProgressBar volumeBar;
 
+    private MicWorker worker;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        MicWorker worker = new MicWorker();
+        worker = new MicWorker();
 
         volumeBar.progressProperty().bind(worker.progressProperty());
 
         new Thread(worker).start();
+    }
+
+    public void cleanUp() {
+        worker.cancel();
     }
 }
