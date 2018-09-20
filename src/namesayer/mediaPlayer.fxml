@@ -27,7 +27,7 @@
     <MediaView fx:id="mediaViewer" fitHeight="240" fitWidth="650" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
 
 <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-    <Button onAction="#handleReplay" prefHeight="50.0" prefWidth="97.0" text="Replay">
+    <Button onAction="#handlePrevious" prefHeight="50.0" prefWidth="97.0" text="Previous">
          <HBox.margin>
             <Insets right="10.0" />
          </HBox.margin>
@@ -63,6 +63,10 @@
       <font>
          <Font size="18.0" />
       </font></Button>
+
+
+
+    <Button onAction="#handlePlay" text="Play" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -73,10 +77,6 @@
       <RowConstraints />
       <RowConstraints />
    </rowConstraints>
-
-
-
-    <!--<Button onAction="#handlePlay" text="Play" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />-->
 
 
 </GridPane>

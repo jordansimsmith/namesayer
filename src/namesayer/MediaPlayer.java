@@ -57,13 +57,18 @@ public class MediaPlayer implements Initializable {
     }
 
     @FXML
-    public void handleReplay(ActionEvent event) {
+    public void handlePrevious(ActionEvent event) {
 
         if (currentIndex > 0) {
             setCurrentName(currentIndex - 1);
         } else {
             setCurrentName(names.size()-1);
         }
+    }
+
+    @FXML
+    public void handlePlay(ActionEvent event) {
+        System.out.println("Playing " + currentName);
     }
 
     @FXML
