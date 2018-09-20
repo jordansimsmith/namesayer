@@ -22,10 +22,10 @@
 
    <CheckBox fx:id="shuffleBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="76.0" text="Shuffle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
 
-    <ListView fx:id="playList" prefHeight="134.0" prefWidth="117.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+    <ListView fx:id="selectedList" prefHeight="134.0" prefWidth="117.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
 
 
-    <ListView fx:id="practiceList" prefHeight="153.0" prefWidth="116.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+    <ListView fx:id="recordingsList" prefHeight="153.0" prefWidth="116.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2" />
 
     <Button contentDisplay="CENTER" maxHeight="1.7976931348623157E308" onAction="#playAction" text="Playback" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
 

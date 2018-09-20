@@ -1,5 +1,6 @@
 package namesayer;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -32,17 +33,19 @@ public class Controller implements Initializable {
     private TreeView<Name> treeView;
 
     @FXML
-    private ListView<Name> practiceList;
+    private ListView<Name> selectedList;
 
     @FXML
-    private ListView<Name> playList;
+    private ListView<Name> recordingsList;
 
     @FXML
-    public void handleAdd(ActionEvent actionEvent) {
+    public void handleAdd(ActionEvent e) {
+        ObservableList<Name> checkedItems = FXCollections.observableArrayList(model.getCheckedNames());
+        selectedList.setItems(checkedItems);
     }
 
     @FXML
-    public void handleRecordingPlay (ActionEvent event)
+    public void handleRecordingPlay (ActionEvent e)
     {
 
     }
@@ -79,6 +82,7 @@ public class Controller implements Initializable {
         treeView.setOnMouseClicked(event -> {
             // TODO update user creation list on mouse click
         });
+
     }
 
 
