@@ -1,81 +1,90 @@
 package namesayer;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.paint.Color;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.stage.Stage;
 
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    @FXML
-    private TreeView<String> treeView;
+
+    private Model model;
 
     @FXML
-    private ListView<String> practiceList;
+    private TreeView<Name> treeView;
 
     @FXML
-    private ListView<String> playList;
-
+    private ListView<Name> selectedList;
 
     @FXML
-    public void handleDataName (ActionEvent event)
-    {
+    private ListView<Name> recordingsList;
 
+    @FXML
+    public void handleAdd(ActionEvent e) {
+        ObservableList<Name> checkedItems = FXCollections.observableArrayList(model.getCheckedNames());
+        selectedList.setItems(checkedItems);
     }
 
     @FXML
-    public void handlePracName (ActionEvent event)
+    public void handleRecordingPlay (ActionEvent e)
     {
+        // get current selection
+        Name selected = recordingsList.getSelectionModel().getSelectedItem();
 
+        // ignore when nothing is selected
+        if (selected == null) {
+            return;
+        }
+
+        // play audio
+        List<Name> list = new ArrayList<>();
+        list.add(selected);
+        model.playAudio(list);
     }
 
-//    @FXML
-//    protected void newPrac(javafx.event.ActionEvent event) {
-//
-//    }
-//
-//    @FXML
-//    protected void delPrac(ActionEvent event) {
-//
-//    }
-
-    @FXML private CheckBox handleShuffle;
+    @FXML private CheckBox shuffleBox;
 
     @FXML
     protected void playAction(ActionEvent event) throws IOException {
 
-        ObservableList<TreeItem<String>> selectedItems =  treeView.getSelectionModel().getSelectedItems();
+        // get items selected for practise
+        ObservableList<Name> selection = selectedList.getItems();
 
-        if(handleShuffle.isSelected()){
-            /**
-             * Shuffle the stack
-             */
-            Collections.shuffle(selectedItems);
+        if (shuffleBox.isSelected()){
+            Collections.shuffle(selection);
         }
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent viewParent = FXMLLoader.load(getClass().getResource("mediaPlayer.fxml"));
+
+        // construct controller
+        MediaPlayer mpController = new MediaPlayer(selection);
+
+        // set controller and fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
+        loader.setController(mpController);
+        Parent viewParent = loader.load();
+
         Scene viewScene = new Scene(viewParent);
-        window.setTitle("Practise Mode");
+        window.setTitle("Practice Mode");
         window.setScene(viewScene);
         window.show();
-
     }
 
 
@@ -83,30 +92,32 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // System.out.println("You are initialising");
-        updateList();
 
-        treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        treeView.setOnMouseClicked(new EventHandler<Event>() {
+        // initialise model
+        model = new ModelImpl();
 
-            @Override
-            public void handle(Event event) {
-//                ObservableList<TreeItem<String>> selectedItems =  treeView.getSelectionModel().getSelectedItems();
-//
-//                for(TreeItem<String> s : selectedItems){
-//                    System.out.println("selected item " + s);
-//                }
+        // set tree view
+        treeView.setRoot(model.getTreeView().getRoot());
+        treeView.setCellFactory(CheckBoxTreeCell.forTreeView());
 
+        treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+            // only consider name versions
+            if (!(newValue.getValue() instanceof NameVersion)){
+                return;
             }
 
+            // get user creations
+            List<NameVersion> userCreations = model.getUserCreations(newValue.getValue());
+
+            ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
+
+            recordingsList.setItems(recordings);
         });
-    }
-
-    @FXML
-    protected void updateList() {
-        /**
-         * Populate the treeview
-         */
 
     }
+
+
 }
