@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,6 +66,10 @@ public class Controller implements Initializable {
 
         // get items selected for practise
         ObservableList<Name> selection = selectedList.getItems();
+
+        if (shuffleBox.isSelected()){
+            Collections.shuffle(selection);
+        }
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
