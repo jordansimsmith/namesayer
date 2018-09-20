@@ -8,12 +8,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -25,11 +27,38 @@ public class MediaPlayer implements Initializable {
 
     private javafx.scene.media.MediaPlayer mp;
 
-    @FXML
-    private Slider volumeSlider;
+//    @FXML
+//    private Slider volumeSlider;
 
+    @FXML
+    private ListView playList;
 
     private Media media;
+
+
+    @FXML
+    private Text infoPlay;
+
+    @FXML
+    public void handleNext(ActionEvent event){
+
+    }
+
+    @FXML
+    public void handlePrevious(ActionEvent event){
+
+    }
+
+    @FXML
+    protected void handleMicTest(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("micTest.fxml"));
+        Stage window = new Stage();
+        window.setTitle("Mic Test");
+        window.setScene(new Scene(root, 300, 100));
+        window.setMinWidth(300);
+        window.setMinHeight(100);
+        window.show();
+    }
 
     @FXML
     public void handleBadQuality(javafx.event.ActionEvent event){
@@ -58,7 +87,7 @@ public class MediaPlayer implements Initializable {
         File file = new File("./names/" + "se206-" + name + "wav.mp4");
         String path = file.getAbsolutePath();
 
-
+        infoPlay.setText("");
 
         if (file.exists()) {
             media = new Media(new File(path).toURI().toString());
@@ -67,15 +96,15 @@ public class MediaPlayer implements Initializable {
             mediaViewer.setMediaPlayer(mp);
             mp.setAutoPlay(true);
 
-            // Volume controls
-            volumeSlider.setValue(mp.getVolume() * 100);
-            volumeSlider.valueProperty().addListener(new InvalidationListener() {
-                public void invalidated(Observable ov) {
-                    if (volumeSlider.isValueChanging()) {
-                        mp.setVolume(volumeSlider.getValue() / 100.0);
-                    }
-                }
-            });
+//            // Volume controls
+//            volumeSlider.setValue(mp.getVolume() * 100);
+//            volumeSlider.valueProperty().addListener(new InvalidationListener() {
+//                public void invalidated(Observable ov) {
+//                    if (volumeSlider.isValueChanging()) {
+//                        mp.setVolume(volumeSlider.getValue() / 100.0);
+//                    }
+//                }
+//            });
 
             mp.setOnEndOfMedia(new Runnable() {
                 public void run() {

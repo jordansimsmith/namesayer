@@ -2,28 +2,45 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.VBox?>
 
-<GridPane fx:controller="namesayer.MediaPlayer" fx:id="mediaPlayer" alignment="CENTER" hgap="10" minHeight="200" minWidth="300" prefHeight="300.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="mediaPlayer" alignment="CENTER" hgap="10" minHeight="200" minWidth="300" prefHeight="300.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.MediaPlayer">
     <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
 
 
-    <Text fx:id="infoPlay" text="Playing Creation" textAlignment="CENTER" GridPane.rowIndex="0" />
-    <MediaView fx:id="mediaViewer" fitHeight="190.0" fitWidth="300.0" GridPane.rowIndex="1" />
+    <Text fx:id="infoPlay" text="Name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowSpan="2">
+      <font>
+         <Font size="57.0" />
+      </font></Text>
+    <MediaView fx:id="mediaViewer" fitHeight="100" fitWidth="170" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
+<HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+    <Button onAction="#handlePrevious" text="Previous">
+         <HBox.margin>
+            <Insets right="5.0" />
+         </HBox.margin></Button>
+    <Button mnemonicParsing="false" onAction="#handleBadQuality" text="Bad Recording" />
+    <Button onAction="#handleNext" text="Next">
+         <HBox.margin>
+            <Insets left="5.0" />
+         </HBox.margin></Button>
+</HBox>
+    <ListView fx:id="playList" prefHeight="163.0" prefWidth="106.0" GridPane.rowIndex="1" />
 
-    <Button onAction="#handleBadQuality" mnemonicParsing="false" rotate="90.0" text=":(" GridPane.rowIndex="2" GridPane.halignment="LEFT" />
-    <HBox GridPane.rowIndex="2" GridPane.halignment="CENTER" alignment="CENTER">
-    <Text text="-" />
-    <Slider fx:id="volumeSlider" maxWidth="125" />
-        <Text text="+" />
-    </HBox>
-        <Button onAction="#handleHome" text="Return" GridPane.rowIndex="2" GridPane.halignment="RIGHT" />
+    <Button mnemonicParsing="false" onAction="#handleMicTest" text="Test Mic" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+
+   <CheckBox GridPane.halignment="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="105.0" text="Practice&#10;mode" textOverrun="CLIP" GridPane.rowIndex="2" />
+ <!--<Slider fx:id="volumeSlider" rotate="-90.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />-->
+    <Button onAction="#handleHome" text="Return" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+
 
 
 
