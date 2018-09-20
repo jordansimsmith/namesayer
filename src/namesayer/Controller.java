@@ -67,6 +67,11 @@ public class Controller implements Initializable {
         // get items selected for practise
         ObservableList<Name> selection = selectedList.getItems();
 
+        if (selection.isEmpty()) {
+            // TODO show dialogue for user to select names first
+            return;
+        }
+
         if (shuffleBox.isSelected()) {
             Collections.shuffle(selection);
         }
