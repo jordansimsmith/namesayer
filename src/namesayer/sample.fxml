@@ -20,13 +20,12 @@
       </effect>
    </TreeView>
 
-   <CheckBox fx:id="handleShuffle" mnemonicParsing="false" prefHeight="18.0" prefWidth="76.0" text="Shuffle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+   <CheckBox fx:id="shuffleBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="76.0" text="Shuffle" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
 
     <ListView fx:id="playList" prefHeight="134.0" prefWidth="117.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
 
 
     <ListView fx:id="practiceList" prefHeight="153.0" prefWidth="116.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-     <!--<Button contentDisplay="CENTER" maxHeight="1.7976931348623157E308" onAction="#handleHomeButtonAction" prefWidth="160.0" text="Return to main menu" textAlignment="CENTER" />-->
 
     <Button contentDisplay="CENTER" maxHeight="1.7976931348623157E308" onAction="#playAction" text="Playback" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
 
@@ -34,13 +33,12 @@
     <Label text="Practices" GridPane.columnIndex="3" GridPane.rowIndex="0" />
     <Label text="Database" GridPane.rowIndex="0" />
 
-
-
-    <Button alignment="CENTER" onAction="#handleDataName" text="Add" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+    <Button alignment="CENTER" onAction="#handleAdd" text="Add" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
 
 
 
-    <Button alignment="CENTER" onAction="#handlePracName" text="Add" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+    <Button alignment="CENTER" onAction="#handleRecordingPlay" text="Play Rec" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+
 
     
 </GridPane>

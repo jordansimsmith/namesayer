@@ -11,6 +11,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -23,59 +25,40 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    @FXML
-    private TreeView<String> treeView;
+
+    private Model model;
 
     @FXML
-    private ListView<String> practiceList;
+    private TreeView<Name> treeView;
 
     @FXML
-    private ListView<String> playList;
-
+    private ListView<Name> practiceList;
 
     @FXML
-    public void handleDataName (ActionEvent event)
+    private ListView<Name> playList;
+
+    @FXML
+    public void handleAdd(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void handleRecordingPlay (ActionEvent event)
     {
 
     }
 
-    @FXML
-    public void handlePracName (ActionEvent event)
-    {
-
-    }
-
-//    @FXML
-//    protected void newPrac(javafx.event.ActionEvent event) {
-//
-//    }
-//
-//    @FXML
-//    protected void delPrac(ActionEvent event) {
-//
-//    }
-
-    @FXML private CheckBox handleShuffle;
+    @FXML private CheckBox shuffleBox;
 
     @FXML
     protected void playAction(ActionEvent event) throws IOException {
 
-        ObservableList<TreeItem<String>> selectedItems =  treeView.getSelectionModel().getSelectedItems();
-
-        if(handleShuffle.isSelected()){
-            /**
-             * Shuffle the stack
-             */
-            Collections.shuffle(selectedItems);
-        }
-
+        // switch view
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent viewParent = FXMLLoader.load(getClass().getResource("mediaPlayer.fxml"));
         Scene viewScene = new Scene(viewParent);
         window.setTitle("Practise Mode");
         window.setScene(viewScene);
         window.show();
-
     }
 
 
@@ -83,30 +66,20 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // System.out.println("You are initialising");
-        updateList();
 
-        treeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        treeView.setOnMouseClicked(new EventHandler<Event>() {
+        // initialise model
+        model = new ModelImpl();
 
-            @Override
-            public void handle(Event event) {
-//                ObservableList<TreeItem<String>> selectedItems =  treeView.getSelectionModel().getSelectedItems();
-//
-//                for(TreeItem<String> s : selectedItems){
-//                    System.out.println("selected item " + s);
-//                }
+        // set tree view
+        treeView.setRoot(model.getTreeView().getRoot());
+        treeView.setCellFactory(CheckBoxTreeCell.forTreeView());
 
-            }
+        treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        treeView.setOnMouseClicked(event -> {
+            // TODO update user creation list on mouse click
         });
     }
 
-    @FXML
-    protected void updateList() {
-        /**
-         * Populate the treeview
-         */
 
-    }
 }
