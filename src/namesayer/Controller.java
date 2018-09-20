@@ -1,31 +1,25 @@
 package namesayer;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -50,7 +44,13 @@ public class Controller implements Initializable {
     @FXML
     public void handleRecordingPlay (ActionEvent e)
     {
+        // get current selection
+        Name selected = recordingsList.getSelectionModel().getSelectedItem();
 
+        // play audio
+        List<Name> list = new ArrayList<>();
+        list.add(selected);
+        model.playAudio(list);
     }
 
     @FXML private CheckBox shuffleBox;
@@ -62,7 +62,7 @@ public class Controller implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent viewParent = FXMLLoader.load(getClass().getResource("mediaPlayer.fxml"));
         Scene viewScene = new Scene(viewParent);
-        window.setTitle("Practise Mode");
+        window.setTitle("Practice Mode");
         window.setScene(viewScene);
         window.show();
     }
