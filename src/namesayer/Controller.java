@@ -47,6 +47,11 @@ public class Controller implements Initializable {
         // get current selection
         Name selected = recordingsList.getSelectionModel().getSelectedItem();
 
+        // ignore when nothing is selected
+        if (selected == null) {
+            return;
+        }
+
         // play audio
         List<Name> list = new ArrayList<>();
         list.add(selected);
