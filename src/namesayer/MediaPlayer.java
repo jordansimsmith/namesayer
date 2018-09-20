@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -24,22 +23,21 @@ import java.util.ResourceBundle;
 public class MediaPlayer implements Initializable {
 
     private List<Name> names;
+    private Model model;
 
-    private String name = "";
+    private NameVersion currentName;
+    private int currentIndex;
 
-    public MediaPlayer(List<Name> names) {
+    public MediaPlayer(List<Name> names, Model model) {
         this.names = names;
+        this.model = model;
     }
 
     @FXML
     private MediaView mediaViewer;
 
-    private javafx.scene.media.MediaPlayer mp;
-
     @FXML
     private ListView playList;
-
-    private Media media;
 
     @FXML
     private CheckBox handleMode;
@@ -49,12 +47,15 @@ public class MediaPlayer implements Initializable {
 
     @FXML
     public void handleNext(ActionEvent event) {
-
+        setCurrentName(currentIndex + 1);
     }
 
     @FXML
     public void handleReplay(ActionEvent event) {
 
+        if (currentIndex > 0) {
+            setCurrentName(currentIndex - 1);
+        }
     }
 
     @FXML
@@ -98,6 +99,30 @@ public class MediaPlayer implements Initializable {
         // set play list
         ObservableList<Name> nameList = FXCollections.observableList(names);
         playList.setItems(nameList);
+
+        if (nameList.size() > 0) {
+            setCurrentName(0);
+        }
+
+    }
+
+    private void setCurrentName(int index) {
+
+        Name name = names.get(index);
+
+        // verify name
+        if (!(name instanceof NameVersion)) {
+            return;
+        }
+
+        // safe to cast
+        this.currentName = (NameVersion)name;
+
+        // set text
+        infoPlay.setText(currentName.getName());
+
+        // set current index
+        this.currentIndex = index;
 
     }
 }

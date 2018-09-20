@@ -74,7 +74,7 @@ public class Controller implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         // construct controller
-        MediaPlayer mpController = new MediaPlayer(selection);
+        MediaPlayer mpController = new MediaPlayer(selection, model);
 
         // set controller and fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
