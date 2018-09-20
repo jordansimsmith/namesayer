@@ -197,7 +197,7 @@ public class ModelImpl implements Model {
         StringBuilder files = new StringBuilder();
 
         // iterate through all provided names
-        for (Name name: names) {
+        for (Name name : names) {
             // verify the input types
             if (!(name instanceof NameVersion)) {
                 throw new IllegalArgumentException("Arguments must be of type name version not name group");

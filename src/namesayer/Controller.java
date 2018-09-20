@@ -43,8 +43,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void handleRecordingPlay (ActionEvent e)
-    {
+    public void handleRecordingPlay(ActionEvent e) {
         // get current selection
         Name selected = recordingsList.getSelectionModel().getSelectedItem();
 
@@ -59,7 +58,8 @@ public class Controller implements Initializable {
         model.playAudio(list);
     }
 
-    @FXML private CheckBox shuffleBox;
+    @FXML
+    private CheckBox shuffleBox;
 
     @FXML
     protected void playAction(ActionEvent event) throws IOException {
@@ -67,7 +67,7 @@ public class Controller implements Initializable {
         // get items selected for practise
         ObservableList<Name> selection = selectedList.getItems();
 
-        if (shuffleBox.isSelected()){
+        if (shuffleBox.isSelected()) {
             Collections.shuffle(selection);
         }
 
@@ -88,8 +88,6 @@ public class Controller implements Initializable {
     }
 
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -105,7 +103,7 @@ public class Controller implements Initializable {
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             // only consider name versions
-            if (!(newValue.getValue() instanceof NameVersion)){
+            if (!(newValue.getValue() instanceof NameVersion)) {
                 return;
             }
 

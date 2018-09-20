@@ -14,8 +14,8 @@ public class Main extends Application {
         primaryStage.setTitle("NameSayer");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
-        primaryStage.setMinHeight(300);
-        primaryStage.setMinWidth(400);
+        primaryStage.setMinHeight(720);
+        primaryStage.setMinWidth(1280);
     }
 
 
