@@ -47,7 +47,12 @@ public class MediaPlayer implements Initializable {
 
     @FXML
     public void handleNext(ActionEvent event) {
-        setCurrentName(currentIndex + 1);
+
+        if (currentIndex < names.size() -1){
+            setCurrentName(currentIndex + 1);
+        } else {
+            setCurrentName(0);
+        }
     }
 
     @FXML
@@ -55,6 +60,8 @@ public class MediaPlayer implements Initializable {
 
         if (currentIndex > 0) {
             setCurrentName(currentIndex - 1);
+        } else {
+            setCurrentName(names.size()-1);
         }
     }
 
