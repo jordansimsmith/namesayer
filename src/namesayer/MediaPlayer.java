@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.media.MediaView;
@@ -77,15 +78,20 @@ public class MediaPlayer implements Initializable {
     }
 
     @FXML
-    public void handleBadQuality(javafx.event.ActionEvent event) {
-        /**
-         * Bad quality recording
-         */
+    public void handleBadQuality(ActionEvent event) {
+
+        model.lowQualityName(currentName);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success!");
+        alert.setHeaderText("Bad name successfully recorded.");
+        alert.setContentText("Thank you for your input");
+        alert.showAndWait();
     }
 
 
     @FXML
-    protected void handleHome(javafx.event.ActionEvent event) throws IOException {
+    protected void handleHome(ActionEvent event) throws IOException {
 
         Parent viewParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene viewScene = new Scene(viewParent);
