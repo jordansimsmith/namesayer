@@ -20,9 +20,17 @@ import javafx.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MediaPlayer implements Initializable {
+
+    private List<Name> names;
+
+    public MediaPlayer(List<Name> names) {
+        this.names = names;
+    }
+
     @FXML
     private MediaView mediaViewer;
 

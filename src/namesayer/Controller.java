@@ -63,9 +63,19 @@ public class Controller implements Initializable {
     @FXML
     protected void playAction(ActionEvent event) throws IOException {
 
-        // switch view
+        // get items selected for practise
+        ObservableList<Name> selection = selectedList.getItems();
+
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent viewParent = FXMLLoader.load(getClass().getResource("mediaPlayer.fxml"));
+
+        // construct controller
+        MediaPlayer mpController = new MediaPlayer(selection);
+
+        // set controller and fxml
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
+        loader.setController(mpController);
+        Parent viewParent = loader.load();
+
         Scene viewScene = new Scene(viewParent);
         window.setTitle("Practice Mode");
         window.setScene(viewScene);
