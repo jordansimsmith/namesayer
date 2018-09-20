@@ -8,8 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ModelImpl implements Model {
 
@@ -69,6 +68,9 @@ public class ModelImpl implements Model {
 
         }
 
+        // sort files
+        Collections.sort(rootName.getNames(), (o1, o2) -> o1.toString().compareTo(o2.toString()));
+
         // generate tree root
         CheckBoxTreeItem<Name> root = new CheckBoxTreeItem<>(rootName);
         root.setExpanded(true);
@@ -101,6 +103,7 @@ public class ModelImpl implements Model {
                 groupItem.getChildren().add(checkBoxTreeItem);
             }
         }
+
 
         // add the root to the tree
         TreeView<Name> tree = new TreeView<>(root);
