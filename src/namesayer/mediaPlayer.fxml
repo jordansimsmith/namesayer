@@ -18,12 +18,12 @@
 
     <Text fx:id="infoPlay" text="Name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowSpan="2">
       <font>
-         <Font size="57.0" />
+         <Font size="31.0" />
       </font></Text>
     <MediaView fx:id="mediaViewer" fitHeight="100" fitWidth="170" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
 <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-    <Button onAction="#handlePrevious" text="Previous">
+    <Button onAction="#handleReplay" text="Replay">
          <HBox.margin>
             <Insets right="5.0" />
          </HBox.margin></Button>
@@ -37,11 +37,12 @@
 
     <Button mnemonicParsing="false" onAction="#handleMicTest" text="Test Mic" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
 
-   <CheckBox GridPane.halignment="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="105.0" text="Practice&#10;mode" textOverrun="CLIP" GridPane.rowIndex="2" />
+   <CheckBox fx:id="handleMode" mnemonicParsing="false" prefHeight="39.0" prefWidth="105.0" text="Practice&#10;mode" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
  <!--<Slider fx:id="volumeSlider" rotate="-90.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />-->
     <Button onAction="#handleHome" text="Return" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
 
 
+    <!--<Button onAction="#handlePlay" text="Play" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />-->
 
 
 </GridPane>

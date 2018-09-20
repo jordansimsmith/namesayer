@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
@@ -35,6 +36,8 @@ public class MediaPlayer implements Initializable {
 
     private Media media;
 
+    @FXML
+    private CheckBox handleMode;
 
     @FXML
     private Text infoPlay;
@@ -44,8 +47,9 @@ public class MediaPlayer implements Initializable {
 
     }
 
+
     @FXML
-    public void handlePrevious(ActionEvent event){
+    public void handleReplay(ActionEvent event){
 
     }
 
@@ -78,6 +82,7 @@ public class MediaPlayer implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(viewScene);
+        window.setTitle("Name Sayer");
         window.show();
     }
     private String name = "";
