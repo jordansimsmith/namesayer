@@ -182,4 +182,33 @@ public class ModelImpl implements Model {
 
         return creations;
     }
+
+    @Override
+    public Process playAudio(List<Name> names) throws IllegalArgumentException {
+
+        StringBuilder files = new StringBuilder();
+
+        // iterate through all provided names
+        for (Name name: names) {
+            // verify the input types
+            if (!(name instanceof NameVersion)) {
+                throw new IllegalArgumentException("Arguments must be of type name version not name group");
+            }
+
+            // safe to cast
+            files.append(" ").append(((NameVersion) name).getFile().getPath());
+        }
+
+        // execute ffplay command
+        String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
+        Process process = null;
+        try {
+            process = processBuilder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return process;
+    }
 }
