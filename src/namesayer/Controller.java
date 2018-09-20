@@ -72,7 +72,7 @@ public class Controller implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent viewParent = FXMLLoader.load(getClass().getResource("mediaPlayer.fxml"));
         Scene viewScene = new Scene(viewParent);
-
+        window.setTitle("Practise Mode");
         window.setScene(viewScene);
         window.show();
 
