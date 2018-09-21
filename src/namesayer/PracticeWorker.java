@@ -1,6 +1,8 @@
 package namesayer;
 
+import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.control.Alert;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class PracticeWorker extends Task<Name> {
 
@@ -28,6 +31,21 @@ public class PracticeWorker extends Task<Name> {
         List<Name> originalName = new ArrayList<>();
         originalName.add(name);
         play(originalName);
+
+
+        // ask user if they are ready to record
+        final CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Recording");
+            alert.setHeaderText("Are you ready to record?");
+            alert.setContentText("Press OK to start recording");
+            alert.showAndWait();
+            latch.countDown();
+        });
+
+        // wait for record confirmation
+        latch.await();
 
         // record user name
         NameVersion recording = record();
