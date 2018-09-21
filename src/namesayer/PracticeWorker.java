@@ -3,6 +3,7 @@ package namesayer;
 import javafx.concurrent.Task;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -18,6 +19,12 @@ public class PracticeWorker extends Task<Name> {
 
     @Override
     protected Name call() throws Exception {
+
+        NameVersion recording = record();
+        return recording;
+    }
+
+    private NameVersion record() throws InterruptedException, IOException {
 
         // make directory for recording
         String command = "mkdir -p recordings/" + name.getFile().getName();
