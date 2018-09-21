@@ -89,6 +89,11 @@ public class Controller implements Initializable {
         Scene viewScene = new Scene(viewParent);
         window.setTitle("Practice Mode");
         window.setScene(viewScene);
+
+        final boolean resizable = window.isResizable();
+        window.setResizable(!resizable);
+        window.setResizable(resizable);
+
         window.show();
     }
 

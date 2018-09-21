@@ -96,6 +96,10 @@ public class MediaPlayer implements Initializable {
         window.setScene(new Scene(root, 300, 100));
         window.setMinWidth(300);
         window.setMinHeight(100);
+        
+        final boolean resizable = window.isResizable();
+        window.setResizable(!resizable);
+        window.setResizable(resizable);
         window.show();
 
     }
