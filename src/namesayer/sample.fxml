@@ -46,11 +46,24 @@
          <Font size="18.0" />
       </font></Label>
 
-    <Button alignment="CENTER" onAction="#handleAdd" prefHeight="36.0" prefWidth="60.0" text="Add" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+    <Button alignment="CENTER" onAction="#handleAdd" prefHeight="36.0" prefWidth="60.0" text="Select" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
 
 
 
     <Button alignment="CENTER" onAction="#handleRecordingPlay" prefHeight="36.0" prefWidth="80.0" text="Play Rec" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 
 

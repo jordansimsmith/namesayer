@@ -17,17 +17,17 @@
     <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
 
 
-    <Text fx:id="infoPlay" text="Name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+    <Text fx:id="infoPlay" text="Name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
       <font>
          <Font size="50.0" />
       </font>
       <GridPane.margin>
          <Insets top="50.0" />
       </GridPane.margin></Text>
-    <MediaView fx:id="mediaViewer" fitHeight="240" fitWidth="650" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+    <MediaView fx:id="mediaViewer" fitHeight="180" fitWidth="650" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
 
 <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-    <Button onAction="#handlePrevious" prefHeight="50.0" prefWidth="97.0" text="Previous">
+    <Button onAction="#handlePrevious" prefHeight="50.0" prefWidth="105.0" text="Previous">
          <HBox.margin>
             <Insets right="10.0" />
          </HBox.margin>
@@ -54,7 +54,7 @@
          <Font size="18.0" />
       </font></Button>
 
-   <CheckBox fx:id="handleMode" mnemonicParsing="false" prefHeight="50.0" prefWidth="161.0" text="Practice mode" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+   <CheckBox fx:id="handleMode" mnemonicParsing="false" prefHeight="50.0" prefWidth="176.0" text="Practice mode" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="2">
       <font>
          <Font size="18.0" />
       </font></CheckBox>
@@ -66,7 +66,10 @@
 
 
 
-    <Button onAction="#handlePlay" text="Play" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+    <Button onAction="#handlePlay" prefHeight="50.0" prefWidth="89.0" text="Play" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <font>
+         <Font size="18.0" />
+      </font></Button>
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -77,6 +80,7 @@
       <RowConstraints />
       <RowConstraints />
    </rowConstraints>
+
 
 
 </GridPane>
