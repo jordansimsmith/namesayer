@@ -9,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.stage.Stage;
 
@@ -68,7 +65,11 @@ public class Controller implements Initializable {
         ObservableList<Name> selection = selectedList.getItems();
 
         if (selection.isEmpty()) {
-            // TODO show dialogue for user to select names first
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Cannot play an empty list");
+            alert.setContentText("Please select one or more names to practise");
+            alert.showAndWait();
             return;
         }
 
