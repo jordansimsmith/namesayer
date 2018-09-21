@@ -6,12 +6,14 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class RecordWorker extends Task<Name> {
+public class PracticeWorker extends Task<Name> {
 
     private NameVersion name;
+    private boolean practiceMode;
 
-    public RecordWorker(NameVersion name) {
+    public PracticeWorker(NameVersion name, boolean practiceMode) {
         this.name = name;
+        this.practiceMode = practiceMode;
     }
 
     @Override
