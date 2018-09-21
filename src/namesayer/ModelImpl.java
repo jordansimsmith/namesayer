@@ -152,7 +152,7 @@ public class ModelImpl implements Model {
         }
 
         // safe to cast
-        return new PracticeWorker((NameVersion) name, practiceMode);
+        return new PracticeWorker((NameVersion) name, practiceMode, this);
     }
 
     @Override

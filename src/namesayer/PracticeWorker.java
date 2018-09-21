@@ -5,23 +5,46 @@ import javafx.concurrent.Task;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class PracticeWorker extends Task<Name> {
 
     private NameVersion name;
     private boolean practiceMode;
+    private Model model;
 
-    public PracticeWorker(NameVersion name, boolean practiceMode) {
+    public PracticeWorker(NameVersion name, boolean practiceMode, Model model) {
         this.name = name;
         this.practiceMode = practiceMode;
+        this.model = model;
     }
 
     @Override
     protected Name call() throws Exception {
 
+        // play original name
+        List<Name> originalName = new ArrayList<>();
+        originalName.add(name);
+        play(originalName);
+
+        // record user name
         NameVersion recording = record();
+
+        // play both names
+        List<Name> bothNames = new ArrayList<>();
+        bothNames.add(name);
+        bothNames.add(recording);
+        play(bothNames);
+
         return recording;
+    }
+
+    private void play(List<Name> names) throws InterruptedException {
+
+        // start process and wait
+        model.playAudio(names).waitFor();
     }
 
     private NameVersion record() throws InterruptedException, IOException {
