@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,6 +34,9 @@ public class MediaPlayer implements Initializable {
         this.names = names;
         this.model = model;
     }
+
+    @FXML
+    private ProgressBar recordPB;
 
     @FXML
     private MediaView mediaViewer;
@@ -93,6 +97,7 @@ public class MediaPlayer implements Initializable {
         window.setMinWidth(300);
         window.setMinHeight(100);
         window.show();
+
     }
 
     @FXML
