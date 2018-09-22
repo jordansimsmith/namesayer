@@ -1,5 +1,7 @@
 package namesayer;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -120,6 +122,20 @@ public class Controller implements Initializable {
 
             // get user creations
             List<NameVersion> userCreations = model.getUserCreations(newValue.getValue());
+
+            ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
+
+            recordingsList.setItems(recordings);
+        });
+
+        selectedList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // only consider name versions
+            if (!(newValue instanceof NameVersion)) {
+                return;
+            }
+
+            // get user creations
+            List<NameVersion> userCreations = model.getUserCreations(newValue);
 
             ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
 
