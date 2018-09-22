@@ -1,7 +1,5 @@
 package namesayer;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,6 +46,11 @@ public class Controller implements Initializable {
 
         // ignore when nothing is selected
         if (selected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Nothing to play");
+            alert.setContentText("Please select a name version from the selected files list before playing");
+            alert.showAndWait();
             return;
         }
 
