@@ -3,6 +3,7 @@ package namesayer;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class PracticeWorker extends Task<Name> {
+public class PracticeWorker extends Task<Void> {
 
     private NameVersion name;
     private boolean practiceMode;
@@ -25,7 +26,7 @@ public class PracticeWorker extends Task<Name> {
     }
 
     @Override
-    protected Name call() throws Exception {
+    protected Void call() throws Exception {
 
         // play original name
         List<Name> originalName = new ArrayList<>();
@@ -56,7 +57,33 @@ public class PracticeWorker extends Task<Name> {
         bothNames.add(recording);
         play(bothNames);
 
-        return recording;
+        // ask user if they want to keep the name
+        Platform.runLater(() -> {
+
+            // display confirmation box
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Save recording");
+            alert.setHeaderText("Do you want to save this recording?");
+            alert.setContentText("Press yes to save the recording.");
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.OK) {
+                // save the recording (do nothing)
+            } else {
+                // delete the recording
+                String command = "rm " + recording.getFile().getPath();
+                ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
+                try {
+                    processBuilder.start().waitFor();
+                } catch (InterruptedException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        });
+
+        return null;
     }
 
     private void play(List<Name> names) throws InterruptedException {
