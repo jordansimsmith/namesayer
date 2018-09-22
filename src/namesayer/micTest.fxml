@@ -2,8 +2,10 @@
 
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.*?>
-<GridPane alignment="CENTER" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="CENTER" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121"
+          xmlns:fx="http://javafx.com/fxml/1">
 
-      <ProgressBar fx:id = "volumeBar" prefWidth="200.0" progress="0.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+    <ProgressBar fx:id="volumeBar" prefWidth="200.0" progress="0.0" GridPane.columnIndex="0"
+                 GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
 
 </GridPane>
