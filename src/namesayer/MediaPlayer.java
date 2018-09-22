@@ -72,7 +72,10 @@ public class MediaPlayer implements Initializable {
 
     @FXML
     public void handlePlay(ActionEvent event) {
-        System.out.println("Playing " + currentName);
+
+        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+        new Thread(worker).start();
+
     }
 
     @FXML

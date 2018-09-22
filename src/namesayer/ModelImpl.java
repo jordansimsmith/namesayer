@@ -144,7 +144,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public RecordWorker getRecordWorker(Name name) throws IllegalArgumentException {
+    public PracticeWorker getPracticeWorker(Name name, boolean practiceMode) throws IllegalArgumentException {
 
         // verify the input type
         if (!(name instanceof NameVersion)) {
@@ -152,7 +152,7 @@ public class ModelImpl implements Model {
         }
 
         // safe to cast
-        return new RecordWorker((NameVersion) name);
+        return new PracticeWorker((NameVersion) name, practiceMode, this);
     }
 
     @Override
