@@ -33,6 +33,10 @@ public class PracticeWorker extends Task<Void> {
         originalName.add(name);
         play(originalName);
 
+        if (practiceMode) {
+            // user just wants to listen to the names
+            return null;
+        }
 
         // ask user if they are ready to record
         final CountDownLatch latch = new CountDownLatch(1);
