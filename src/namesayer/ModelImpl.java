@@ -43,6 +43,11 @@ public class ModelImpl implements Model {
         // get all names in the database
         File[] files = folder.listFiles();
 
+        // name database not present
+        if (files == null) {
+            throw new RuntimeException("Names database not found. Please populate the names/ folder.");
+        }
+
         Name rootName = new Name("Names List");
 
         // create name objects for each file
