@@ -4,10 +4,7 @@ import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 public class ModelImpl implements Model {
@@ -130,6 +127,23 @@ public class ModelImpl implements Model {
         // get file name
         String fileName = ((NameVersion) name).getFile().getName();
 
+        // check if name already has a bad rating
+        try {
+            Scanner scanner = new Scanner(new File("badnames.txt"));
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
+                // exit function if the name already has been given a bad rating
+                if (line.equals(fileName)) {
+                    return;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // file not found, continue to create badnames.txt
+        }
+
+        // otherwise write the filename to badnames.txt
         try {
             FileWriter writer = new FileWriter("badnames.txt", true);
             PrintWriter printer = new PrintWriter(writer);
