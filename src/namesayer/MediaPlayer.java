@@ -2,7 +2,9 @@ package namesayer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -74,6 +76,7 @@ public class MediaPlayer implements Initializable {
     public void handlePlay(ActionEvent event) {
 
         PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+        recordPB.progressProperty().bind(worker.progressProperty());
         new Thread(worker).start();
 
     }

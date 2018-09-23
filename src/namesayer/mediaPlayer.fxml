@@ -87,7 +87,7 @@
     </Button>
 
 
-    <ProgressBar fx:id="recordPB" prefHeight="20.0" prefWidth="628.0" progress="0.0" visible="false"
+    <ProgressBar fx:id="recordPB" prefHeight="20.0" prefWidth="628.0" progress="0.0" visible="true"
                  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
 

@@ -55,6 +55,9 @@ public class PracticeWorker extends Task<Void> {
         // record user name
         NameVersion recording = record();
 
+        // reset progress
+        updateProgress(0, 0);
+
         // play both names
         List<Name> bothNames = new ArrayList<>();
         bothNames.add(name);
@@ -114,10 +117,10 @@ public class PracticeWorker extends Task<Void> {
         process = builder.start();
 
         // periodically update task progress
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 50; i++) {
 
-            updateProgress(i, 5);
-            Thread.sleep(1200);
+            updateProgress(i, 50);
+            Thread.sleep(100);
         }
 
         process.waitFor();
