@@ -28,6 +28,9 @@ public class PracticeWorker extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
+        updateProgress(0,0);
+        updateMessage("Playing original");
+
         // play original name
         List<Name> originalName = new ArrayList<>();
         originalName.add(name);
@@ -37,6 +40,7 @@ public class PracticeWorker extends Task<Void> {
             // user just wants to listen to the names
             return null;
         }
+
 
         // ask user if they are ready to record
         final CountDownLatch latch = new CountDownLatch(1);
@@ -52,11 +56,15 @@ public class PracticeWorker extends Task<Void> {
         // wait for record confirmation
         latch.await();
 
+        updateMessage("Recording");
+
         // record user name
         NameVersion recording = record();
 
         // reset progress
         updateProgress(0, 0);
+
+        updateMessage("Comparing names");
 
         // play both names
         List<Name> bothNames = new ArrayList<>();

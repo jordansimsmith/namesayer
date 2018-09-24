@@ -49,17 +49,20 @@ public class MediaPlayer implements Initializable {
     @FXML
     private Text infoPlay;
 
-    /***
-     *
-     */
     @FXML
     private Button playButton;
+
     @FXML
     private Button nextButton;
+
     @FXML
     private Button previousButton;
+
     @FXML
     private Button homeButton;
+
+    @FXML
+    private Label status;
 
     @FXML
     public void handleNext(ActionEvent event) {
@@ -86,22 +89,24 @@ public class MediaPlayer implements Initializable {
 
         PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
 
+        status.textProperty().bind(worker.messageProperty());
+
         recordPB.progressProperty().bind(worker.progressProperty());
         new Thread(worker).start();
-        /**
-         *
-         */
+
         playButton.setDisable(true);
         homeButton.setDisable(true);
         nextButton.setDisable(true);
         previousButton.setDisable(true);
 
         worker.setOnSucceeded(e -> {
-           playButton.setDisable(false);
+            playButton.setDisable(false);
             homeButton.setDisable(false);
             nextButton.setDisable(false);
             previousButton.setDisable(false);
 
+            status.textProperty().unbind();
+            status.setText("");
         });
 
     }
@@ -127,7 +132,7 @@ public class MediaPlayer implements Initializable {
         window.setScene(new Scene(root, 300, 100));
         window.setMinWidth(300);
         window.setMinHeight(100);
-        
+
         final boolean resizable = window.isResizable();
         window.setResizable(!resizable);
         window.setResizable(resizable);
