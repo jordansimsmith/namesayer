@@ -32,7 +32,7 @@
                GridPane.valignment="BOTTOM"/>
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-        <Button onAction="#handlePrevious" prefHeight="50.0" prefWidth="105.0" text="Previous">
+        <Button  fx:id="previousButton" onAction="#handlePrevious" prefHeight="50.0" prefWidth="105.0" text="Previous">
             <HBox.margin>
                 <Insets right="10.0"/>
             </HBox.margin>
@@ -47,7 +47,7 @@
             </font>
         </Button>
 
-        <Button onAction="#handleNext" prefHeight="50.0" prefWidth="118.0" text="Next">
+        <Button fx:id="nextButton" onAction="#handleNext" prefHeight="50.0" prefWidth="118.0" text="Next">
             <HBox.margin>
                 <Insets left="10.0"/>
             </HBox.margin>
@@ -71,7 +71,7 @@
             <Font size="18.0"/>
         </font>
     </CheckBox>
-    <Button onAction="#handleHome" prefHeight="50.0" prefWidth="102.0" text="Return" GridPane.columnIndex="1"
+    <Button fx:id="homeButton" onAction="#handleHome" prefHeight="50.0" prefWidth="102.0" text="Return" GridPane.columnIndex="1"
             GridPane.halignment="RIGHT" GridPane.rowIndex="4">
         <font>
             <Font size="18.0"/>
@@ -79,7 +79,7 @@
     </Button>
 
 
-    <Button onAction="#handlePlay" prefHeight="50.0" prefWidth="89.0" text="Play" GridPane.columnIndex="1"
+    <Button fx:id="playButton" onAction="#handlePlay" prefHeight="50.0" prefWidth="89.0" text="Play" GridPane.columnIndex="1"
             GridPane.halignment="CENTER" GridPane.rowIndex="4">
         <font>
             <Font size="18.0"/>

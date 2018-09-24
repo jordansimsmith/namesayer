@@ -11,10 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -52,6 +49,18 @@ public class MediaPlayer implements Initializable {
     @FXML
     private Text infoPlay;
 
+    /***
+     *
+     */
+    @FXML
+    private Button playButton;
+    @FXML
+    private Button nextButton;
+    @FXML
+    private Button previousButton;
+    @FXML
+    private Button homeButton;
+
     @FXML
     public void handleNext(ActionEvent event) {
 
@@ -76,8 +85,24 @@ public class MediaPlayer implements Initializable {
     public void handlePlay(ActionEvent event) {
 
         PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+
         recordPB.progressProperty().bind(worker.progressProperty());
         new Thread(worker).start();
+        /**
+         *
+         */
+        playButton.setDisable(true);
+        homeButton.setDisable(true);
+        nextButton.setDisable(true);
+        previousButton.setDisable(true);
+
+        worker.setOnSucceeded(e -> {
+           playButton.setDisable(false);
+            homeButton.setDisable(false);
+            nextButton.setDisable(false);
+            previousButton.setDisable(false);
+
+        });
 
     }
 
