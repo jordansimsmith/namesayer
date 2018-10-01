@@ -2,11 +2,12 @@ package namesayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Name {
 
     protected String name;
-    protected List<Name> namesList = new ArrayList<>();
+    private List<Name> namesList = new ArrayList<>();
 
     public Name(String name) {
         this.name = name;
@@ -48,6 +49,34 @@ public class Name {
 
         // name not found
         return null;
+    }
+
+    public NameVersion pickVersion() {
+
+        // names that do not have a bad rating
+        List<NameVersion> acceptableVersions = new ArrayList<>();
+
+        // check rating for each version
+        for (Name name : namesList) {
+            NameVersion version = (NameVersion) name;
+
+            // is a good name
+            if (!version.isBadName()) {
+                acceptableVersions.add(version);
+            }
+        }
+
+        // if there are no acceptable names
+        if (acceptableVersions.isEmpty()) {
+            int index = new Random().nextInt(namesList.size());
+
+            return (NameVersion) namesList.get(index);
+        }
+
+        // pick a random acceptable name
+        int index = new Random().nextInt(acceptableVersions.size());
+
+        return acceptableVersions.get(index);
     }
 
     @Override
