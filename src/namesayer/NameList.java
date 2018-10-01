@@ -29,4 +29,8 @@ public class NameList {
 
         return builder.toString();
     }
+
+    public List<Name> getNames() {
+        return names;
+    }
 }

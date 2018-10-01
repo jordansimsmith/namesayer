@@ -35,7 +35,7 @@ public class Controller implements Initializable {
     private ListView<Name> namesList;
 
     @FXML
-    private ListView<Name> selectedList;
+    private ListView<NameList> selectedList;
 
     @FXML
     private Label nameBuilder;
@@ -44,7 +44,9 @@ public class Controller implements Initializable {
 
     @FXML
     public void handleAdd(ActionEvent e) {
-        //TODO: add selected names to a practice queue
+        NameList names = new NameList(new ArrayList<>(currentSelection));
+        selectedList.getItems().add(names);
+
     }
 
     @FXML
@@ -54,7 +56,7 @@ public class Controller implements Initializable {
     protected void playAction(ActionEvent event) throws IOException {
 
         // get items selected for practise
-        ObservableList<Name> selection = selectedList.getItems();
+        ObservableList<NameList> selection = selectedList.getItems();
 
         if (selection.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
