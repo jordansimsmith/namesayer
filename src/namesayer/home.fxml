@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Button?>
+<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.HomeController">
+   <Label text="Welcome To Name Sayer" GridPane.rowIndex="0">
+      <font>
+         <Font size="72.0" />
+      </font></Label>
+    <Button onAction="#handleSearch" text="Search Database" GridPane.rowIndex="1" GridPane.halignment="CENTER" prefHeight="100" prefWidth="200"/>
+   <Button onAction="#handlePrac" text="Practice" GridPane.rowIndex="2" GridPane.halignment="CENTER" prefHeight="100" prefWidth="200"/>
+    <Button onAction="#handleQuit" text="Quit" GridPane.rowIndex="3" GridPane.halignment="CENTER" prefHeight="100" prefWidth="200"/>
+</GridPane>

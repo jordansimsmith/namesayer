@@ -93,7 +93,7 @@ public class Controller implements Initializable {
         Parent viewParent = loader.load();
 
         Scene viewScene = new Scene(viewParent);
-        window.setTitle("Practice Mode");
+        window.setTitle("Playback");
         window.setScene(viewScene);
 
         final boolean resizable = window.isResizable();

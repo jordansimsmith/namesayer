@@ -87,6 +87,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handlePlay(ActionEvent event) {
 
+
         PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
 
         status.textProperty().bind(worker.messageProperty());
@@ -94,6 +95,7 @@ public class MediaPlayer implements Initializable {
         recordPB.progressProperty().bind(worker.progressProperty());
         new Thread(worker).start();
 
+<<<<<<< Updated upstream
         playButton.setDisable(true);
         homeButton.setDisable(true);
         nextButton.setDisable(true);
@@ -108,6 +110,10 @@ public class MediaPlayer implements Initializable {
             status.textProperty().unbind();
             status.setText("");
         });
+=======
+        System.out.println("Playing " + currentName);
+
+>>>>>>> Stashed changes
 
     }
 
@@ -165,6 +171,8 @@ public class MediaPlayer implements Initializable {
         // change scene
         window.setScene(viewScene);
         window.setTitle("Name Sayer");
+        window.setResizable(false);
+        window.setResizable(true);
         window.show();
     }
 

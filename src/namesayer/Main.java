@@ -10,13 +10,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
         primaryStage.setTitle("NameSayer");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
 
         primaryStage.setMinHeight(720);
         primaryStage.setMinWidth(1280);
+
         final boolean resizable = primaryStage.isResizable();
         primaryStage.setResizable(!resizable);
         primaryStage.setResizable(resizable);
