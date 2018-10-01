@@ -21,13 +21,13 @@ import java.util.ResourceBundle;
 
 public class MediaPlayer implements Initializable {
 
-    private List<Name> names;
+    private List<NameList> names;
     private Model model;
 
-    private Name currentName;
+    private NameList currentName;
     private int currentIndex;
 
-    public MediaPlayer(List<Name> names, Model model) {
+    public MediaPlayer(List<NameList> names, Model model) {
         this.names = names;
         this.model = model;
     }
@@ -173,7 +173,7 @@ public class MediaPlayer implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         // set play list
-        ObservableList<Name> nameList = FXCollections.observableList(names);
+        ObservableList<NameList> nameList = FXCollections.observableList(names);
         playList.setItems(nameList);
 
         if (nameList.size() > 0) {
@@ -188,7 +188,7 @@ public class MediaPlayer implements Initializable {
         this.currentName = names.get(index);
 
         // set text
-        infoPlay.setText(currentName.getName());
+        infoPlay.setText(currentName.toString());
 
         // set current index
         this.currentIndex = index;
