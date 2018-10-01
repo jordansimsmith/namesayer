@@ -14,7 +14,7 @@ This application is developed using the Model View Controller (MVC) design patte
 2. Select desired name/s to practise by clicking on the corresponding checkbox/es. 
 3. Click the **Select** button to update the playlist.
 4. To add previously saved user attempts, highlight any given name on the database. The corresponding user practices will populate the far right list. An empty list indicates that user has yet to save any practice recordings.  
-OPTIONAL: User may chose to randomise the order in which the recordings are played by checking the **Shuffle** checkbox.  
+*OPTIONAL: User may chose to randomise the order in which the recordings are played by checking the **Shuffle** checkbox.*  
 5. When satisfied with the playlist, the user may start the playback using the **Playback** button.
 
 ### Practice Scene
