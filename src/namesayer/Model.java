@@ -70,4 +70,12 @@ public interface Model {
      * @return a Map of type String, Name of the current name file database.
      */
     Map getMap();
+
+    /**
+     * This method returns the list of (non versioned) names object from the offical names database. Each name object
+     * contains its versions.
+     *
+     * @return a List of Name objects from the database.
+     */
+    List<Name> getNamesList();
 }

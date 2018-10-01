@@ -12,10 +12,16 @@ public class ModelImpl implements Model {
     private TreeView<Name> tree;
     private List<NameVersion> checked = new ArrayList<>();
     private Map<String, Name> map = new HashMap<>();
+    private List<Name> list = new ArrayList<>();
 
     public ModelImpl() {
         generateTreeView();
         generateMap();
+    }
+
+    @Override
+    public List<Name> getNamesList() {
+        return list;
     }
 
     @Override
@@ -75,6 +81,9 @@ public class ModelImpl implements Model {
                 Name name = new Name(parsedName);
                 name.addName(nameVersion);
                 map.put(parsedName, name);
+
+                // add Name to a list for displaying
+                list.add(name);
             }
         }
     }
