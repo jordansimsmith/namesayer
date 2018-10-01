@@ -6,7 +6,7 @@ import java.util.List;
 public class Name {
 
     protected String name;
-    protected List<Name> namesList = new ArrayList<>();
+    private List<Name> namesList = new ArrayList<>();
 
     public Name(String name) {
         this.name = name;
@@ -48,6 +48,11 @@ public class Name {
 
         // name not found
         return null;
+    }
+
+    public NameVersion pickVersion() {
+        //TODO: implement name choosing system based on name ratings
+        return (NameVersion) namesList.get(0);
     }
 
     @Override
