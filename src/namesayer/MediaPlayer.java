@@ -2,9 +2,7 @@ package namesayer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -120,7 +118,7 @@ public class MediaPlayer implements Initializable {
         Stage window = new Stage();
 
         // construct controller
-        micTestController controller = new micTestController();
+        MicTestController controller = new MicTestController();
 
         // set on close action
         window.setOnCloseRequest(event1 -> controller.cleanUp());
