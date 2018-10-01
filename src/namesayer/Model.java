@@ -3,6 +3,7 @@ package namesayer;
 import javafx.scene.control.TreeView;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Model {
 
@@ -60,4 +61,13 @@ public interface Model {
      * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.
      */
     Process playAudio(List<Name> names) throws IllegalArgumentException;
+
+    /**
+     * This method explores the names/ folder and retrieves all name versions in the database. These
+     * name versions are organised into a map structure by their group name (non versioned). Each value of the
+     * map is a Name object. Each name group (non versioned) contains all of its versions.
+     *
+     * @return a Map of type String, Name of the current name file database.
+     */
+    Map getMap();
 }

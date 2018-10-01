@@ -11,14 +11,21 @@ public class ModelImpl implements Model {
 
     private TreeView<Name> tree;
     private List<NameVersion> checked = new ArrayList<>();
+    private Map<String, Name> map = new HashMap<>();
 
     public ModelImpl() {
         generateTreeView();
+        generateMap();
     }
 
     @Override
     public TreeView getTreeView() {
         return tree;
+    }
+
+    @Override
+    public Map getMap() {
+        return map;
     }
 
     private String parseFileName(File file) {
@@ -31,6 +38,45 @@ public class ModelImpl implements Model {
         parsedName = parsedName.substring(0, 1).toUpperCase() + parsedName.substring(1);
 
         return parsedName;
+    }
+
+    private void generateMap() {
+
+        // declare folder to search for files
+        File folder = new File("names/");
+
+        // get all names in the database
+        File[] files = folder.listFiles();
+
+        // name database not present
+        if (files == null) {
+            throw new RuntimeException("Names database not found. Please populate the names/ folder.");
+        }
+
+        // iterate through database files and generate hashmap
+        for (File file : files) {
+
+            // parse name
+            String parsedName = parseFileName(file);
+
+            // create name version object
+            NameVersion nameVersion = new NameVersion(parsedName, file);
+
+            // query whether a version of this name has already been added to the map
+            if (map.containsKey(parsedName)) {
+
+                // contains key
+                // add name version to the name group
+                map.get(parsedName).addName(nameVersion);
+            } else {
+
+                // doesn't contain key
+                // create new name and add the name version to it
+                Name name = new Name(parsedName);
+                name.addName(nameVersion);
+                map.put(parsedName, name);
+            }
+        }
     }
 
     private void generateTreeView() {

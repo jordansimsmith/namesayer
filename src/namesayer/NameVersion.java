@@ -1,7 +1,5 @@
 package namesayer;
 
-import javafx.scene.media.Media;
-
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
