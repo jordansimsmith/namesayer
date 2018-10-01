@@ -66,7 +66,11 @@ public class NameVersion extends Name {
         }
     }
 
-    public Boolean isBadName() { return badRating;}
+    public Boolean isBadName() {
+
+        updateRating();
+        return badRating;
+    }
 
     public File getFile() {
         return file;

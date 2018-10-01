@@ -2,6 +2,7 @@ package namesayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Name {
 
@@ -51,8 +52,24 @@ public class Name {
     }
 
     public NameVersion pickVersion() {
-        //TODO: implement name choosing system based on name ratings
-        return (NameVersion) namesList.get(0);
+
+        // names that do not have a bad rating
+        List<NameVersion> acceptableVersions = new ArrayList<>();
+
+        // check rating for each version
+        for (Name name : namesList) {
+            NameVersion version = (NameVersion) name;
+
+            // is a good name
+            if (!version.isBadName()) {
+                acceptableVersions.add(version);
+            }
+        }
+
+        // pick a random acceptable name
+        int index = new Random().nextInt(acceptableVersions.size());
+
+        return acceptableVersions.get(index);
     }
 
     @Override
