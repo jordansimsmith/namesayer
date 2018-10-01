@@ -40,6 +40,8 @@ public class Controller implements Initializable {
     @FXML
     private Label nameBuilder;
 
+    private List<Name> currentSelection = new ArrayList<>();
+
     @FXML
     public void handleAdd(ActionEvent e) {
         //TODO: add selected names to a practice queue
@@ -103,7 +105,17 @@ public class Controller implements Initializable {
             BooleanProperty observable = new SimpleBooleanProperty();
 
             observable.addListener((obs, wasSelected, isNowSelected) -> {
-                System.out.println("Check box for "+name+" changed from "+wasSelected+" to "+isNowSelected);
+
+                if (wasSelected) {
+                    currentSelection.remove(name);
+                }
+
+                if (isNowSelected) {
+                    currentSelection.add(name);
+                }
+
+                nameBuilder.setText(currentSelection.toString());
+
             });
 
             return observable;
