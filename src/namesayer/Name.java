@@ -66,6 +66,13 @@ public class Name {
             }
         }
 
+        // if there are no acceptable names
+        if (acceptableVersions.isEmpty()) {
+            int index = new Random().nextInt(namesList.size());
+
+            return (NameVersion) namesList.get(index);
+        }
+
         // pick a random acceptable name
         int index = new Random().nextInt(acceptableVersions.size());
 
