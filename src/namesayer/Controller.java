@@ -114,7 +114,7 @@ public class Controller implements Initializable {
                     currentSelection.add(name);
                 }
 
-                nameBuilder.setText(currentSelection.toString());
+                updateNameBuilder();
 
             });
 
@@ -123,6 +123,18 @@ public class Controller implements Initializable {
 
         namesList.setItems(names);
 
+    }
+
+    private void updateNameBuilder() {
+
+        StringBuilder text = new StringBuilder();
+
+        for (Name name: currentSelection) {
+            text.append(name);
+            text.append(" ");
+        }
+
+        nameBuilder.setText(text.toString());
     }
 
 
