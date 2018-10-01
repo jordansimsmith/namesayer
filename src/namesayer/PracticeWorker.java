@@ -32,7 +32,7 @@ public class PracticeWorker extends Task<Void> {
         updateMessage("Playing original");
 
         // play original name
-        List<Name> originalName = new ArrayList<>();
+        List<NameVersion> originalName = new ArrayList<>();
         originalName.add(name);
         play(originalName);
 
@@ -67,7 +67,7 @@ public class PracticeWorker extends Task<Void> {
         updateMessage("Comparing names");
 
         // play both names
-        List<Name> bothNames = new ArrayList<>();
+        List<NameVersion> bothNames = new ArrayList<>();
         bothNames.add(name);
         bothNames.add(recording);
         play(bothNames);
@@ -101,7 +101,7 @@ public class PracticeWorker extends Task<Void> {
         return null;
     }
 
-    private void play(List<Name> names) throws InterruptedException {
+    private void play(List<NameVersion> names) throws InterruptedException {
 
         // start process and wait
         model.playAudio(names).waitFor();

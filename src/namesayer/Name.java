@@ -6,25 +6,25 @@ import java.util.Random;
 
 public class Name {
 
-    protected String name;
-    private List<Name> namesList = new ArrayList<>();
+    private String name;
+    private List<NameVersion> namesList = new ArrayList<>();
 
     public Name(String name) {
         this.name = name;
     }
 
-    public void addName(Name name) {
+    public void addName(NameVersion name) {
         namesList.add(name);
     }
 
-    public List<Name> getNames() {
+    public List<NameVersion> getNames() {
         return namesList;
     }
 
     public boolean containName(String string) {
 
         // iterate through all names
-        for (Name name : namesList) {
+        for (NameVersion name : namesList) {
 
             // assert same name
             if (name.getName().equals(string)) {
@@ -36,10 +36,10 @@ public class Name {
         return false;
     }
 
-    public Name getNameByString(String string) {
+    public NameVersion getNameByString(String string) {
 
         // iterate through all names
-        for (Name name : namesList) {
+        for (NameVersion name : namesList) {
 
             // assert same name
             if (name.getName().equals(string)) {
@@ -57,8 +57,7 @@ public class Name {
         List<NameVersion> acceptableVersions = new ArrayList<>();
 
         // check rating for each version
-        for (Name name : namesList) {
-            NameVersion version = (NameVersion) name;
+        for (NameVersion version : namesList) {
 
             // is a good name
             if (!version.isBadName()) {
@@ -70,7 +69,7 @@ public class Name {
         if (acceptableVersions.isEmpty()) {
             int index = new Random().nextInt(namesList.size());
 
-            return (NameVersion) namesList.get(index);
+            return namesList.get(index);
         }
 
         // pick a random acceptable name

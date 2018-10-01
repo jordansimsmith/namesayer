@@ -1,21 +1,9 @@
 package namesayer;
 
-import javafx.scene.control.TreeView;
-
 import java.util.List;
 import java.util.Map;
 
 public interface Model {
-
-    /**
-     * This method explores the names/ folder and retrieves all name versions in the database. These
-     * name versions are organised into a tree structure by their group name (non versioned). Each node of the
-     * tree is a Name object. Each name group (non versioned) contains all of its versions. The root of the tree contains
-     * all name groups.
-     *
-     * @return a TreeView of type Name of the current name file database.
-     */
-    TreeView getTreeView();
 
     /**
      * This method records a name as having bad quality. It is written to a file in the project folder.
@@ -23,14 +11,7 @@ public interface Model {
      * @param name: the Name object that is of low quality.
      * @throws IllegalArgumentException: When the input is a name group not a name version.
      */
-    void lowQualityName(Name name) throws IllegalArgumentException;
-
-    /**
-     * This method returns all currently selected name versions.
-     *
-     * @return a list of NameVersion objects that are currently selected.
-     */
-    List<NameVersion> getCheckedNames();
+    void lowQualityName(NameVersion name);
 
     /**
      * This method returns a PracticeWorker (task) object that can be bound to a progress indicator and executed on a new
@@ -40,7 +21,7 @@ public interface Model {
      * @return a PracticeWorker object for concurrent execution.
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
-    PracticeWorker getPracticeWorker(Name name, boolean practiceMode) throws IllegalArgumentException;
+    PracticeWorker getPracticeWorker(NameVersion name, boolean practiceMode);
 
     /**
      * This method searches the database for all user practice recordings for a specific name version and returns them
@@ -50,7 +31,7 @@ public interface Model {
      * @return A list of NameVersion objects representing the user practice recordings for that specific name.
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
-    List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException;
+    List<NameVersion> getUserCreations(NameVersion name);
 
     /**
      * This method utilises the ffplay command to play one or more recordings consecutively. The names must be of type
@@ -60,7 +41,7 @@ public interface Model {
      * @return the process of the audio playback so it can be cancelled or the process state can be queried.
      * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.
      */
-    Process playAudio(List<Name> names) throws IllegalArgumentException;
+    Process playAudio(List<NameVersion> names);
 
     /**
      * This method explores the names/ folder and retrieves all name versions in the database. These
@@ -69,7 +50,7 @@ public interface Model {
      *
      * @return a Map of type String, Name of the current name file database.
      */
-    Map getMap();
+    Map<String, Name> getMap();
 
     /**
      * This method returns the list of (non versioned) names object from the offical names database. Each name object

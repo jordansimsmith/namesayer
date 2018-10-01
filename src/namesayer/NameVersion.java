@@ -7,19 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class NameVersion extends Name {
+public class NameVersion  {
 
     private File file;
     private Date date;
+    private String name;
     private boolean badRating;
 
     public NameVersion(String name, File file) {
-        super(name);
-
+        this.name = name;
         this.file = file;
 
         setDate();
-
         updateRating();
     }
 
@@ -70,6 +69,10 @@ public class NameVersion extends Name {
 
         updateRating();
         return badRating;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public File getFile() {

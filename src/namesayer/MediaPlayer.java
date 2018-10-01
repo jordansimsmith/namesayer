@@ -26,7 +26,7 @@ public class MediaPlayer implements Initializable {
     private List<Name> names;
     private Model model;
 
-    private NameVersion currentName;
+    private Name currentName;
     private int currentIndex;
 
     public MediaPlayer(List<Name> names, Model model) {
@@ -87,27 +87,29 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handlePlay(ActionEvent event) {
 
-        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+        //TODO: implement play for practice worker
 
-        status.textProperty().bind(worker.messageProperty());
-
-        recordPB.progressProperty().bind(worker.progressProperty());
-        new Thread(worker).start();
-
-        playButton.setDisable(true);
-        homeButton.setDisable(true);
-        nextButton.setDisable(true);
-        previousButton.setDisable(true);
-
-        worker.setOnSucceeded(e -> {
-            playButton.setDisable(false);
-            homeButton.setDisable(false);
-            nextButton.setDisable(false);
-            previousButton.setDisable(false);
-
-            status.textProperty().unbind();
-            status.setText("");
-        });
+//        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+//
+//        status.textProperty().bind(worker.messageProperty());
+//
+//        recordPB.progressProperty().bind(worker.progressProperty());
+//        new Thread(worker).start();
+//
+//        playButton.setDisable(true);
+//        homeButton.setDisable(true);
+//        nextButton.setDisable(true);
+//        previousButton.setDisable(true);
+//
+//        worker.setOnSucceeded(e -> {
+//            playButton.setDisable(false);
+//            homeButton.setDisable(false);
+//            nextButton.setDisable(false);
+//            previousButton.setDisable(false);
+//
+//            status.textProperty().unbind();
+//            status.setText("");
+//        });
 
     }
 
@@ -143,7 +145,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handleBadQuality(ActionEvent event) {
 
-        model.lowQualityName(currentName);
+        //TODO: user needs to pick which of the names was of bad quality
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success!");
@@ -184,15 +186,8 @@ public class MediaPlayer implements Initializable {
 
     private void setCurrentName(int index) {
 
-        Name name = names.get(index);
-
-        // verify name
-        if (!(name instanceof NameVersion)) {
-            return;
-        }
-
         // safe to cast
-        this.currentName = (NameVersion) name;
+        this.currentName = names.get(index);
 
         // set text
         infoPlay.setText(currentName.getName());

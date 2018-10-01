@@ -31,18 +31,17 @@ public class Controller implements Initializable {
     private ListView<Name> selectedList;
 
     @FXML
-    private ListView<Name> recordingsList;
+    private ListView<NameVersion> recordingsList;
 
     @FXML
     public void handleAdd(ActionEvent e) {
-        ObservableList<Name> checkedItems = FXCollections.observableArrayList(model.getCheckedNames());
-        selectedList.setItems(checkedItems);
+        //TODO: add selected names to a practice queue
     }
 
     @FXML
     public void handleRecordingPlay(ActionEvent e) {
         // get current selection
-        Name selected = recordingsList.getSelectionModel().getSelectedItem();
+        NameVersion selected = recordingsList.getSelectionModel().getSelectedItem();
 
         // ignore when nothing is selected
         if (selected == null) {
@@ -55,7 +54,7 @@ public class Controller implements Initializable {
         }
 
         // play audio
-        List<Name> list = new ArrayList<>();
+        List<NameVersion> list = new ArrayList<>();
         list.add(selected);
         model.playAudio(list);
     }
@@ -110,40 +109,7 @@ public class Controller implements Initializable {
         // initialise model
         model = new ModelImpl();
 
-        // set tree view
-        treeView.setRoot(model.getTreeView().getRoot());
-        treeView.setCellFactory(CheckBoxTreeCell.forTreeView());
-
-        treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-
-            // only consider name versions
-            if (!(newValue.getValue() instanceof NameVersion)) {
-                return;
-            }
-
-            // get user creations
-            List<NameVersion> userCreations = model.getUserCreations(newValue.getValue());
-
-            ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
-
-            recordingsList.setItems(recordings);
-        });
-
-        selectedList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // only consider name versions
-            if (!(newValue instanceof NameVersion)) {
-                return;
-            }
-
-            // get user creations
-            List<NameVersion> userCreations = model.getUserCreations(newValue);
-
-            ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
-
-            recordingsList.setItems(recordings);
-        });
+        //TODO initialise the listview
 
     }
 

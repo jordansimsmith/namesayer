@@ -1,21 +1,14 @@
 package namesayer;
 
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.control.cell.CheckBoxTreeCell;
-
 import java.io.*;
 import java.util.*;
 
 public class ModelImpl implements Model {
 
-    private TreeView<Name> tree;
-    private List<NameVersion> checked = new ArrayList<>();
     private Map<String, Name> map = new HashMap<>();
     private List<Name> list = new ArrayList<>();
 
     public ModelImpl() {
-        generateTreeView();
         generateMap();
     }
 
@@ -25,12 +18,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public TreeView getTreeView() {
-        return tree;
-    }
-
-    @Override
-    public Map getMap() {
+    public Map<String, Name> getMap() {
         return map;
     }
 
@@ -88,99 +76,11 @@ public class ModelImpl implements Model {
         }
     }
 
-    private void generateTreeView() {
-        // declare folder to search for files
-        File folder = new File("names/");
-
-        // get all names in the database
-        File[] files = folder.listFiles();
-
-        // name database not present
-        if (files == null) {
-            throw new RuntimeException("Names database not found. Please populate the names/ folder.");
-        }
-
-        Name rootName = new Name("Names List");
-
-        // create name objects for each file
-        for (File file : files) {
-
-            // parse name
-            String parsedName = parseFileName(file);
-
-            // create name version object
-            NameVersion name = new NameVersion(parsedName, file);
-
-            // do other versions of this name already exist?
-            if (rootName.containName(parsedName)) {
-                Name nameGroup = rootName.getNameByString(parsedName);
-                nameGroup.addName(name);
-            } else {
-                // first occurrence of this name
-                Name nameGroup = new Name(parsedName);
-                nameGroup.addName(name);
-
-                rootName.addName(nameGroup);
-            }
-
-        }
-
-        // sort files
-        Collections.sort(rootName.getNames(), (o1, o2) -> o1.toString().compareTo(o2.toString()));
-
-        // generate tree root
-        CheckBoxTreeItem<Name> root = new CheckBoxTreeItem<>(rootName);
-        root.setExpanded(true);
-
-        // iterate over all name groups
-        for (Name nameGroup : rootName.getNames()) {
-            CheckBoxTreeItem<Name> groupItem = new CheckBoxTreeItem<>(nameGroup);
-            root.getChildren().add(groupItem);
-
-            // iterate over all name versions
-            for (Name nameVersion : nameGroup.getNames()) {
-
-                CheckBoxTreeItem<Name> checkBoxTreeItem = new CheckBoxTreeItem<>(nameVersion);
-
-                // add checked selection listener
-                checkBoxTreeItem.selectedProperty().addListener((obs, oldVal, newVal) -> {
-
-                    // deselected
-                    if (oldVal && !newVal) {
-                        checked.remove(checkBoxTreeItem.getValue());
-                    }
-
-                    // selected
-                    if (!oldVal && newVal) {
-                        checked.add((NameVersion) checkBoxTreeItem.getValue());
-                    }
-
-                });
-
-                groupItem.getChildren().add(checkBoxTreeItem);
-            }
-        }
-
-
-        // add the root to the tree
-        TreeView<Name> tree = new TreeView<>(root);
-
-        tree.setCellFactory(CheckBoxTreeCell.forTreeView());
-
-        // set field
-        this.tree = tree;
-    }
-
     @Override
-    public void lowQualityName(Name name) throws IllegalArgumentException {
-
-        // assert input is a name version not a name group
-        if (!(name instanceof NameVersion)) {
-            throw new IllegalArgumentException("Argument must be a name version not a name group");
-        }
+    public void lowQualityName(NameVersion name) {
 
         // get file name
-        String fileName = ((NameVersion) name).getFile().getName();
+        String fileName = name.getFile().getName();
 
         // check if name already has a bad rating
         try {
@@ -212,35 +112,16 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public List<NameVersion> getCheckedNames() {
+    public PracticeWorker getPracticeWorker(NameVersion name, boolean practiceMode) {
 
-        return checked;
+
+        return new PracticeWorker( name, practiceMode, this);
     }
 
     @Override
-    public PracticeWorker getPracticeWorker(Name name, boolean practiceMode) throws IllegalArgumentException {
-
-        // verify the input type
-        if (!(name instanceof NameVersion)) {
-            throw new IllegalArgumentException("Argument must be a name version not a name group");
-        }
-
-        // safe to cast
-        return new PracticeWorker((NameVersion) name, practiceMode, this);
-    }
-
-    @Override
-    public List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException {
+    public List<NameVersion> getUserCreations(NameVersion nameVersion){
 
         List<NameVersion> creations = new ArrayList<>();
-
-        // verify the input type
-        if (!(name instanceof NameVersion)) {
-            throw new IllegalArgumentException("Argument must be a name version not a name group");
-        }
-
-        // safe to cast
-        NameVersion nameVersion = (NameVersion) name;
 
         // define folder to search for user creations
         File folder = new File("recordings/" + nameVersion.getFile().getName());
@@ -266,19 +147,15 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Process playAudio(List<Name> names) throws IllegalArgumentException {
+    public Process playAudio(List<NameVersion> names) {
 
         StringBuilder files = new StringBuilder();
 
         // iterate through all provided names
-        for (Name name : names) {
-            // verify the input types
-            if (!(name instanceof NameVersion)) {
-                throw new IllegalArgumentException("Arguments must be of type name version not name group");
-            }
+        for (NameVersion name : names) {
 
             // safe to cast
-            files.append(" ").append(((NameVersion) name).getFile().getPath());
+            files.append(" ").append(name.getFile().getPath());
         }
 
         // execute ffplay command
