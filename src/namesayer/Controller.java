@@ -9,8 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class Controller implements Initializable {
     private Model model;
 
     @FXML
-    private TreeView<Name> treeView;
+    private ListView<Name> namesList;
 
     @FXML
     private ListView<Name> selectedList;
@@ -109,7 +110,9 @@ public class Controller implements Initializable {
         // initialise model
         model = new ModelImpl();
 
-        //TODO initialise the listview
+        // initialise names database list
+        ObservableList<Name> names = FXCollections.observableList(model.getNamesList());
+        namesList.setItems(names);
 
     }
 

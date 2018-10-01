@@ -12,11 +12,11 @@
         <Insets bottom="10" left="25" right="25" top="25"/>
     </padding>
 
-    <TreeView fx:id="treeView" prefHeight="445.0" prefWidth="442.0" GridPane.rowIndex="1" GridPane.rowSpan="3">
+    <ListView fx:id="namesList" prefHeight="445.0" prefWidth="442.0" GridPane.rowIndex="1" GridPane.rowSpan="3">
         <effect>
             <Blend/>
         </effect>
-    </TreeView>
+    </ListView>
 
     <CheckBox fx:id="shuffleBox" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Shuffle"
               GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
