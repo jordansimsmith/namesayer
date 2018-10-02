@@ -220,4 +220,9 @@ public class ModelImpl implements Model {
         return new NameList(list);
 
     }
+
+    @Override
+    public List<NameList> parseFile(File file) {
+        return null;
+    }
 }
