@@ -95,7 +95,6 @@ public class MediaPlayer implements Initializable {
         recordPB.progressProperty().bind(worker.progressProperty());
         new Thread(worker).start();
 
-<<<<<<< Updated upstream
         playButton.setDisable(true);
         homeButton.setDisable(true);
         nextButton.setDisable(true);
@@ -110,10 +109,7 @@ public class MediaPlayer implements Initializable {
             status.textProperty().unbind();
             status.setText("");
         });
-=======
-        System.out.println("Playing " + currentName);
 
->>>>>>> Stashed changes
 
     }
 
