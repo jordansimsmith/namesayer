@@ -1,5 +1,6 @@
 package namesayer;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -22,16 +23,6 @@ public interface Model {
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
     PracticeWorker getPracticeWorker(NameList names, boolean practiceMode);
-
-    /**
-     * This method searches the database for all user practice recordings for a specific name version and returns them
-     * in a list. Note that the input must be of type nameVersion, not name.
-     *
-     * @param name: NameVersion object that user recordings are being searched against.
-     * @return A list of NameVersion objects representing the user practice recordings for that specific name.
-     * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
-     */
-    List<NameVersion> getUserCreations(NameVersion name);
 
     /**
      * This method utilises the ffplay command to play one or more recordings consecutively.
@@ -59,4 +50,21 @@ public interface Model {
      * @return a List of Name objects from the database.
      */
     List<Name> getNamesList();
+
+    /**
+     * This method searches the database for the specified name.
+     *
+     * @param names: a string of names to be practised together, separated by a space or hypen.
+     * @return the name object that was searched for. Will return null if the name doesnt exist in the database.
+     */
+    NameList nameSearch(String names);
+
+    /**
+     * This method parses an uploaded text file of names. Names to be practised together should be on the same
+     * line separated by spaces or hyphens. Separate names should be on new lines.
+     *
+     * @param file: the text file to parse.
+     * @return a list of NameList objects to be played.
+     */
+    List<NameList> parseFile(File file);
 }
