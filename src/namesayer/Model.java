@@ -49,4 +49,10 @@ public interface Model {
      * @return a List of Name objects from the database.
      */
     List<Name> getNamesList();
+
+    /**
+     * This method searches the database for the specified name.
+     * @return the name object that was searched for. Will return null if the name doesnt exist in the database.
+     */
+    Name nameSearch(String name);
 }

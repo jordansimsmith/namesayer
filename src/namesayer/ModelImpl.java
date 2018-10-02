@@ -190,4 +190,9 @@ public class ModelImpl implements Model {
 
         return process;
     }
+
+    @Override
+    public Name nameSearch(String name) {
+        return map.get(name);
+    }
 }
