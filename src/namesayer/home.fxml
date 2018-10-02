@@ -16,26 +16,23 @@
       <GridPane.margin>
          <Insets bottom="100.0" />
       </GridPane.margin></Label>
-    <Button onAction="#handleSearch" prefHeight="100" prefWidth="400" text="Search Database" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Button onAction="#handleSearch" prefHeight="100" prefWidth="400" text="Search Database" GridPane.halignment="CENTER" GridPane.rowIndex="2">
       <font>
          <Font size="24.0" />
       </font></Button>
-   <Button onAction="#handlePrac" prefHeight="100" prefWidth="400" text="Practice" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+   <Button onAction="#handleUpload" prefHeight="100" prefWidth="400" text="Upload" GridPane.halignment="CENTER" GridPane.rowIndex="3">
       <font>
          <Font size="24.0" />
       </font></Button>
-    <Button onAction="#handleQuit" prefHeight="100" prefWidth="400" text="Quit" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+
+    <Button onAction="#handlePrac" prefHeight="100" prefWidth="400" text="Practise" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+        <font>
+            <Font size="24.0" />
+        </font></Button>
+    <Button onAction="#handleQuit" prefHeight="100" prefWidth="400" text="Quit" GridPane.halignment="CENTER" GridPane.rowIndex="5">
       <font>
          <Font size="24.0" />
       </font></Button>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+
 
 </GridPane>

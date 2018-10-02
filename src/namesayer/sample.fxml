@@ -45,19 +45,6 @@
 
     <Button alignment="CENTER" onAction="#handleAdd" prefHeight="36.0" prefWidth="86.0" text="Add Name" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
    <Label fx:id="nameBuilder" prefHeight="94.0" prefWidth="305.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
 
 
 </GridPane>
