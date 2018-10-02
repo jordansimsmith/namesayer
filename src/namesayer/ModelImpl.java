@@ -220,10 +220,24 @@ public class ModelImpl implements Model {
      * @param files The list of files to be adjusted.
      * @return a list of adjusted file objects.
      */
-    private List<File> adjustAudio(List<File> files) {
+    private List<File> adjustAudio(List<File> files) throws IOException, InterruptedException {
 
         // list of files to return
         List<File> filteredFiles = new ArrayList<>();
+
+        // make temp directory to work from
+        new ProcessBuilder("/bin/bash", "-c", "mkdir temp").start().waitFor();
+
+        // iterate through each file in the list
+        for (File file: files) {
+
+            // trim the string
+            String trim = "ffmpeg -i "+ file.getPath() + " -af silenceremove=1:0:-35dB:1:5:-50dB temp/" + file.getName() + "_trim.wav";
+            ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", trim);
+            builder.start().waitFor();
+
+            // read the volume
+        }
 
         return filteredFiles;
     }
