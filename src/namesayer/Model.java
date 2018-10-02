@@ -1,20 +1,9 @@
 package namesayer;
 
-import javafx.scene.control.TreeView;
-
 import java.util.List;
+import java.util.Map;
 
 public interface Model {
-
-    /**
-     * This method explores the names/ folder and retrieves all name versions in the database. These
-     * name versions are organised into a tree structure by their group name (non versioned). Each node of the
-     * tree is a Name object. Each name group (non versioned) contains all of its versions. The root of the tree contains
-     * all name groups.
-     *
-     * @return a TreeView of type Name of the current name file database.
-     */
-    TreeView getTreeView();
 
     /**
      * This method records a name as having bad quality. It is written to a file in the project folder.
@@ -22,24 +11,17 @@ public interface Model {
      * @param name: the Name object that is of low quality.
      * @throws IllegalArgumentException: When the input is a name group not a name version.
      */
-    void lowQualityName(Name name) throws IllegalArgumentException;
-
-    /**
-     * This method returns all currently selected name versions.
-     *
-     * @return a list of NameVersion objects that are currently selected.
-     */
-    List<NameVersion> getCheckedNames();
+    void lowQualityName(NameList name);
 
     /**
      * This method returns a PracticeWorker (task) object that can be bound to a progress indicator and executed on a new
      * thread to record audio in the background.
      *
-     * @param name: NameVersion object that is being recorded against.
+     * @param names: NameVersion object that is being recorded against.
      * @return a PracticeWorker object for concurrent execution.
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
-    PracticeWorker getPracticeWorker(Name name, boolean practiceMode) throws IllegalArgumentException;
+    PracticeWorker getPracticeWorker(NameList names, boolean practiceMode);
 
     /**
      * This method searches the database for all user practice recordings for a specific name version and returns them
@@ -49,15 +31,32 @@ public interface Model {
      * @return A list of NameVersion objects representing the user practice recordings for that specific name.
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
-    List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException;
+    List<NameVersion> getUserCreations(NameVersion name);
 
     /**
-     * This method utilises the ffplay command to play one or more recordings consecutively. The names must be of type
-     * NameVersion, not of type Name.
+     * This method utilises the ffplay command to play one or more recordings consecutively.
      *
-     * @param names: List of NameVersion objects that should be played.
+     * @param names: List of Name objects that should be played.
+     * @param recording: Optional user recording to be played after the names. Pass null if not required.
      * @return the process of the audio playback so it can be cancelled or the process state can be queried.
      * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.
      */
-    Process playAudio(List<Name> names) throws IllegalArgumentException;
+    Process playAudio(NameList names, NameVersion recording);
+
+    /**
+     * This method explores the names/ folder and retrieves all name versions in the database. These
+     * name versions are organised into a map structure by their group name (non versioned). Each value of the
+     * map is a Name object. Each name group (non versioned) contains all of its versions.
+     *
+     * @return a Map of type String, Name of the current name file database.
+     */
+    Map<String, Name> getMap();
+
+    /**
+     * This method returns the list of (non versioned) names object from the offical names database. Each name object
+     * contains its versions.
+     *
+     * @return a List of Name objects from the database.
+     */
+    List<Name> getNamesList();
 }

@@ -2,9 +2,7 @@ package namesayer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,13 +21,13 @@ import java.util.ResourceBundle;
 
 public class MediaPlayer implements Initializable {
 
-    private List<Name> names;
+    private List<NameList> names;
     private Model model;
 
-    private NameVersion currentName;
+    private NameList currentName;
     private int currentIndex;
 
-    public MediaPlayer(List<Name> names, Model model) {
+    public MediaPlayer(List<NameList> names, Model model) {
         this.names = names;
         this.model = model;
     }
@@ -120,7 +118,7 @@ public class MediaPlayer implements Initializable {
         Stage window = new Stage();
 
         // construct controller
-        micTestController controller = new micTestController();
+        MicTestController controller = new MicTestController();
 
         // set on close action
         window.setOnCloseRequest(event1 -> controller.cleanUp());
@@ -134,10 +132,8 @@ public class MediaPlayer implements Initializable {
         window.setScene(new Scene(root, 300, 100));
         window.setMinWidth(300);
         window.setMinHeight(100);
+        window.setResizable(false);
 
-        final boolean resizable = window.isResizable();
-        window.setResizable(!resizable);
-        window.setResizable(resizable);
         window.show();
 
     }
@@ -145,13 +141,9 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handleBadQuality(ActionEvent event) {
 
-        model.lowQualityName(currentName);
+        //TODO: user needs to pick which of the names was of bad quality
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success!");
-        alert.setHeaderText("Bad name successfully recorded.");
-        alert.setContentText("Thank you for your input");
-        alert.showAndWait();
+        model.lowQualityName(currentName);
     }
 
 
@@ -177,29 +169,20 @@ public class MediaPlayer implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         // set play list
-        ObservableList<Name> nameList = FXCollections.observableList(names);
+        ObservableList<NameList> nameList = FXCollections.observableList(names);
         playList.setItems(nameList);
 
-        if (nameList.size() > 0) {
-            setCurrentName(0);
-        }
+        setCurrentName(0);
 
     }
 
     private void setCurrentName(int index) {
 
-        Name name = names.get(index);
-
-        // verify name
-        if (!(name instanceof NameVersion)) {
-            return;
-        }
-
         // safe to cast
-        this.currentName = (NameVersion) name;
+        this.currentName = names.get(index);
 
         // set text
-        infoPlay.setText(currentName.getName());
+        infoPlay.setText(currentName.toString());
 
         // set current index
         this.currentIndex = index;

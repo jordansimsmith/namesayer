@@ -1,5 +1,5 @@
-# NameSayer Part Three
-Third iteration of the NameSayer application. This application allows a user to practise the pronounciation of names from a database. 
+# NameSayer
+Final iteration of the NameSayer application. This application allows a user to practise the pronounciation of names from a database. 
 
 This application is developed using the Model View Controller (MVC) design pattern with JavaFX. Scene builder has been used to create the UI layout.
 
@@ -14,7 +14,7 @@ This application is developed using the Model View Controller (MVC) design patte
 2. Select desired name/s to practise by clicking on the corresponding checkbox/es. 
 3. Click the **Select** button to update the playlist.
 4. To add previously saved user attempts, highlight any given name on the database. The corresponding user practices will populate the far right list. An empty list indicates that user has yet to save any practice recordings.  
-OPTIONAL: User may chose to randomise the order in which the recordings are played by checking the **Shuffle** checkbox.  
+*OPTIONAL: User may chose to randomise the order in which the recordings are played by checking the **Shuffle** checkbox.*  
 5. When satisfied with the playlist, the user may start the playback using the **Playback** button.
 
 ### Practice Scene
@@ -27,6 +27,7 @@ attempted by the user.
 user to record their attempt at the name. A comparision between the recording and the user attempt will
 be played after. The user can then choose to save this creation for future access or to discard it.
 5. The **Bad Recording** button allows the user to indicate that a database recording is of low quality.
+The user should select which of the names is of bad quality.
 These ratings are stored in a file called *badnames.txt* in the same location as the runnable jar.
 6. The **Test Mic** button can be used to test the volume of the user's microphone.
 7. The **Return** button can be used to return to the previous screen where the user can select more names to 

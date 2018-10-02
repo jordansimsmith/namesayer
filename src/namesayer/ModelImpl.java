@@ -1,24 +1,29 @@
 package namesayer;
 
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 
 import java.io.*;
 import java.util.*;
 
 public class ModelImpl implements Model {
 
-    private TreeView<Name> tree;
-    private List<NameVersion> checked = new ArrayList<>();
+    private Map<String, Name> map = new HashMap<>();
+    private List<Name> list = new ArrayList<>();
 
     public ModelImpl() {
-        generateTreeView();
+        generateMap();
     }
 
     @Override
-    public TreeView getTreeView() {
-        return tree;
+    public List<Name> getNamesList() {
+        return list;
+    }
+
+    @Override
+    public Map<String, Name> getMap() {
+        return map;
     }
 
     private String parseFileName(File file) {
@@ -33,7 +38,8 @@ public class ModelImpl implements Model {
         return parsedName;
     }
 
-    private void generateTreeView() {
+    private void generateMap() {
+
         // declare folder to search for files
         File folder = new File("names/");
 
@@ -45,87 +51,70 @@ public class ModelImpl implements Model {
             throw new RuntimeException("Names database not found. Please populate the names/ folder.");
         }
 
-        Name rootName = new Name("Names List");
-
-        // create name objects for each file
+        // iterate through database files and generate hashmap
         for (File file : files) {
 
             // parse name
             String parsedName = parseFileName(file);
 
             // create name version object
-            NameVersion name = new NameVersion(parsedName, file);
+            NameVersion nameVersion = new NameVersion(parsedName, file);
 
-            // do other versions of this name already exist?
-            if (rootName.containName(parsedName)) {
-                Name nameGroup = rootName.getNameByString(parsedName);
-                nameGroup.addName(name);
+            // query whether a version of this name has already been added to the map
+            if (map.containsKey(parsedName)) {
+
+                // contains key
+                // add name version to the name group
+                map.get(parsedName).addName(nameVersion);
             } else {
-                // first occurrence of this name
-                Name nameGroup = new Name(parsedName);
-                nameGroup.addName(name);
 
-                rootName.addName(nameGroup);
-            }
+                // doesn't contain key
+                // create new name and add the name version to it
+                Name name = new Name(parsedName);
+                name.addName(nameVersion);
+                map.put(parsedName, name);
 
-        }
-
-        // sort files
-        Collections.sort(rootName.getNames(), (o1, o2) -> o1.toString().compareTo(o2.toString()));
-
-        // generate tree root
-        CheckBoxTreeItem<Name> root = new CheckBoxTreeItem<>(rootName);
-        root.setExpanded(true);
-
-        // iterate over all name groups
-        for (Name nameGroup : rootName.getNames()) {
-            CheckBoxTreeItem<Name> groupItem = new CheckBoxTreeItem<>(nameGroup);
-            root.getChildren().add(groupItem);
-
-            // iterate over all name versions
-            for (Name nameVersion : nameGroup.getNames()) {
-
-                CheckBoxTreeItem<Name> checkBoxTreeItem = new CheckBoxTreeItem<>(nameVersion);
-
-                // add checked selection listener
-                checkBoxTreeItem.selectedProperty().addListener((obs, oldVal, newVal) -> {
-
-                    // deselected
-                    if (oldVal && !newVal) {
-                        checked.remove(checkBoxTreeItem.getValue());
-                    }
-
-                    // selected
-                    if (!oldVal && newVal) {
-                        checked.add((NameVersion) checkBoxTreeItem.getValue());
-                    }
-
-                });
-
-                groupItem.getChildren().add(checkBoxTreeItem);
+                // add Name to a list for displaying
+                list.add(name);
             }
         }
-
-
-        // add the root to the tree
-        TreeView<Name> tree = new TreeView<>(root);
-
-        tree.setCellFactory(CheckBoxTreeCell.forTreeView());
-
-        // set field
-        this.tree = tree;
     }
 
     @Override
-    public void lowQualityName(Name name) throws IllegalArgumentException {
+    public void lowQualityName(NameList names) {
 
-        // assert input is a name version not a name group
-        if (!(name instanceof NameVersion)) {
-            throw new IllegalArgumentException("Argument must be a name version not a name group");
+        List<ButtonType> buttons = new ArrayList<>();
+        Map<ButtonType, Name> map = new HashMap<>();
+
+        // create buttons for each name
+        for (Name name: names.getNames()) {
+            ButtonType button = new ButtonType(name.toString());
+            buttons.add(button);
+            map.put(button, name);
+        }
+
+        // construct and show alert box asking for which name was bad
+        Alert alert = new Alert(Alert.AlertType.NONE,"Please select the name that you wish to report.",buttons.toArray(new ButtonType[]{}));
+        alert.setHeaderText("Which name would you like to report?");
+        alert.setTitle("Bad Recording");
+        alert.showAndWait();
+
+        // get the name the user picked
+        NameVersion badName = map.get(alert.getResult()).getLastPlayed();
+
+        // if the user chooses to rate a name before playing it
+        if (badName == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Cannot rate a name that hasn't been played.");
+            error.setContentText("Please play a name first before rating it.");
+            error.showAndWait();
+
+            return;
         }
 
         // get file name
-        String fileName = ((NameVersion) name).getFile().getName();
+        String fileName = badName.getFile().getName();
 
         // check if name already has a bad rating
         try {
@@ -154,38 +143,26 @@ public class ModelImpl implements Model {
             ioe.printStackTrace();
         }
 
+        // show success message
+        Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+        success.setTitle("Success");
+        success.setHeaderText("Successfully rated " + badName.getName());
+        success.setContentText("Thank you for your input.");
+        success.showAndWait();
+
     }
 
     @Override
-    public List<NameVersion> getCheckedNames() {
+    public PracticeWorker getPracticeWorker(NameList name, boolean practiceMode) {
 
-        return checked;
+
+        return new PracticeWorker( name, practiceMode, this);
     }
 
     @Override
-    public PracticeWorker getPracticeWorker(Name name, boolean practiceMode) throws IllegalArgumentException {
-
-        // verify the input type
-        if (!(name instanceof NameVersion)) {
-            throw new IllegalArgumentException("Argument must be a name version not a name group");
-        }
-
-        // safe to cast
-        return new PracticeWorker((NameVersion) name, practiceMode, this);
-    }
-
-    @Override
-    public List<NameVersion> getUserCreations(Name name) throws IllegalArgumentException {
+    public List<NameVersion> getUserCreations(NameVersion nameVersion){
 
         List<NameVersion> creations = new ArrayList<>();
-
-        // verify the input type
-        if (!(name instanceof NameVersion)) {
-            throw new IllegalArgumentException("Argument must be a name version not a name group");
-        }
-
-        // safe to cast
-        NameVersion nameVersion = (NameVersion) name;
 
         // define folder to search for user creations
         File folder = new File("recordings/" + nameVersion.getFile().getName());
@@ -211,19 +188,22 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Process playAudio(List<Name> names) throws IllegalArgumentException {
+    public Process playAudio(NameList nameList, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
 
-        // iterate through all provided names
-        for (Name name : names) {
-            // verify the input types
-            if (!(name instanceof NameVersion)) {
-                throw new IllegalArgumentException("Arguments must be of type name version not name group");
-            }
+        // TODO: concatenate, equalize and trim files before playing
 
-            // safe to cast
-            files.append(" ").append(((NameVersion) name).getFile().getPath());
+        // iterate through all provided names
+        for (Name name: nameList.getNames()) {
+            files.append(name.pickVersion().getFile().getPath());
+            files.append(" ");
+        }
+
+        // add recording if applicable
+        if (recording != null) {
+            files.append(recording.getFile().getPath());
+            files.append(" ");
         }
 
         // execute ffplay command

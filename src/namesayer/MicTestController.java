@@ -7,7 +7,7 @@ import javafx.scene.control.ProgressBar;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class micTestController implements Initializable {
+public class MicTestController implements Initializable {
 
     @FXML
     private ProgressBar volumeBar;

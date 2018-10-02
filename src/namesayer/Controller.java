@@ -1,5 +1,8 @@
 package namesayer;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,9 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,39 +32,21 @@ public class Controller implements Initializable {
     private Model model;
 
     @FXML
-    private TreeView<Name> treeView;
+    private ListView<Name> namesList;
 
     @FXML
-    private ListView<Name> selectedList;
+    private ListView<NameList> selectedList;
 
     @FXML
-    private ListView<Name> recordingsList;
+    private Label nameBuilder;
+
+    private List<Name> currentSelection = new ArrayList<>();
 
     @FXML
     public void handleAdd(ActionEvent e) {
-        ObservableList<Name> checkedItems = FXCollections.observableArrayList(model.getCheckedNames());
-        selectedList.setItems(checkedItems);
-    }
+        NameList names = new NameList(new ArrayList<>(currentSelection));
+        selectedList.getItems().add(names);
 
-    @FXML
-    public void handleRecordingPlay(ActionEvent e) {
-        // get current selection
-        Name selected = recordingsList.getSelectionModel().getSelectedItem();
-
-        // ignore when nothing is selected
-        if (selected == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Nothing to play");
-            alert.setContentText("Please select a name version from the selected files list before playing");
-            alert.showAndWait();
-            return;
-        }
-
-        // play audio
-        List<Name> list = new ArrayList<>();
-        list.add(selected);
-        model.playAudio(list);
     }
 
     @FXML
@@ -67,7 +56,7 @@ public class Controller implements Initializable {
     protected void playAction(ActionEvent event) throws IOException {
 
         // get items selected for practise
-        ObservableList<Name> selection = selectedList.getItems();
+        ObservableList<NameList> selection = selectedList.getItems();
 
         if (selection.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -110,41 +99,44 @@ public class Controller implements Initializable {
         // initialise model
         model = new ModelImpl();
 
-        // set tree view
-        treeView.setRoot(model.getTreeView().getRoot());
-        treeView.setCellFactory(CheckBoxTreeCell.forTreeView());
+        // initialise names database list
+        ObservableList<Name> names = FXCollections.observableList(model.getNamesList());
 
-        treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        // set up listener for checkboxes
+        namesList.setCellFactory(CheckBoxListCell.forListView(name -> {
+            BooleanProperty observable = new SimpleBooleanProperty();
 
-        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            observable.addListener((obs, wasSelected, isNowSelected) -> {
 
-            // only consider name versions
-            if (!(newValue.getValue() instanceof NameVersion)) {
-                return;
-            }
+                if (wasSelected) {
+                    currentSelection.remove(name);
+                }
 
-            // get user creations
-            List<NameVersion> userCreations = model.getUserCreations(newValue.getValue());
+                if (isNowSelected) {
+                    currentSelection.add(name);
+                }
 
-            ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
+                updateNameBuilder();
 
-            recordingsList.setItems(recordings);
-        });
+            });
 
-        selectedList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // only consider name versions
-            if (!(newValue instanceof NameVersion)) {
-                return;
-            }
+            return observable;
+        }));
 
-            // get user creations
-            List<NameVersion> userCreations = model.getUserCreations(newValue);
+        namesList.setItems(names);
 
-            ObservableList<Name> recordings = FXCollections.observableArrayList(userCreations);
+    }
 
-            recordingsList.setItems(recordings);
-        });
+    private void updateNameBuilder() {
 
+        StringBuilder text = new StringBuilder();
+
+        for (Name name: currentSelection) {
+            text.append(name);
+            text.append(" ");
+        }
+
+        nameBuilder.setText(text.toString());
     }
 
 
