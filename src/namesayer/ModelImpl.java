@@ -232,11 +232,18 @@ public class ModelImpl implements Model {
         for (File file: files) {
 
             // trim the string
-            String trim = "ffmpeg -i "+ file.getPath() + " -af silenceremove=1:0:-35dB:1:5:-50dB temp/" + file.getName() + "_trim.wav";
-            ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", trim);
-            builder.start().waitFor();
+            String trim = "ffmpeg -y -i "+ file.getPath() + " -af silenceremove=1:0:-35dB:1:5:-50dB temp/" + file.getName() + "_trim.wav";
+            new ProcessBuilder("/bin/bash", "-c", trim).start().waitFor();
 
             // read the volume
+            String read = "ffmpeg -y -i "+ file.getPath() + " -filter:a volumedetect -f null /dev/null |& grep mean_volume:";
+            Process process = new ProcessBuilder("/bin/bash", "-c", read).start();
+            process.waitFor();
+
+            InputStream stdout = process.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
+            String line = br.readLine();
+            String meanVol = line.substring(line.lastIndexOf(":")+1).replaceAll(" ", "");
         }
 
         return filteredFiles;
