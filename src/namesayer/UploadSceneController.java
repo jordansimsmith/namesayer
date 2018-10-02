@@ -1,9 +1,11 @@
 package namesayer;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -13,6 +15,9 @@ import java.io.IOException;
 public class UploadSceneController {
 
     private FileChooser fileChooser = new FileChooser();
+
+    @FXML
+    private ListView uploadList;
 
     public void handleUpload(ActionEvent event) {
         Stage stage = new Stage();
