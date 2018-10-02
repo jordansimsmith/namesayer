@@ -100,7 +100,7 @@ public class ModelImpl implements Model {
         alert.showAndWait();
 
         // get the name the user picked
-        Name badName = map.get(alert.getResult());
+        NameVersion badName = map.get(alert.getResult()).getLastPlayed();
 
         // if the user chooses to rate a name before playing it
         if (badName == null) {
@@ -113,37 +113,36 @@ public class ModelImpl implements Model {
             return;
         }
 
+        // get file name
+        String fileName = badName.getFile().getName();
 
-//        // get file name
-//        String fileName = name.getFile().getName();
-//
-//        // check if name already has a bad rating
-//        try {
-//            Scanner scanner = new Scanner(new File("badnames.txt"));
-//
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//
-//                // exit function if the name already has been given a bad rating
-//                if (line.equals(fileName)) {
-//                    return;
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            // file not found, continue to create badnames.txt
-//        }
-//
-//        // otherwise write the filename to badnames.txt
-//        try {
-//            FileWriter writer = new FileWriter("badnames.txt", true);
-//            PrintWriter printer = new PrintWriter(writer);
-//
-//            printer.printf("%s" + "%n", fileName);
-//            printer.close();
-//        } catch (IOException ioe) {
-//            ioe.printStackTrace();
-//        }
-//
+        // check if name already has a bad rating
+        try {
+            Scanner scanner = new Scanner(new File("badnames.txt"));
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
+                // exit function if the name already has been given a bad rating
+                if (line.equals(fileName)) {
+                    return;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // file not found, continue to create badnames.txt
+        }
+
+        // otherwise write the filename to badnames.txt
+        try {
+            FileWriter writer = new FileWriter("badnames.txt", true);
+            PrintWriter printer = new PrintWriter(writer);
+
+            printer.printf("%s" + "%n", fileName);
+            printer.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     @Override
