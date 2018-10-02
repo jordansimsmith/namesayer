@@ -27,6 +27,7 @@ attempted by the user.
 user to record their attempt at the name. A comparision between the recording and the user attempt will
 be played after. The user can then choose to save this creation for future access or to discard it.
 5. The **Bad Recording** button allows the user to indicate that a database recording is of low quality.
+The user should select which of the names is of bad quality.
 These ratings are stored in a file called *badnames.txt* in the same location as the runnable jar.
 6. The **Test Mic** button can be used to test the volume of the user's microphone.
 7. The **Return** button can be used to return to the previous screen where the user can select more names to 
