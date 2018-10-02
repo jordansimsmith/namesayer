@@ -82,23 +82,8 @@
         </font>
     </Button>
 
-
-    <ProgressBar fx:id="recordPB" prefHeight="20.0" prefWidth="628.0" progress="0.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
     <padding>
         <Insets bottom="10" left="25" right="25" top="25" />
     </padding>
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
-    
+
 </GridPane>
