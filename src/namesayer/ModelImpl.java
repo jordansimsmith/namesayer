@@ -1,6 +1,7 @@
 package namesayer;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 import java.io.*;
@@ -83,16 +84,35 @@ public class ModelImpl implements Model {
     public void lowQualityName(NameList names) {
 
         List<ButtonType> buttons = new ArrayList<>();
+        Map<ButtonType, Name> map = new HashMap<>();
 
         // create buttons for each name
         for (Name name: names.getNames()) {
-            buttons.add(new ButtonType(name.toString()));
+            ButtonType button = new ButtonType(name.toString());
+            buttons.add(button);
+            map.put(button, name);
         }
 
+        // construct and show alert box asking for which name was bad
         Alert alert = new Alert(Alert.AlertType.NONE,"Please select the name that you wish to report.",buttons.toArray(new ButtonType[]{}));
         alert.setHeaderText("Which name would you like to report?");
         alert.setTitle("Bad Recording");
         alert.showAndWait();
+
+        // get the name the user picked
+        Name badName = map.get(alert.getResult());
+
+        // if the user chooses to rate a name before playing it
+        if (badName == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Cannot rate a name that hasn't been played.");
+            error.setContentText("Please play a name first before rating it.");
+            error.showAndWait();
+
+            return;
+        }
+
 
 //        // get file name
 //        String fileName = name.getFile().getName();
