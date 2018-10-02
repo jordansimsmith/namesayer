@@ -197,7 +197,7 @@ public class ModelImpl implements Model {
         List<Name> list = new ArrayList<>();
 
         // split string
-        String[] strings = names.split("\"[-\\s]\"");
+        String[] strings = names.split("[-\\s]");
 
         // iterate through all provided names
         for (String string: strings) {
