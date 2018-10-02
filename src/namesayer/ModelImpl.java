@@ -125,6 +125,14 @@ public class ModelImpl implements Model {
 
                 // exit function if the name already has been given a bad rating
                 if (line.equals(fileName)) {
+
+                    // show success message
+                    Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+                    success.setTitle("Success");
+                    success.setHeaderText("Successfully rated " + badName.getName());
+                    success.setContentText("Thank you for your input.");
+                    success.showAndWait();
+
                     return;
                 }
             }
