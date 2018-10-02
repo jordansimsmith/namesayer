@@ -11,7 +11,7 @@ public interface Model {
      * @param name: the Name object that is of low quality.
      * @throws IllegalArgumentException: When the input is a name group not a name version.
      */
-    void lowQualityName(NameVersion name);
+    void lowQualityName(NameList name);
 
     /**
      * This method returns a PracticeWorker (task) object that can be bound to a progress indicator and executed on a new

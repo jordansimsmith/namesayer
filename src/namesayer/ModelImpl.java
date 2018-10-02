@@ -1,5 +1,8 @@
 package namesayer;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import java.io.*;
 import java.util.*;
 
@@ -77,38 +80,50 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void lowQualityName(NameVersion name) {
+    public void lowQualityName(NameList names) {
 
-        // get file name
-        String fileName = name.getFile().getName();
+        List<ButtonType> buttons = new ArrayList<>();
 
-        // check if name already has a bad rating
-        try {
-            Scanner scanner = new Scanner(new File("badnames.txt"));
-
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-
-                // exit function if the name already has been given a bad rating
-                if (line.equals(fileName)) {
-                    return;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            // file not found, continue to create badnames.txt
+        // create buttons for each name
+        for (Name name: names.getNames()) {
+            buttons.add(new ButtonType(name.toString()));
         }
 
-        // otherwise write the filename to badnames.txt
-        try {
-            FileWriter writer = new FileWriter("badnames.txt", true);
-            PrintWriter printer = new PrintWriter(writer);
+        Alert alert = new Alert(Alert.AlertType.NONE,"Please select the name that you wish to report.",buttons.toArray(new ButtonType[]{}));
+        alert.setHeaderText("Which name would you like to report?");
+        alert.setTitle("Bad Recording");
+        alert.showAndWait();
 
-            printer.printf("%s" + "%n", fileName);
-            printer.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
+//        // get file name
+//        String fileName = name.getFile().getName();
+//
+//        // check if name already has a bad rating
+//        try {
+//            Scanner scanner = new Scanner(new File("badnames.txt"));
+//
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//
+//                // exit function if the name already has been given a bad rating
+//                if (line.equals(fileName)) {
+//                    return;
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            // file not found, continue to create badnames.txt
+//        }
+//
+//        // otherwise write the filename to badnames.txt
+//        try {
+//            FileWriter writer = new FileWriter("badnames.txt", true);
+//            PrintWriter printer = new PrintWriter(writer);
+//
+//            printer.printf("%s" + "%n", fileName);
+//            printer.close();
+//        } catch (IOException ioe) {
+//            ioe.printStackTrace();
+//        }
+//
     }
 
     @Override

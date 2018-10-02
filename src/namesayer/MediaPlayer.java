@@ -141,11 +141,7 @@ public class MediaPlayer implements Initializable {
 
         //TODO: user needs to pick which of the names was of bad quality
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success!");
-        alert.setHeaderText("Bad name successfully recorded.");
-        alert.setContentText("Thank you for your input");
-        alert.showAndWait();
+        model.lowQualityName(currentName);
     }
 
 
