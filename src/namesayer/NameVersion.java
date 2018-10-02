@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class NameVersion  {
+public class NameVersion {
 
     private File file;
     private Date date;
