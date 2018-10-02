@@ -160,34 +160,6 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public List<NameVersion> getUserCreations(NameVersion nameVersion){
-
-        List<NameVersion> creations = new ArrayList<>();
-
-        // define folder to search for user creations
-        File folder = new File("recordings/" + nameVersion.getFile().getName());
-
-        // read directory
-        File[] files = folder.listFiles();
-
-        // return if there are no files
-        if (files == null) {
-            return creations;
-        }
-
-        for (File file : files) {
-
-            // parse name
-            String parsedName = parseFileName(file);
-
-            // create name version object
-            creations.add(new NameVersion(parsedName, file));
-        }
-
-        return creations;
-    }
-
-    @Override
     public Process playAudio(NameList nameList, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
