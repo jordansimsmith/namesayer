@@ -27,7 +27,7 @@ public interface Model {
     /**
      * This method utilises the ffplay command to play one or more recordings consecutively.
      *
-     * @param names: List of Name objects that should be played.
+     * @param names:     List of Name objects that should be played.
      * @param recording: Optional user recording to be played after the names. Pass null if not required.
      * @return the process of the audio playback so it can be cancelled or the process state can be queried.
      * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.

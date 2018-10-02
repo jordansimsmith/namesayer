@@ -25,7 +25,6 @@ public class ModelImpl implements Model {
 
         if (instance == null) {
             instance = new ModelImpl();
-            System.out.println("new model");
         }
 
         return instance;
@@ -102,14 +101,14 @@ public class ModelImpl implements Model {
         Map<ButtonType, Name> map = new HashMap<>();
 
         // create buttons for each name
-        for (Name name: names.getNames()) {
+        for (Name name : names.getNames()) {
             ButtonType button = new ButtonType(name.toString());
             buttons.add(button);
             map.put(button, name);
         }
 
         // construct and show alert box asking for which name was bad
-        Alert alert = new Alert(Alert.AlertType.NONE,"Please select the name that you wish to report.",buttons.toArray(new ButtonType[]{}));
+        Alert alert = new Alert(Alert.AlertType.NONE, "Please select the name that you wish to report.", buttons.toArray(new ButtonType[]{}));
         alert.setHeaderText("Which name would you like to report?");
         alert.setTitle("Bad Recording");
         alert.showAndWait();
@@ -179,7 +178,7 @@ public class ModelImpl implements Model {
     public PracticeWorker getPracticeWorker(NameList name, boolean practiceMode) {
 
 
-        return new PracticeWorker( name, practiceMode);
+        return new PracticeWorker(name, practiceMode);
     }
 
     @Override
@@ -190,7 +189,7 @@ public class ModelImpl implements Model {
         // TODO: concatenate, equalize and trim files before playing
 
         // iterate through all provided names
-        for (Name name: nameList.getNames()) {
+        for (Name name : nameList.getNames()) {
             files.append(name.pickVersion().getFile().getPath());
             files.append(" ");
         }
@@ -215,7 +214,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public NameList nameSearch(String names){
+    public NameList nameSearch(String names) {
 
         List<Name> list = new ArrayList<>();
 
@@ -223,7 +222,7 @@ public class ModelImpl implements Model {
         String[] strings = names.split("[-\\s]");
 
         // iterate through all provided names
-        for (String string: strings) {
+        for (String string : strings) {
 
             // get name
             Name name = map.get(string);

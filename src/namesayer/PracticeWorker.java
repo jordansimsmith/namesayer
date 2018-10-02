@@ -26,7 +26,7 @@ public class PracticeWorker extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
-        updateProgress(0,0);
+        updateProgress(0, 0);
         updateMessage("Playing original");
 
         // play original name
