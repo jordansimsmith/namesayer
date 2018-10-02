@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.HomeController">
+   <Label text="Welcome To Name Sayer" GridPane.rowIndex="0">
+      <font>
+         <Font size="72.0" />
+      </font>
+      <GridPane.margin>
+         <Insets bottom="100.0" />
+      </GridPane.margin></Label>
+    <Button onAction="#handleSearch" prefHeight="100" prefWidth="400" text="Search Database" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <font>
+         <Font size="24.0" />
+      </font></Button>
+   <Button onAction="#handlePrac" prefHeight="100" prefWidth="400" text="Practice" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <font>
+         <Font size="24.0" />
+      </font></Button>
+    <Button onAction="#handleQuit" prefHeight="100" prefWidth="400" text="Quit" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <font>
+         <Font size="24.0" />
+      </font></Button>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>

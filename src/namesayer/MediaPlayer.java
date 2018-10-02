@@ -87,6 +87,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handlePlay(ActionEvent event) {
 
+
         PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
 
         status.textProperty().bind(worker.messageProperty());
@@ -108,6 +109,7 @@ public class MediaPlayer implements Initializable {
             status.textProperty().unbind();
             status.setText("");
         });
+
 
     }
 
@@ -165,6 +167,8 @@ public class MediaPlayer implements Initializable {
         // change scene
         window.setScene(viewScene);
         window.setTitle("Name Sayer");
+        window.setResizable(false);
+        window.setResizable(true);
         window.show();
     }
 
