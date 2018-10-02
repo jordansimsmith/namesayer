@@ -8,19 +8,17 @@ import javafx.scene.control.ButtonType;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class PracticeWorker extends Task<Void> {
 
-    private NameVersion name;
+    private NameList names;
     private boolean practiceMode;
     private Model model;
 
-    public PracticeWorker(NameVersion name, boolean practiceMode, Model model) {
-        this.name = name;
+    public PracticeWorker(NameList names, boolean practiceMode, Model model) {
+        this.names = names;
         this.practiceMode = practiceMode;
         this.model = model;
     }
@@ -32,9 +30,7 @@ public class PracticeWorker extends Task<Void> {
         updateMessage("Playing original");
 
         // play original name
-        List<NameVersion> originalName = new ArrayList<>();
-        originalName.add(name);
-        play(originalName);
+        play(names, null);
 
         if (practiceMode) {
             // user just wants to listen to the names
@@ -67,10 +63,7 @@ public class PracticeWorker extends Task<Void> {
         updateMessage("Comparing names");
 
         // play both names
-        List<NameVersion> bothNames = new ArrayList<>();
-        bothNames.add(name);
-        bothNames.add(recording);
-        play(bothNames);
+        play(names, recording);
 
         // ask user if they want to keep the name
         Platform.runLater(() -> {
@@ -101,16 +94,18 @@ public class PracticeWorker extends Task<Void> {
         return null;
     }
 
-    private void play(List<NameVersion> names) throws InterruptedException {
+    private void play(NameList names, NameVersion recording) throws InterruptedException {
 
         // start process and wait
-        model.playAudio(names).waitFor();
+        model.playAudio(names, recording).waitFor();
     }
 
     private NameVersion record() throws InterruptedException, IOException {
 
+        String namesListName = names.generateFileName();
+
         // make directory for recording
-        String command = "mkdir -p recordings/" + name.getFile().getName();
+        String command = "mkdir -p recordings/" + namesListName;
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", command);
         Process process = builder.start();
         process.waitFor();
@@ -119,8 +114,8 @@ public class PracticeWorker extends Task<Void> {
         String timeStamp = new SimpleDateFormat("dd-mm-yyyy_HH-mm-ss").format(Calendar.getInstance().getTime());
 
         // capture audio from microphone
-        String filename = "user_" + timeStamp + "_" + name.getName() + ".wav";
-        command = "ffmpeg -f alsa -i pulse -t 5 recordings/" + name.getFile().getName() + "/" + filename;
+        String filename = "user_" + timeStamp + "_" + namesListName + ".wav";
+        command = "ffmpeg -f alsa -i pulse -t 5 recordings/" + namesListName + "/" + filename;
         builder = new ProcessBuilder("/bin/bash", "-c", command);
         process = builder.start();
 
@@ -134,8 +129,8 @@ public class PracticeWorker extends Task<Void> {
         process.waitFor();
 
         // read newly created file
-        File file = new File("recordings/" + name.getFile().getName() + "/" + filename);
+        File file = new File("recordings/" + namesListName + "/" + filename);
 
-        return new NameVersion(name.getName(), file);
+        return new NameVersion(names.toString(), file);
     }
 }

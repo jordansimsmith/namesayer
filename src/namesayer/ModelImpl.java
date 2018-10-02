@@ -112,7 +112,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public PracticeWorker getPracticeWorker(NameVersion name, boolean practiceMode) {
+    public PracticeWorker getPracticeWorker(NameList name, boolean practiceMode) {
 
 
         return new PracticeWorker( name, practiceMode, this);
@@ -147,27 +147,29 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Process playAudio(List<NameVersion> names) {
+    public Process playAudio(NameList names, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
 
         // iterate through all provided names
-        for (NameVersion name : names) {
+//        for (NameList name : names) {
+//
+//            // safe to cast
+//            files.append(" ").append(name.getFile().getPath());
+//        }
+//
+//        // execute ffplay command
+//        String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
+//        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
+//        Process process = null;
+//        try {
+//            process = processBuilder.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return process;
 
-            // safe to cast
-            files.append(" ").append(name.getFile().getPath());
-        }
-
-        // execute ffplay command
-        String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
-        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
-        Process process = null;
-        try {
-            process = processBuilder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return process;
+        return null;
     }
 }

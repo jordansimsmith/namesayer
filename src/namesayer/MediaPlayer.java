@@ -87,7 +87,7 @@ public class MediaPlayer implements Initializable {
 
         //TODO: implement play for practice worker
 
-//        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
 //
 //        status.textProperty().bind(worker.messageProperty());
 //
@@ -132,10 +132,8 @@ public class MediaPlayer implements Initializable {
         window.setScene(new Scene(root, 300, 100));
         window.setMinWidth(300);
         window.setMinHeight(100);
+        window.setResizable(false);
 
-        final boolean resizable = window.isResizable();
-        window.setResizable(!resizable);
-        window.setResizable(resizable);
         window.show();
 
     }
@@ -176,9 +174,7 @@ public class MediaPlayer implements Initializable {
         ObservableList<NameList> nameList = FXCollections.observableList(names);
         playList.setItems(nameList);
 
-        if (nameList.size() > 0) {
-            setCurrentName(0);
-        }
+        setCurrentName(0);
 
     }
 
