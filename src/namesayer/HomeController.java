@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class HomeController {
 
-    private FileChooser fileChooser = new FileChooser();
 
     @FXML
     public void handleSearch(ActionEvent event) throws IOException {
@@ -48,13 +47,11 @@ public class HomeController {
 
     }
 
-    public void handleUpload(ActionEvent event) {
-        Stage stage = new Stage();
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            System.out.println("Chosen file: " + file.getName());
-        }
-        // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public void handleUpload(ActionEvent event) throws IOException {
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("uploadScene.fxml"));
+        Scene scene = new Scene(loader.load());
+        window.setScene(scene);
 
     }
 }
