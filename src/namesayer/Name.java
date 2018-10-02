@@ -22,36 +22,6 @@ public class Name {
         return namesList;
     }
 
-    public boolean containName(String string) {
-
-        // iterate through all names
-        for (NameVersion name : namesList) {
-
-            // assert same name
-            if (name.getName().equals(string)) {
-                return true;
-            }
-        }
-
-        // name not found
-        return false;
-    }
-
-    public NameVersion getNameByString(String string) {
-
-        // iterate through all names
-        for (NameVersion name : namesList) {
-
-            // assert same name
-            if (name.getName().equals(string)) {
-                return name;
-            }
-        }
-
-        // name not found
-        return null;
-    }
-
     public NameVersion pickVersion() {
 
         // Name to be returned
