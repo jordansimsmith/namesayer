@@ -143,6 +143,13 @@ public class ModelImpl implements Model {
             ioe.printStackTrace();
         }
 
+        // show success message
+        Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+        success.setTitle("Success");
+        success.setHeaderText("Successfully rated " + badName.getName());
+        success.setContentText("Thank you for your input.");
+        success.showAndWait();
+
     }
 
     @Override
