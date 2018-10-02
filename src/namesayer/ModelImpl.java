@@ -213,6 +213,32 @@ public class ModelImpl implements Model {
         return process;
     }
 
+    /**
+     * This method manipulates the audio tracks for playing.
+     * Involves trimming silence and volume equalisation.
+     *
+     * @param files The list of files to be adjusted.
+     * @return a list of adjusted file objects.
+     */
+    private List<File> adjustAudio(List<File> files) {
+
+        // list of files to return
+        List<File> filteredFiles = new ArrayList<>();
+
+        return filteredFiles;
+    }
+
+    /**
+     * This method concatenates a list of file objects for playing.
+     *
+     * @param files The list of files to be concatenated.
+     * @return the concatenated audio file.
+     */
+    private File concatenateAudio(List<File> files) {
+
+        return null;
+    }
+
     @Override
     public NameList nameSearch(String names) {
 
