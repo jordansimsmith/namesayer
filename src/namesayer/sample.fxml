@@ -46,5 +46,8 @@
     <Button alignment="CENTER" onAction="#handleAdd" prefHeight="36.0" prefWidth="86.0" text="Add Name" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
    <Label fx:id="nameBuilder" prefHeight="94.0" prefWidth="305.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
 
+    <Button alignment="CENTER" onAction="#handleHome" prefHeight="36.0" prefWidth="86.0" text="Return" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+
+
 
 </GridPane>
