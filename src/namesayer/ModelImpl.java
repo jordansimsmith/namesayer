@@ -147,29 +147,34 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Process playAudio(NameList names, NameVersion recording) {
+    public Process playAudio(NameList nameList, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
 
-        // iterate through all provided names
-//        for (NameList name : names) {
-//
-//            // safe to cast
-//            files.append(" ").append(name.getFile().getPath());
-//        }
-//
-//        // execute ffplay command
-//        String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
-//        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
-//        Process process = null;
-//        try {
-//            process = processBuilder.start();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return process;
+        // TODO: concatenate, equalize and trim files before playing
 
-        return null;
+        // iterate through all provided names
+        for (Name name: nameList.getNames()) {
+            files.append(name.pickVersion().getFile().getPath());
+            files.append(" ");
+        }
+
+        // add recording if applicable
+        if (recording != null) {
+            files.append(recording.getFile().getPath());
+            files.append(" ");
+        }
+
+        // execute ffplay command
+        String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
+        ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
+        Process process = null;
+        try {
+            process = processBuilder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return process;
     }
 }

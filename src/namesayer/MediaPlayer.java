@@ -85,29 +85,27 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handlePlay(ActionEvent event) {
 
-        //TODO: implement play for practice worker
-
         PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
-//
-//        status.textProperty().bind(worker.messageProperty());
-//
-//        recordPB.progressProperty().bind(worker.progressProperty());
-//        new Thread(worker).start();
-//
-//        playButton.setDisable(true);
-//        homeButton.setDisable(true);
-//        nextButton.setDisable(true);
-//        previousButton.setDisable(true);
-//
-//        worker.setOnSucceeded(e -> {
-//            playButton.setDisable(false);
-//            homeButton.setDisable(false);
-//            nextButton.setDisable(false);
-//            previousButton.setDisable(false);
-//
-//            status.textProperty().unbind();
-//            status.setText("");
-//        });
+
+        status.textProperty().bind(worker.messageProperty());
+
+        recordPB.progressProperty().bind(worker.progressProperty());
+        new Thread(worker).start();
+
+        playButton.setDisable(true);
+        homeButton.setDisable(true);
+        nextButton.setDisable(true);
+        previousButton.setDisable(true);
+
+        worker.setOnSucceeded(e -> {
+            playButton.setDisable(false);
+            homeButton.setDisable(false);
+            nextButton.setDisable(false);
+            previousButton.setDisable(false);
+
+            status.textProperty().unbind();
+            status.setText("");
+        });
 
     }
 
