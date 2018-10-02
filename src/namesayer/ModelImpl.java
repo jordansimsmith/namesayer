@@ -223,6 +223,28 @@ public class ModelImpl implements Model {
 
     @Override
     public List<NameList> parseFile(File file) {
-        return null;
+
+        // list to return
+        List<NameList> names = new ArrayList<>();
+
+        // scan through the text file
+        try {
+            Scanner scanner = new Scanner(file);
+
+            // read all lines
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
+                // parse the line
+                NameList nameList = nameSearch(line);
+
+                names.add(nameList);
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return names;
     }
 }
