@@ -52,7 +52,8 @@ public interface Model {
 
     /**
      * This method searches the database for the specified name.
+     *
      * @return the name object that was searched for. Will return null if the name doesnt exist in the database.
      */
-    Name nameSearch(String name);
+    NameList nameSearch(String names);
 }

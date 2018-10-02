@@ -192,7 +192,32 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Name nameSearch(String name) {
-        return map.get(name);
+    public NameList nameSearch(String names){
+
+        List<Name> list = new ArrayList<>();
+
+        // split string
+        String[] strings = names.split("\"[-\\s]\"");
+
+        // iterate through all provided names
+        for (String string: strings) {
+
+            // get name
+            Name name = map.get(string);
+
+            // if name is found, add it to the list
+            if (name != null) {
+                list.add(name);
+            }
+        }
+
+        // if no names are found
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        // return NameList instance
+        return new NameList(list);
+
     }
 }
