@@ -6,10 +6,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10"
           xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="namesayer.SearchController">
-    <Label text="Please enter the name you would like to practise" GridPane.rowIndex="0">
+    <Label text="Manual Name Search" GridPane.rowIndex="0">
         <font>
             <Font size="64.0"/>
         </font>
@@ -18,14 +19,19 @@
         </GridPane.margin>
     </Label>
 
-    <TextField fx:id="userInput" maxWidth="600" prefHeight="51.0" prefWidth="600.0" GridPane.halignment="CENTER">
-        <GridPane.margin>
-            <Insets top="100.0"/>
-        </GridPane.margin>
+    <TextField fx:id="userInput" maxWidth="600" prefHeight="51.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+
         <font>
             <Font size="18.0"/>
         </font>
     </TextField>
+
+    <Label fx:id="searchResult" prefWidth="200" GridPane.rowIndex="3" prefHeight="100">
+        <GridPane.margin>
+            <Insets top="20" bottom="20" />
+        </GridPane.margin>
+    </Label>
+
 
     <Button onAction="#handleSearch" prefHeight="100" prefWidth="400" text="Practise" GridPane.halignment="CENTER"
             GridPane.rowIndex="4">

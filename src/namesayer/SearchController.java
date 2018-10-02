@@ -1,5 +1,7 @@
 package namesayer;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,10 @@ public class SearchController implements Initializable {
     @FXML
     private TextField userInput;
 
+    private Model model;
+
+
+
     public void handleHome(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
@@ -28,23 +34,28 @@ public class SearchController implements Initializable {
 
     public void handleSearch(ActionEvent event) {
         System.out.println(userInput.getText());
+        model = ModelImpl.getInstance();
+        NameList nameList = model.nameSearch(userInput.getText());
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userInput.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) { //when focus lost
-                if(!userInput.getText().matches("[1-5]\\.[0-9]|6\\.0")){
-                    //when it not matches the pattern (1.0 - 6.0)
-                    //set the textField empty
-                    userInput.setText("");
+        userInput.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                //\d*
+                if (!newValue.matches("[aA-zZ \\-]")) {
+                    //[^\d]
+                    userInput.setText(newValue.replaceAll("[\\d$&~#@*+%?{}<>\\[\\]|\"!^,./\"|=_()]", ""));
+                }
+                if (userInput.getText().length() > 50) {
+                    String s = userInput.getText().substring(0, 49);
+                    userInput.setText(s);
                 }
             }
-            if (userInput.getText().length() > 51) {
-                String s = userInput.getText().substring(0, 49);
-                userInput.setText(s);
-            }
-
         });
+
     }
 }
