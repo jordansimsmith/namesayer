@@ -14,6 +14,8 @@ public class ModelImpl implements Model {
     private Map<String, Name> map = new HashMap<>();
     private List<Name> list = new ArrayList<>();
 
+    private static final double TARGET_VOLUME = -25.0d;
+
     private ModelImpl() {
         generateMap();
     }
@@ -229,21 +231,30 @@ public class ModelImpl implements Model {
         new ProcessBuilder("/bin/bash", "-c", "mkdir temp").start().waitFor();
 
         // iterate through each file in the list
-        for (File file: files) {
+        for (File file : files) {
 
             // trim the string
-            String trim = "ffmpeg -y -i "+ file.getPath() + " -af silenceremove=1:0:-35dB:1:5:-50dB temp/" + file.getName() + "_trim.wav";
+            String trim = "ffmpeg -y -i " + file.getPath() + " -af silenceremove=1:0:-35dB:1:5:-50dB temp/" + file.getName() + "_trim.wav";
             new ProcessBuilder("/bin/bash", "-c", trim).start().waitFor();
 
             // read the volume
-            String read = "ffmpeg -y -i "+ file.getPath() + " -filter:a volumedetect -f null /dev/null |& grep mean_volume:";
+            String read = "ffmpeg -y -i " + file.getPath() + " -filter:a volumedetect -f null /dev/null |& grep mean_volume:";
             Process process = new ProcessBuilder("/bin/bash", "-c", read).start();
             process.waitFor();
 
             InputStream stdout = process.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
             String line = br.readLine();
-            String meanVol = line.substring(line.lastIndexOf(":")+1).replaceAll(" ", "");
+            line = line.substring(line.lastIndexOf(":") + 1, line.lastIndexOf(" "));
+            double meanVol = Double.parseDouble(line);
+
+            // equalize volume
+            double deltaVol = TARGET_VOLUME - meanVol;
+            String equalize = String.format("ffmpeg -y -i %s -filter:a \"volume=%.2fdB\" temp/%s_eq.wav", file.getPath() + "_trim.wav", deltaVol, file.getName());
+            new ProcessBuilder("/bin/bash", "-c", equalize).start().waitFor();
+
+            // add adjusted file to the return list
+            filteredFiles.add(new File("temp/" + file.getName() + "_eq.wav"));
         }
 
         return filteredFiles;
