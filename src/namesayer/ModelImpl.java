@@ -9,11 +9,26 @@ import java.util.*;
 
 public class ModelImpl implements Model {
 
+    private static Model instance = null;
+
     private Map<String, Name> map = new HashMap<>();
     private List<Name> list = new ArrayList<>();
 
-    public ModelImpl() {
+    private ModelImpl() {
         generateMap();
+    }
+
+    /**
+     * Returns the singleton instance of the Model.
+     */
+    public static Model getInstance() {
+
+        if (instance == null) {
+            instance = new ModelImpl();
+            System.out.println("new model");
+        }
+
+        return instance;
     }
 
     @Override
@@ -164,7 +179,7 @@ public class ModelImpl implements Model {
     public PracticeWorker getPracticeWorker(NameList name, boolean practiceMode) {
 
 
-        return new PracticeWorker( name, practiceMode, this);
+        return new PracticeWorker( name, practiceMode);
     }
 
     @Override

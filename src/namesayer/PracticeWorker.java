@@ -17,10 +17,10 @@ public class PracticeWorker extends Task<Void> {
     private boolean practiceMode;
     private Model model;
 
-    public PracticeWorker(NameList names, boolean practiceMode, Model model) {
+    public PracticeWorker(NameList names, boolean practiceMode) {
         this.names = names;
         this.practiceMode = practiceMode;
-        this.model = model;
+        this.model = ModelImpl.getInstance();
     }
 
     @Override

@@ -35,3 +35,5 @@ src/test
 *.txt
 
 src/META-INF
+
+temp/

@@ -74,7 +74,7 @@ public class Controller implements Initializable {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         // construct controller
-        MediaPlayer mpController = new MediaPlayer(selection, model);
+        MediaPlayer mpController = new MediaPlayer(selection);
 
         // set controller and fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
@@ -97,7 +97,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         // initialise model
-        model = new ModelImpl();
+        model = ModelImpl.getInstance();
 
         // initialise names database list
         ObservableList<Name> names = FXCollections.observableList(model.getNamesList());

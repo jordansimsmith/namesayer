@@ -27,9 +27,8 @@ public class MediaPlayer implements Initializable {
     private NameList currentName;
     private int currentIndex;
 
-    public MediaPlayer(List<NameList> names, Model model) {
+    public MediaPlayer(List<NameList> names) {
         this.names = names;
-        this.model = model;
     }
 
     @FXML
@@ -167,6 +166,8 @@ public class MediaPlayer implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        model = ModelImpl.getInstance();
 
         // set play list
         ObservableList<NameList> nameList = FXCollections.observableList(names);
