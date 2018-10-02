@@ -8,6 +8,7 @@ public class Name {
 
     private String name;
     private List<NameVersion> namesList = new ArrayList<>();
+    private NameVersion lastPlayed;
 
     public Name(String name) {
         this.name = name;
@@ -53,6 +54,9 @@ public class Name {
 
     public NameVersion pickVersion() {
 
+        // Name to be returned
+        NameVersion picked;
+
         // names that do not have a bad rating
         List<NameVersion> acceptableVersions = new ArrayList<>();
 
@@ -69,18 +73,26 @@ public class Name {
         if (acceptableVersions.isEmpty()) {
             int index = new Random().nextInt(namesList.size());
 
-            return namesList.get(index);
+            picked = namesList.get(index);
+        } else {
+            // pick a random acceptable name
+            int index = new Random().nextInt(acceptableVersions.size());
+
+            picked = acceptableVersions.get(index);
         }
 
-        // pick a random acceptable name
-        int index = new Random().nextInt(acceptableVersions.size());
+        lastPlayed = picked;
+        return picked;
 
-        return acceptableVersions.get(index);
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public NameVersion getLastPlayed() {
+        return lastPlayed;
     }
 
     public String getName() {
