@@ -11,17 +11,17 @@ public interface Model {
      * @param name: the Name object that is of low quality.
      * @throws IllegalArgumentException: When the input is a name group not a name version.
      */
-    void lowQualityName(NameVersion name);
+    void lowQualityName(NameList name);
 
     /**
      * This method returns a PracticeWorker (task) object that can be bound to a progress indicator and executed on a new
      * thread to record audio in the background.
      *
-     * @param name: NameVersion object that is being recorded against.
+     * @param names: NameVersion object that is being recorded against.
      * @return a PracticeWorker object for concurrent execution.
      * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
-    PracticeWorker getPracticeWorker(NameVersion name, boolean practiceMode);
+    PracticeWorker getPracticeWorker(NameList names, boolean practiceMode);
 
     /**
      * This method searches the database for all user practice recordings for a specific name version and returns them
@@ -34,14 +34,14 @@ public interface Model {
     List<NameVersion> getUserCreations(NameVersion name);
 
     /**
-     * This method utilises the ffplay command to play one or more recordings consecutively. The names must be of type
-     * NameVersion, not of type Name.
+     * This method utilises the ffplay command to play one or more recordings consecutively.
      *
-     * @param names: List of NameVersion objects that should be played.
+     * @param names: List of Name objects that should be played.
+     * @param recording: Optional user recording to be played after the names. Pass null if not required.
      * @return the process of the audio playback so it can be cancelled or the process state can be queried.
      * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.
      */
-    Process playAudio(List<NameVersion> names);
+    Process playAudio(NameList names, NameVersion recording);
 
     /**
      * This method explores the names/ folder and retrieves all name versions in the database. These

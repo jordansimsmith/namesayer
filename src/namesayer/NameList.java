@@ -18,6 +18,17 @@ public class NameList {
         return names.get(index);
     }
 
+    public String generateFileName() {
+        StringBuilder builder = new StringBuilder();
+
+        for (Name name: names ) {
+            builder.append(name);
+            builder.append("-");
+        }
+
+        return builder.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

@@ -1,5 +1,9 @@
 package namesayer;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+
 import java.io.*;
 import java.util.*;
 
@@ -77,10 +81,40 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void lowQualityName(NameVersion name) {
+    public void lowQualityName(NameList names) {
+
+        List<ButtonType> buttons = new ArrayList<>();
+        Map<ButtonType, Name> map = new HashMap<>();
+
+        // create buttons for each name
+        for (Name name: names.getNames()) {
+            ButtonType button = new ButtonType(name.toString());
+            buttons.add(button);
+            map.put(button, name);
+        }
+
+        // construct and show alert box asking for which name was bad
+        Alert alert = new Alert(Alert.AlertType.NONE,"Please select the name that you wish to report.",buttons.toArray(new ButtonType[]{}));
+        alert.setHeaderText("Which name would you like to report?");
+        alert.setTitle("Bad Recording");
+        alert.showAndWait();
+
+        // get the name the user picked
+        NameVersion badName = map.get(alert.getResult()).getLastPlayed();
+
+        // if the user chooses to rate a name before playing it
+        if (badName == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Cannot rate a name that hasn't been played.");
+            error.setContentText("Please play a name first before rating it.");
+            error.showAndWait();
+
+            return;
+        }
 
         // get file name
-        String fileName = name.getFile().getName();
+        String fileName = badName.getFile().getName();
 
         // check if name already has a bad rating
         try {
@@ -109,10 +143,17 @@ public class ModelImpl implements Model {
             ioe.printStackTrace();
         }
 
+        // show success message
+        Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+        success.setTitle("Success");
+        success.setHeaderText("Successfully rated " + badName.getName());
+        success.setContentText("Thank you for your input.");
+        success.showAndWait();
+
     }
 
     @Override
-    public PracticeWorker getPracticeWorker(NameVersion name, boolean practiceMode) {
+    public PracticeWorker getPracticeWorker(NameList name, boolean practiceMode) {
 
 
         return new PracticeWorker( name, practiceMode, this);
@@ -147,15 +188,22 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Process playAudio(List<NameVersion> names) {
+    public Process playAudio(NameList nameList, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
 
-        // iterate through all provided names
-        for (NameVersion name : names) {
+        // TODO: concatenate, equalize and trim files before playing
 
-            // safe to cast
-            files.append(" ").append(name.getFile().getPath());
+        // iterate through all provided names
+        for (Name name: nameList.getNames()) {
+            files.append(name.pickVersion().getFile().getPath());
+            files.append(" ");
+        }
+
+        // add recording if applicable
+        if (recording != null) {
+            files.append(recording.getFile().getPath());
+            files.append(" ");
         }
 
         // execute ffplay command

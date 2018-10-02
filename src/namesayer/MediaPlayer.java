@@ -85,29 +85,27 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handlePlay(ActionEvent event) {
 
-        //TODO: implement play for practice worker
+        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
 
-//        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
-//
-//        status.textProperty().bind(worker.messageProperty());
-//
-//        recordPB.progressProperty().bind(worker.progressProperty());
-//        new Thread(worker).start();
-//
-//        playButton.setDisable(true);
-//        homeButton.setDisable(true);
-//        nextButton.setDisable(true);
-//        previousButton.setDisable(true);
-//
-//        worker.setOnSucceeded(e -> {
-//            playButton.setDisable(false);
-//            homeButton.setDisable(false);
-//            nextButton.setDisable(false);
-//            previousButton.setDisable(false);
-//
-//            status.textProperty().unbind();
-//            status.setText("");
-//        });
+        status.textProperty().bind(worker.messageProperty());
+
+        recordPB.progressProperty().bind(worker.progressProperty());
+        new Thread(worker).start();
+
+        playButton.setDisable(true);
+        homeButton.setDisable(true);
+        nextButton.setDisable(true);
+        previousButton.setDisable(true);
+
+        worker.setOnSucceeded(e -> {
+            playButton.setDisable(false);
+            homeButton.setDisable(false);
+            nextButton.setDisable(false);
+            previousButton.setDisable(false);
+
+            status.textProperty().unbind();
+            status.setText("");
+        });
 
     }
 
@@ -132,10 +130,8 @@ public class MediaPlayer implements Initializable {
         window.setScene(new Scene(root, 300, 100));
         window.setMinWidth(300);
         window.setMinHeight(100);
+        window.setResizable(false);
 
-        final boolean resizable = window.isResizable();
-        window.setResizable(!resizable);
-        window.setResizable(resizable);
         window.show();
 
     }
@@ -145,11 +141,7 @@ public class MediaPlayer implements Initializable {
 
         //TODO: user needs to pick which of the names was of bad quality
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success!");
-        alert.setHeaderText("Bad name successfully recorded.");
-        alert.setContentText("Thank you for your input");
-        alert.showAndWait();
+        model.lowQualityName(currentName);
     }
 
 
@@ -176,9 +168,7 @@ public class MediaPlayer implements Initializable {
         ObservableList<NameList> nameList = FXCollections.observableList(names);
         playList.setItems(nameList);
 
-        if (nameList.size() > 0) {
-            setCurrentName(0);
-        }
+        setCurrentName(0);
 
     }
 
