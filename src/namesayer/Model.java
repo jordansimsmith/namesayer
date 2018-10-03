@@ -72,5 +72,5 @@ public interface Model {
      * sets the current volume that the audio should be played by
      * @param volume integer between 0 (min) and 100 (max)
      */
-    void setVolume(int volume);
+    void setVolume(double volume);
 }

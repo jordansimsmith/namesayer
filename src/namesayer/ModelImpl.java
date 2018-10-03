@@ -13,7 +13,7 @@ public class ModelImpl implements Model {
     private Map<String, Name> map = new HashMap<>();
     private List<Name> list = new ArrayList<>();
 
-    private int volume = 100;
+    private double volume = 100;
 
     private static final double TARGET_VOLUME = -20.0d;
 
@@ -218,7 +218,7 @@ public class ModelImpl implements Model {
         }
 
         // execute ffplay command
-        String command = "for f in " + files.toString() + "; do ffplay -volume "+ volume +" -autoexit -nodisp \"$f\"; done";
+        String command = "for f in " + files.toString() + "; do ffplay -af volume=" + volume/100 + " -autoexit -nodisp \"$f\"; done";
         ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
         try {
             processBuilder.start().waitFor();
@@ -376,7 +376,7 @@ public class ModelImpl implements Model {
         return names;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(double volume) {
         this.volume = volume;
     }
 }

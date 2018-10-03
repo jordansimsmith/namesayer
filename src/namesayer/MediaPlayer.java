@@ -171,7 +171,7 @@ public class MediaPlayer implements Initializable {
         model = ModelImpl.getInstance();
 
         // listener updates model of volume
-        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> model.setVolume(newValue.intValue()));
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> model.setVolume(newValue.doubleValue()));
 
         // set play list
         ObservableList<NameList> nameList = FXCollections.observableList(names);
