@@ -61,6 +61,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     private Label status;
 
+
     @FXML
     private Slider volumeSlider;
 

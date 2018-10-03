@@ -15,7 +15,7 @@
             <Font size="72.0" />
         </font>
         <GridPane.margin>
-            <Insets bottom="100.0" />
+            <Insets bottom="50.0" />
         </GridPane.margin>
     </Label>
 
@@ -32,7 +32,6 @@
             <Font size="20.0" />
         </font>
     </Button>
-   <ListView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" fx:id="uploadList"/>
-
-
+   <ListView fx:id="uploadList" prefHeight="300.0" prefWidth="200.0" GridPane.rowIndex="2" />
+    
 </GridPane>

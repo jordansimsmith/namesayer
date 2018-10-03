@@ -21,9 +21,13 @@ public class UploadSceneController {
 
     public void handleUpload(ActionEvent event) {
         Stage stage = new Stage();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             System.out.println("Chosen file: " + file.getName());
+
         }
         // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
