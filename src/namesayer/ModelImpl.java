@@ -1,7 +1,6 @@
 package namesayer;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 import java.io.*;
@@ -13,6 +12,10 @@ public class ModelImpl implements Model {
 
     private Map<String, Name> map = new HashMap<>();
     private List<Name> list = new ArrayList<>();
+
+    private int volume = 100;
+
+    private static final double TARGET_VOLUME = -20.0d;
 
     private ModelImpl() {
         generateMap();
@@ -182,16 +185,30 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Process playAudio(NameList nameList, NameVersion recording) {
+    public void playAudio(NameList nameList, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
 
-        // TODO: concatenate, equalize and trim files before playing
+        List<File> filesToAdjust = new ArrayList<>();
 
-        // iterate through all provided names
+        // get all files to be played
         for (Name name : nameList.getNames()) {
-            files.append(name.pickVersion().getFile().getPath());
-            files.append(" ");
+            filesToAdjust.add(name.pickVersion().getFile());
+        }
+
+        // audio manipulation
+        try {
+            // trim silence and equalize volume
+            List<File> filesToConcatenate = adjustAudio(filesToAdjust);
+
+            // concatenate
+            File fileToPlay = concatenateAudio(filesToConcatenate);
+
+            // add concatenated file to playlist
+            files.append(fileToPlay.getPath()).append(" ");
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
         // add recording if applicable
@@ -201,16 +218,105 @@ public class ModelImpl implements Model {
         }
 
         // execute ffplay command
-        String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
+        String command = "for f in " + files.toString() + "; do ffplay -volume "+ volume +" -autoexit -nodisp \"$f\"; done";
         ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
-        Process process = null;
         try {
-            process = processBuilder.start();
-        } catch (IOException e) {
+            processBuilder.start().waitFor();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
-        return process;
+        // delete temp folder
+        try {
+            new ProcessBuilder("/bin/bash", "-c", "rm -rf temp").start().waitFor();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * This method manipulates the audio tracks for playing.
+     * Involves trimming silence and volume equalisation.
+     *
+     * @param files The list of files to be adjusted.
+     * @return a list of adjusted file objects.
+     */
+    private List<File> adjustAudio(List<File> files) throws IOException, InterruptedException {
+
+        // list of files to return
+        List<File> filteredFiles = new ArrayList<>();
+
+        // make temp directory to work from
+        new ProcessBuilder("/bin/bash", "-c", "mkdir temp").start().waitFor();
+
+        // iterate through each file in the list
+        for (File file : files) {
+
+            // trim the string
+            String trim = "ffmpeg -y -i " + file.getPath() + " -af silenceremove=1:0:-35dB:1:5:-50dB temp/" + file.getName() + "_trim.wav";
+            new ProcessBuilder("/bin/bash", "-c", trim).start().waitFor();
+
+            // read the volume
+            String read = "ffmpeg -y -i " + file.getPath() + " -filter:a volumedetect -f null /dev/null |& grep mean_volume:";
+            Process process = new ProcessBuilder("/bin/bash", "-c", read).start();
+            process.waitFor();
+
+            InputStream stdout = process.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
+            String line = br.readLine();
+            line = line.substring(line.lastIndexOf(":") + 1, line.lastIndexOf(" "));
+            double meanVol = Double.parseDouble(line);
+
+            // equalize volume
+            double deltaVol = TARGET_VOLUME - meanVol;
+            String equalize = String.format("ffmpeg -y -i temp/%s -filter:a \"volume=%.2fdB\" temp/%s_eq.wav", file.getName() + "_trim.wav", deltaVol, file.getName());
+            new ProcessBuilder("/bin/bash", "-c", equalize).start().waitFor();
+
+            // add adjusted file to the return list
+            filteredFiles.add(new File("temp/" + file.getName() + "_eq.wav"));
+        }
+
+        return filteredFiles;
+    }
+
+    /**
+     * This method concatenates a list of file objects for playing.
+     *
+     * @param files The list of files to be concatenated.
+     * @return the concatenated audio file.
+     */
+    private File concatenateAudio(List<File> files) throws IOException, InterruptedException {
+
+        StringBuilder command = new StringBuilder();
+
+        command.append("ffmpeg");
+
+        // add all files as inputs to the command
+        for (File file : files) {
+            command.append(" -i ");
+            command.append(file.getPath());
+        }
+
+        command.append(" -filter_complex '");
+
+        // add all channels to the command
+        for (int i = 0; i < files.size(); i++) {
+            command.append("[").append(i).append(":0]");
+        }
+
+        command.append("concat=n=");
+        command.append(files.size());
+        command.append(":v=0:a=1[out]' -map '[out]' ");
+
+        // generate unique output name
+        String name = UUID.randomUUID().toString();
+        command.append("temp/").append(name).append(".wav");
+
+        // start process
+        new ProcessBuilder("/bin/bash", "-c", command.toString()).start().waitFor();
+
+        return new File("temp/" + name + ".wav");
     }
 
     @Override
@@ -268,5 +374,9 @@ public class ModelImpl implements Model {
         }
 
         return names;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
     }
 }

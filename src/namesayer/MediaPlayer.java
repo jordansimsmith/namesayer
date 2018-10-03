@@ -62,6 +62,9 @@ public class MediaPlayer implements Initializable {
     private Label status;
 
     @FXML
+    private Slider volumeSlider;
+
+    @FXML
     public void handleNext(ActionEvent event) {
 
         if (currentIndex < names.size() - 1) {
@@ -139,9 +142,6 @@ public class MediaPlayer implements Initializable {
 
     @FXML
     public void handleBadQuality(ActionEvent event) {
-
-        //TODO: user needs to pick which of the names was of bad quality
-
         model.lowQualityName(currentName);
     }
 
@@ -168,6 +168,9 @@ public class MediaPlayer implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         model = ModelImpl.getInstance();
+
+        // listener updates model of volume
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> model.setVolume(newValue.intValue()));
 
         // set play list
         ObservableList<NameList> nameList = FXCollections.observableList(names);
