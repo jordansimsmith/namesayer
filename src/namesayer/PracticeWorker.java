@@ -97,7 +97,7 @@ public class PracticeWorker extends Task<Void> {
     private void play(NameList names, NameVersion recording) throws InterruptedException {
 
         // start process and wait
-        model.playAudio(names, recording).waitFor();
+        model.playAudio(names, recording);
     }
 
     private NameVersion record() throws InterruptedException, IOException {

@@ -32,7 +32,7 @@ public interface Model {
      * @return the process of the audio playback so it can be cancelled or the process state can be queried.
      * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.
      */
-    Process playAudio(NameList names, NameVersion recording);
+    void playAudio(NameList names, NameVersion recording);
 
     /**
      * This method explores the names/ folder and retrieves all name versions in the database. These

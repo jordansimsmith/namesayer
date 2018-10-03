@@ -184,7 +184,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Process playAudio(NameList nameList, NameVersion recording) {
+    public void playAudio(NameList nameList, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
 
@@ -219,14 +219,19 @@ public class ModelImpl implements Model {
         // execute ffplay command
         String command = "for f in " + files.toString() + "; do ffplay -autoexit -nodisp \"$f\"; done";
         ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
-        Process process = null;
         try {
-            process = processBuilder.start();
-        } catch (IOException e) {
+            processBuilder.start().waitFor();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 
-        return process;
+        // delete temp folder
+        try {
+            new ProcessBuilder("/bin/bash", "-c", "rm -rf temp").start().waitFor();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
