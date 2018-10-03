@@ -382,4 +382,28 @@ public class ModelImpl implements Model {
     public void setVolume(double volume) {
         this.volume = volume;
     }
+
+    @Override
+    public List<NameVersion> getAttempts() {
+
+        List<NameVersion> names = new ArrayList<>();
+
+        File folder = new File("recordings");
+
+        // no recordings present, return an empty list
+        File[] files = folder.listFiles();
+
+        // no recordings in the recordings folder, return an empty list
+        if (files == null) {
+            return names;
+        }
+
+        // iterate through all attempt files
+        for (File file: files) {
+            String name = parseFileName(file).replaceAll("-", " ");
+            names.add(new NameVersion(name, file));
+        }
+
+        return names;
+    }
 }
