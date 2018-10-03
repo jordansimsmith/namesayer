@@ -21,10 +21,13 @@ public class NameList {
     public String generateFileName() {
         StringBuilder builder = new StringBuilder();
 
-        for (Name name: names ) {
+        for (Name name : names) {
             builder.append(name);
             builder.append("-");
         }
+
+        // delete last "-"
+        builder.deleteCharAt(builder.length() - 1);
 
         return builder.toString();
     }
@@ -33,7 +36,7 @@ public class NameList {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        for (Name name: names ) {
+        for (Name name : names) {
             builder.append(name);
             builder.append(" ");
         }
