@@ -266,9 +266,37 @@ public class ModelImpl implements Model {
      * @param files The list of files to be concatenated.
      * @return the concatenated audio file.
      */
-    private File concatenateAudio(List<File> files) {
+    private File concatenateAudio(List<File> files) throws IOException, InterruptedException {
 
-        return null;
+        StringBuilder command = new StringBuilder();
+
+        command.append("ffmpeg");
+
+        // add all files as inputs to the command
+        for (File file : files) {
+            command.append(" -i ");
+            command.append(file.getPath());
+        }
+
+        command.append(" -filter_complex '");
+
+        // add all channels to the command
+        for (int i = 0; i < files.size(); i++) {
+            command.append("[").append(i).append(":0]");
+        }
+
+        command.append("concat=n=");
+        command.append(files.size());
+        command.append(":v=0:a=1[out]' -map '[out]' ");
+
+        // generate unique output name
+        String name = UUID.randomUUID().toString();
+        command.append("temp/").append(name).append(".wav");
+
+        // start process
+        new ProcessBuilder("/bin/bash", "-c", command.toString()).start().waitFor();
+
+        return new File("temp/" + name + ".wav");
     }
 
     @Override
