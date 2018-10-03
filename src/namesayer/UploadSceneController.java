@@ -73,7 +73,7 @@ public class UploadSceneController {
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
-        loader.setController(new MediaPlayer(nameList, model));
+        loader.setController(new MediaPlayer(nameList));
         Scene scene = new Scene(loader.load());
         window.setScene(scene);
         window.setTitle("Practice");
