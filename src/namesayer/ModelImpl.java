@@ -14,7 +14,7 @@ public class ModelImpl implements Model {
     private Map<String, Name> map = new HashMap<>();
     private List<Name> list = new ArrayList<>();
 
-    private static final double TARGET_VOLUME = -25.0d;
+    private static final double TARGET_VOLUME = -20.0d;
 
     private ModelImpl() {
         generateMap();
@@ -264,7 +264,7 @@ public class ModelImpl implements Model {
 
             // equalize volume
             double deltaVol = TARGET_VOLUME - meanVol;
-            String equalize = String.format("ffmpeg -y -i %s -filter:a \"volume=%.2fdB\" temp/%s_eq.wav", file.getPath() + "_trim.wav", deltaVol, file.getName());
+            String equalize = String.format("ffmpeg -y -i temp/%s -filter:a \"volume=%.2fdB\" temp/%s_eq.wav", file.getName() + "_trim.wav", deltaVol, file.getName());
             new ProcessBuilder("/bin/bash", "-c", equalize).start().waitFor();
 
             // add adjusted file to the return list
