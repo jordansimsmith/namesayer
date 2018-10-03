@@ -95,6 +95,9 @@ public class ModelImpl implements Model {
                 list.add(name);
             }
         }
+
+        // sort the list
+        list.sort((Comparator.comparing(Name::toString)));
     }
 
     @Override
