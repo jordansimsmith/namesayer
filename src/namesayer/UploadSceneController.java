@@ -36,18 +36,18 @@ public class UploadSceneController {
         if (file != null) {
             System.out.println("Chosen file: " + file.getName());
 
+                nameList = model.parseFile(file);
 
-
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while ((line = bufferedReader.readLine()) != null) {
-                NameList searchResult = model.nameSearch(line);
-                if (searchResult != null) {
-                    nameList.add(searchResult);
-                }
-
-            }
-            fileReader.close();
+//            FileReader fileReader = new FileReader(file);
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//            while ((line = bufferedReader.readLine()) != null) {
+//                NameList searchResult = model.nameSearch(line);
+//                if (searchResult != null) {
+//                    nameList.add(searchResult);
+//                }
+//
+//            }
+//            fileReader.close();
             if (nameList != null) {
                 uploadList.setItems(FXCollections.observableArrayList(nameList));
             }
