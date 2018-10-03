@@ -61,6 +61,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     private Label status;
 
+
     @FXML
     public void handleNext(ActionEvent event) {
 
