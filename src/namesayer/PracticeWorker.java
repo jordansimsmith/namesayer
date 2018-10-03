@@ -20,6 +20,7 @@ public class PracticeWorker extends Task<Void> {
     public PracticeWorker(NameList names, boolean practiceMode) {
         this.names = names;
         this.practiceMode = practiceMode;
+
         this.model = ModelImpl.getInstance();
     }
 
