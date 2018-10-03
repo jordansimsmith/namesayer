@@ -95,7 +95,7 @@ public class PracticeWorker extends Task<Void> {
         return null;
     }
 
-    private void play(NameList names, NameVersion recording) throws InterruptedException {
+    private void play(NameList names, NameVersion recording) {
 
         // start process and wait
         model.playAudio(names, recording);
@@ -106,19 +106,19 @@ public class PracticeWorker extends Task<Void> {
         String namesListName = names.generateFileName();
 
         // make directory for recording
-        String command = "mkdir -p recordings/" + namesListName;
-        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", command);
-        Process process = builder.start();
-        process.waitFor();
+        new ProcessBuilder("/bin/bash" ,"-c", "mkdir recordings").start().waitFor();
+
+        // remove any past attempts
+        new ProcessBuilder("/bin/bash", "-c", "rm recordings/*_" + namesListName + ".wav").start().waitFor();
 
         // get current time
         String timeStamp = new SimpleDateFormat("dd-mm-yyyy_HH-mm-ss").format(Calendar.getInstance().getTime());
 
         // capture audio from microphone
         String filename = "user_" + timeStamp + "_" + namesListName + ".wav";
-        command = "ffmpeg -f alsa -i pulse -t 5 recordings/" + namesListName + "/" + filename;
-        builder = new ProcessBuilder("/bin/bash", "-c", command);
-        process = builder.start();
+        String command = "ffmpeg -f alsa -i pulse -t 5 recordings/"  + filename;
+        ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", command);
+        Process process = builder.start();
 
         // periodically update task progress
         for (int i = 1; i <= 50; i++) {
@@ -130,7 +130,7 @@ public class PracticeWorker extends Task<Void> {
         process.waitFor();
 
         // read newly created file
-        File file = new File("recordings/" + namesListName + "/" + filename);
+        File file = new File("recordings/" +  filename);
 
         return new NameVersion(names.toString(), file);
     }
