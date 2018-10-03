@@ -42,7 +42,10 @@ public class UploadSceneController {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null) {
                 names.add(line);
-                nameList.add(model.nameSearch(line));
+                NameList searchResult = model.nameSearch(line);
+                if (searchResult != null) {
+                    nameList.add(searchResult);
+                }
 
             }
             fileReader.close();
@@ -62,7 +65,7 @@ public class UploadSceneController {
     }
 
     public void handlePrac(ActionEvent event) throws IOException {
-        if (nameList.isEmpty()) {
+        if (nameList == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Cannot play an empty list");
@@ -72,7 +75,7 @@ public class UploadSceneController {
         }
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
         loader.setController(new MediaPlayer(nameList));
         Scene scene = new Scene(loader.load());
         window.setScene(scene);
