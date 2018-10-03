@@ -66,7 +66,7 @@
             <Font size="18.0"/>
         </font>
     </CheckBox>
-    <Slider fx:id="volumeSlider" rotate="-90.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+    <Slider fx:id="volumeSlider" rotate="-90.0" showTickLabels="true" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
     <Button fx:id="homeButton" onAction="#handleHome" prefHeight="50.0" prefWidth="102.0" text="Return"
             GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
         <font>
