@@ -369,7 +369,9 @@ public class ModelImpl implements Model {
                 // parse the line
                 NameList nameList = nameSearch(line);
 
-                names.add(nameList);
+                if (nameList != null) {
+                    names.add(nameList);
+                }
 
             }
         } catch (FileNotFoundException e) {

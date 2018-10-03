@@ -29,7 +29,7 @@
             <Insets right="10.0" />
          </HBox.margin>
         </Button>
-        <Button onAction="#handlePrac" prefHeight="50" prefWidth="300" text="Confirm">
+        <Button onAction="#handlePrac" prefHeight="50" prefWidth="300" text="Play">
             <font>
                 <Font size="20.0" />
             </font>

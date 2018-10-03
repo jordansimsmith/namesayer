@@ -29,7 +29,6 @@ public class UploadSceneController {
 
     public void handleUpload(ActionEvent event) throws IOException {
         Stage stage = new Stage();
-        List<String> names = new ArrayList<>();
         String line;
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -38,10 +37,10 @@ public class UploadSceneController {
             System.out.println("Chosen file: " + file.getName());
 
 
+
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null) {
-                names.add(line);
                 NameList searchResult = model.nameSearch(line);
                 if (searchResult != null) {
                     nameList.add(searchResult);
@@ -49,7 +48,9 @@ public class UploadSceneController {
 
             }
             fileReader.close();
-            uploadList.setItems(FXCollections.observableArrayList(names));
+            if (nameList != null) {
+                uploadList.setItems(FXCollections.observableArrayList(nameList));
+            }
         }
 
         // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

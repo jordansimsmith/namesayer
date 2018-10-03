@@ -37,7 +37,7 @@ public class SearchController implements Initializable {
         System.out.println(userInput.getText());
         model = ModelImpl.getInstance();
         NameList nameList = model.nameSearch(userInput.getText());
-        if (nameList.equals(null)) {
+        if (nameList == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Names not found");
