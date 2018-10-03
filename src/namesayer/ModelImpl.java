@@ -188,12 +188,26 @@ public class ModelImpl implements Model {
 
         StringBuilder files = new StringBuilder();
 
-        // TODO: concatenate, equalize and trim files before playing
+        List<File> filesToAdjust = new ArrayList<>();
 
-        // iterate through all provided names
+        // get all files to be played
         for (Name name : nameList.getNames()) {
-            files.append(name.pickVersion().getFile().getPath());
-            files.append(" ");
+            filesToAdjust.add(name.pickVersion().getFile());
+        }
+
+        // audio manipulation
+        try {
+            // trim silence and equalize volume
+            List<File> filesToConcatenate = adjustAudio(filesToAdjust);
+
+            // concatenate
+            File fileToPlay = concatenateAudio(filesToConcatenate);
+
+            // add concatenated file to playlist
+            files.append(fileToPlay.getPath()).append(" ");
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
         // add recording if applicable
