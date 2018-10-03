@@ -9,29 +9,40 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.UploadSceneController">
+<?import javafx.scene.layout.HBox?>
+<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10"
+          xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="namesayer.UploadSceneController">
     <Label text="Upload custom name list" GridPane.rowIndex="0">
         <font>
-            <Font size="72.0" />
+            <Font size="72.0"/>
         </font>
         <GridPane.margin>
-            <Insets bottom="50.0" />
+            <Insets bottom="50.0"/>
         </GridPane.margin>
     </Label>
 
-    
+    <HBox GridPane.halignment="CENTER" GridPane.rowIndex="4" maxWidth="600">
+        <Button onAction="#handleUpload" prefHeight="50" prefWidth="300" text="Upload" alignment="CENTER">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Button onAction="#handlePrac" prefHeight="50" prefWidth="300" text="Practise">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+    </HBox>
 
-    <Button onAction="#handleUpload" prefHeight="50" prefWidth="300" text="Upload" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+    <Button onAction="#handleHome" prefHeight="50" prefWidth="300" text="Home" GridPane.rowIndex="6"
+            GridPane.halignment="CENTER">
         <font>
-            <Font size="20.0" />
+            <Font size="20.0"/>
         </font>
     </Button>
 
-    <Button onAction="#handleHome" prefHeight="50" prefWidth="300" text="Home" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-        <font>
-            <Font size="20.0" />
-        </font>
-    </Button>
-   <ListView fx:id="uploadList" prefHeight="300.0" prefWidth="200.0" GridPane.rowIndex="2" />
-    
+
+    <ListView fx:id="uploadList" prefHeight="300.0" prefWidth="200.0" GridPane.rowIndex="2"/>
+
 </GridPane>
