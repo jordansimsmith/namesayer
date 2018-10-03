@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -36,6 +37,14 @@ public class SearchController implements Initializable {
         System.out.println(userInput.getText());
         model = ModelImpl.getInstance();
         NameList nameList = model.nameSearch(userInput.getText());
+        if (nameList.equals(null)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Names not found");
+            alert.setContentText("Please enter another name");
+            alert.showAndWait();
+            return;
+        }
 
     }
 

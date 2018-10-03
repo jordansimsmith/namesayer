@@ -27,8 +27,9 @@ public class MediaPlayer implements Initializable {
     private NameList currentName;
     private int currentIndex;
 
-    public MediaPlayer(List<NameList> names) {
+    public MediaPlayer(List<NameList> names, Model model) {
         this.names = names;
+        this.model = model;
     }
 
     @FXML
