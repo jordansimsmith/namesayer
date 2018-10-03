@@ -66,7 +66,7 @@ public class UploadSceneController {
     }
 
     public void handlePrac(ActionEvent event) throws IOException {
-        if (nameList == null) {
+        if (uploadList.getItems().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Cannot play an empty list");
