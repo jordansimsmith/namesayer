@@ -13,8 +13,10 @@ import javafx.stage.Stage;
 import namesayer.model.Model;
 import namesayer.model.ModelImpl;
 import namesayer.model.NameList;
+import namesayer.model.SearchResult;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UploadSceneController {
@@ -22,7 +24,7 @@ public class UploadSceneController {
     private FileChooser fileChooser = new FileChooser();
 
     private Model model = ModelImpl.getInstance();
-    private List<NameList> nameList;
+    private List<NameList> nameList = new ArrayList<>();
 
     @FXML
     private ListView uploadList;
@@ -40,9 +42,22 @@ public class UploadSceneController {
         if (file != null) {
 
             // parse text file
-            nameList = model.parseFile(file);
+            List<SearchResult> results = model.parseFile(file);
 
-            if (nameList != null) {
+            for (SearchResult result: results) {
+
+                // only add if there are names to play
+                if (!result.getNameList().getNames().isEmpty()) {
+                    nameList.add(result.getNameList());
+                }
+
+                // TODO: display names not found
+                System.out.println(result.getNamesNotFound());
+
+            }
+
+            // not empty
+            if (!nameList.isEmpty()) {
                 // set list view with parsed names
                 uploadList.setItems(FXCollections.observableArrayList(nameList));
             }

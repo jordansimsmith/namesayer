@@ -54,7 +54,7 @@ public interface Model {
      * @param names: a string of names to be practised together, separated by a space or hypen.
      * @return the name object that was searched for. Will return null if the name doesnt exist in the database.
      */
-    NameList nameSearch(String names);
+    SearchResult nameSearch(String names);
 
     /**
      * This method parses an uploaded text file of names. Names to be practised together should be on the same
@@ -63,7 +63,7 @@ public interface Model {
      * @param file: the text file to parse.
      * @return a list of NameList objects to be played.
      */
-    List<NameList> parseFile(File file);
+    List<SearchResult> parseFile(File file);
 
     /**
      * Sets the current volume that the audio should be played by

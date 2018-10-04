@@ -323,9 +323,10 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public NameList nameSearch(String names) {
+    public SearchResult nameSearch(String names) {
 
-        List<Name> list = new ArrayList<>();
+        List<Name> found = new ArrayList<>();
+        List<String> notFound = new ArrayList<>();
 
         // split string
         String[] strings = names.split("[-\\s]");
@@ -341,25 +342,22 @@ public class ModelImpl implements Model {
 
             // if name is found, add it to the list
             if (name != null) {
-                list.add(name);
+                found.add(name);
+            } else {
+                notFound.add(key);
             }
         }
 
-        // if no names are found
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        // return NameList instance
-        return new NameList(list);
+        // return SearchResult
+        return new SearchResult(new NameList(found), notFound);
 
     }
 
     @Override
-    public List<NameList> parseFile(File file) {
+    public List<SearchResult> parseFile(File file) {
 
         // list to return
-        List<NameList> names = new ArrayList<>();
+        List<SearchResult> results = new ArrayList<>();
 
         // scan through the text file
         try {
@@ -370,18 +368,16 @@ public class ModelImpl implements Model {
                 String line = scanner.nextLine();
 
                 // parse the line
-                NameList nameList = nameSearch(line);
+                SearchResult result = nameSearch(line);
 
-                if (nameList != null) {
-                    names.add(nameList);
-                }
+                results.add(result);
 
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        return names;
+        return results;
     }
 
     public void setVolume(double volume) {
