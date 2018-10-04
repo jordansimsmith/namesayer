@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import namesayer.model.Model;
 import namesayer.model.ModelImpl;
 import namesayer.model.NameList;
+import namesayer.model.SearchResult;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +33,7 @@ public class SearchController implements Initializable {
 
     private Model model;
 
-    private NameList result;
+    private NameList nameList;
 
     // switch to home screen
     public void handleHome(ActionEvent event) throws IOException {
@@ -46,16 +47,21 @@ public class SearchController implements Initializable {
     public void handleSearch(ActionEvent event) {
 
         // get entered search text and search database
-        result = model.nameSearch(userInput.getText());
+        SearchResult result = model.nameSearch(userInput.getText());
+        nameList = result.getNameList();
+
+        // TODO: display names not found
+        System.out.println(result.getNamesNotFound());
+
 
         // no names found
-        if (result == null) {
+        if (nameList == null) {
             showAlert();
             return;
         }
 
         // show found names in the list view
-        searchResult.setText(result.toString());
+        searchResult.setText(nameList.toString());
 
     }
 
@@ -70,7 +76,7 @@ public class SearchController implements Initializable {
 
         // format list for practising
         List<NameList> nameList = new ArrayList<>();
-        nameList.add(result);
+        nameList.add(this.nameList);
 
         // switch to practice scene
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
