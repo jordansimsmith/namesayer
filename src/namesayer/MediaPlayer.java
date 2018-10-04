@@ -27,6 +27,8 @@ public class MediaPlayer implements Initializable {
     private NameList currentName;
     private int currentIndex;
 
+    private PracticeWorker worker;
+
     public MediaPlayer(List<NameList> names) {
         this.names = names;
     }
@@ -61,7 +63,6 @@ public class MediaPlayer implements Initializable {
     @FXML
     private Label status;
 
-
     @FXML
     private Slider volumeSlider;
 
@@ -88,8 +89,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handlePlay(ActionEvent event) {
 
-
-        PracticeWorker worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+        worker = model.getPracticeWorker(currentName, handleMode.isSelected());
 
         status.textProperty().bind(worker.messageProperty());
 
@@ -106,16 +106,23 @@ public class MediaPlayer implements Initializable {
             homeButton.setDisable(false);
             nextButton.setDisable(false);
             previousButton.setDisable(false);
+            worker = null;
 
             status.textProperty().unbind();
             status.setText("");
         });
-
-
     }
 
     @FXML
-    protected void handleMicTest(ActionEvent event) throws IOException {
+    public void stopRecording(ActionEvent event) {
+
+        if (worker != null) {
+            worker.stopRecording();
+        }
+    }
+
+    @FXML
+    public void handleMicTest(ActionEvent event) throws IOException {
 
         // new stage
         Stage window = new Stage();
@@ -148,7 +155,7 @@ public class MediaPlayer implements Initializable {
 
 
     @FXML
-    protected void handleHome(ActionEvent event) throws IOException {
+    public void handleHome(ActionEvent event) throws IOException {
 
         Parent viewParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene viewScene = new Scene(viewParent);

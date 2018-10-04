@@ -17,6 +17,8 @@ public class PracticeWorker extends Task<Void> {
     private boolean practiceMode;
     private Model model;
 
+    private boolean stop = false;
+
     public PracticeWorker(NameList names, boolean practiceMode) {
         this.names = names;
         this.practiceMode = practiceMode;
@@ -106,7 +108,7 @@ public class PracticeWorker extends Task<Void> {
         String namesListName = names.generateFileName();
 
         // make directory for recording
-        new ProcessBuilder("/bin/bash" ,"-c", "mkdir recordings").start().waitFor();
+        new ProcessBuilder("/bin/bash", "-c", "mkdir recordings").start().waitFor();
 
         // remove any past attempts
         new ProcessBuilder("/bin/bash", "-c", "rm recordings/*_" + namesListName + ".wav").start().waitFor();
@@ -116,22 +118,30 @@ public class PracticeWorker extends Task<Void> {
 
         // capture audio from microphone
         String filename = "user_" + timeStamp + "_" + namesListName + ".wav";
-        String command = "ffmpeg -f alsa -i pulse -t 5 recordings/"  + filename;
+        String command = "ffmpeg -f alsa -i pulse -t 5 recordings/" + filename;
         ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", command);
         Process process = builder.start();
 
         // periodically update task progress
         for (int i = 1; i <= 50; i++) {
 
+            // check for user cancel
+            if (stop) {
+                process.destroy();
+                break;
+            }
+
             updateProgress(i, 50);
             Thread.sleep(100);
         }
 
-        process.waitFor();
-
         // read newly created file
-        File file = new File("recordings/" +  filename);
+        File file = new File("recordings/" + filename);
 
         return new NameVersion(names.toString(), file);
+    }
+
+    public void stopRecording() {
+        stop = true;
     }
 }
