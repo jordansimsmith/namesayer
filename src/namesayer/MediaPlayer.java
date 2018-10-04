@@ -61,6 +61,9 @@ public class MediaPlayer implements Initializable {
     private Button homeButton;
 
     @FXML
+    private Button stopRecButton;
+
+    @FXML
     private Label status;
 
     @FXML
@@ -101,11 +104,17 @@ public class MediaPlayer implements Initializable {
         nextButton.setDisable(true);
         previousButton.setDisable(true);
 
+        // Only have the stop button shown if it is in recording mode
+        if (!handleMode.isSelected()) {
+            stopRecButton.setDisable(false);
+        }
+
         worker.setOnSucceeded(e -> {
             playButton.setDisable(false);
             homeButton.setDisable(false);
             nextButton.setDisable(false);
             previousButton.setDisable(false);
+            stopRecButton.setDisable(true);
             worker = null;
 
             status.textProperty().unbind();
