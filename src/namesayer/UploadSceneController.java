@@ -28,32 +28,25 @@ public class UploadSceneController {
     private ListView uploadList;
 
     public void handleUpload(ActionEvent event) throws IOException {
+
+        // open file explorer in a new window
         Stage stage = new Stage();
-        String line;
+
+        // user selects file to upload
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(stage);
+
         if (file != null) {
-            System.out.println("Chosen file: " + file.getName());
 
-                nameList = model.parseFile(file);
+            // parse text file
+            nameList = model.parseFile(file);
 
-//            FileReader fileReader = new FileReader(file);
-//            BufferedReader bufferedReader = new BufferedReader(fileReader);
-//            while ((line = bufferedReader.readLine()) != null) {
-//                NameList searchResult = model.nameSearch(line);
-//                if (searchResult != null) {
-//                    nameList.add(searchResult);
-//                }
-//
-//            }
-//            fileReader.close();
             if (nameList != null) {
+                // set list view with parsed names
                 uploadList.setItems(FXCollections.observableArrayList(nameList));
             }
         }
-
-        // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
     }
 
@@ -66,6 +59,8 @@ public class UploadSceneController {
     }
 
     public void handlePrac(ActionEvent event) throws IOException {
+
+        // attempt to play with no names selected
         if (uploadList.getItems().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -75,6 +70,7 @@ public class UploadSceneController {
             return;
         }
 
+        // switch to practice scene
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
         loader.setController(new MediaPlayer(nameList));

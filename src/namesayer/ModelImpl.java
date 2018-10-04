@@ -1,5 +1,6 @@
 package namesayer;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -333,8 +334,11 @@ public class ModelImpl implements Model {
         // iterate through all provided names
         for (String string : strings) {
 
+            // capitalise key
+            String key = Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+
             // get name
-            Name name = map.get(string);
+            Name name = map.get(key);
 
             // if name is found, add it to the list
             if (name != null) {

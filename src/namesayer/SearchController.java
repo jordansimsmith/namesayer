@@ -1,6 +1,5 @@
 package namesayer;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -30,8 +29,9 @@ public class SearchController implements Initializable {
 
     private Model model;
 
+    private NameList result;
 
-
+    // switch to home screen
     public void handleHome(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
@@ -41,36 +41,35 @@ public class SearchController implements Initializable {
     }
 
     public void handleSearch(ActionEvent event) {
-        System.out.println(userInput.getText());
-        model = ModelImpl.getInstance();
-        NameList nameList = model.nameSearch(userInput.getText());
-        if (nameList == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Names not found");
-            alert.setContentText("Please enter another name");
-            alert.showAndWait();
+
+        // get entered search text and search database
+        result = model.nameSearch(userInput.getText());
+
+        // no names found
+        if (result == null) {
+            showAlert();
             return;
         }
-        searchResult.setText(model.nameSearch(userInput.getText()).generateFileName());
+
+        // show found names in the list view
+        searchResult.setText(result.toString());
 
     }
 
 
     public void handlePrac(ActionEvent event) throws IOException {
-        model = ModelImpl.getInstance();
-        NameList searchResult = model.nameSearch(userInput.getText());
-        List<NameList> nameList = new ArrayList<>();
 
+        // cannot play an empty list
         if (searchResult == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Names not found");
-            alert.setContentText("Please enter another name");
-            alert.showAndWait();
+            showAlert();
             return;
         }
-        nameList.add(searchResult);
+
+        // format list for practising
+        List<NameList> nameList = new ArrayList<>();
+        nameList.add(result);
+
+        // switch to practice scene
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
         loader.setController(new MediaPlayer(nameList));
@@ -82,6 +81,9 @@ public class SearchController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        model = ModelImpl.getInstance();
+
         userInput.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -98,6 +100,14 @@ public class SearchController implements Initializable {
             }
         });
 
+    }
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Names not found");
+        alert.setContentText("Please enter another name");
+        alert.showAndWait();
     }
 
 
