@@ -4,47 +4,59 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10"
-          xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="namesayer.SearchController">
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.SearchController">
     <Label text="Manual Name Search" GridPane.rowIndex="0">
         <font>
-            <Font size="64.0"/>
+            <Font size="64.0" />
         </font>
         <GridPane.margin>
-            <Insets bottom="100.0"/>
+            <Insets bottom="100.0" />
         </GridPane.margin>
     </Label>
 
-    <TextField fx:id="userInput" maxWidth="600" prefHeight="51.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+    <TextField fx:id="userInput" maxWidth="600" prefHeight="51.0" prefWidth="600.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
 
         <font>
-            <Font size="18.0"/>
+            <Font size="18.0" />
         </font>
     </TextField>
 
-    <Label fx:id="searchResult" prefWidth="200" GridPane.rowIndex="3" prefHeight="100">
-        <GridPane.margin>
-            <Insets top="20" bottom="20" />
-        </GridPane.margin>
-    </Label>
+    <Label fx:id="searchResult" prefHeight="100" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
 
-
-    <Button onAction="#handleSearch" prefHeight="100" prefWidth="400" text="Practise" GridPane.halignment="CENTER"
-            GridPane.rowIndex="4">
+    <Button onAction="#handleSearch" prefHeight="50" prefWidth="400" text="Search" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Button>
-    <Button onAction="#handleHome" prefHeight="100" prefWidth="400" text="Return" GridPane.halignment="CENTER"
-            GridPane.rowIndex="5">
+    <Button onAction="#handlePrac" prefHeight="50" prefWidth="400" text="Practise" GridPane.halignment="CENTER" GridPane.rowIndex="4">
         <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
         </font>
     </Button>
+    <Button onAction="#handleHome" prefHeight="50" prefWidth="400" text="Return" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Button>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 
 </GridPane>

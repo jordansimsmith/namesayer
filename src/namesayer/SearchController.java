@@ -1,5 +1,6 @@
 package namesayer;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -9,17 +10,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SearchController implements Initializable {
 
     @FXML
     private TextField userInput;
+
+    @FXML
+    private Label searchResult;
 
     private Model model;
 
@@ -45,8 +52,33 @@ public class SearchController implements Initializable {
             alert.showAndWait();
             return;
         }
+        searchResult.setText(model.nameSearch(userInput.getText()).generateFileName());
 
     }
+
+
+    public void handlePrac(ActionEvent event) throws IOException {
+        model = ModelImpl.getInstance();
+        NameList searchResult = model.nameSearch(userInput.getText());
+        List<NameList> nameList = new ArrayList<>();
+
+        if (searchResult == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Names not found");
+            alert.setContentText("Please enter another name");
+            alert.showAndWait();
+            return;
+        }
+        nameList.add(searchResult);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
+        loader.setController(new MediaPlayer(nameList));
+        Scene scene = new Scene(loader.load());
+        window.setScene(scene);
+        window.show();
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,7 +91,7 @@ public class SearchController implements Initializable {
                     //[^\d]
                     userInput.setText(newValue.replaceAll("[\\d$&~#@*+%?{}<>\\[\\]|\"!^,./\"|=_()]", ""));
                 }
-                if (userInput.getText().length() > 50) {
+                if (userInput.getText().length() > 51) {
                     String s = userInput.getText().substring(0, 49);
                     userInput.setText(s);
                 }
@@ -67,4 +99,6 @@ public class SearchController implements Initializable {
         });
 
     }
+
+
 }
