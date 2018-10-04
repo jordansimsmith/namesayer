@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.model;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;

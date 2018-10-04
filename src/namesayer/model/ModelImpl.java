@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

@@ -1,8 +1,9 @@
-package namesayer;
+package namesayer.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
+import namesayer.model.MicWorker;
 
 import java.net.URL;
 import java.util.ResourceBundle;

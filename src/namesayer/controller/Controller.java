@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.controller;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,6 +17,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.stage.Stage;
+import namesayer.model.Model;
+import namesayer.model.ModelImpl;
+import namesayer.model.Name;
+import namesayer.model.NameList;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,7 +79,7 @@ public class Controller implements Initializable {
         MediaPlayer mpController = new MediaPlayer(selection);
 
         // set controller and fxml
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mediaPlayer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/mediaPlayer.fxml"));
         loader.setController(mpController);
         Parent viewParent = loader.load();
 
@@ -139,7 +143,7 @@ public class Controller implements Initializable {
 
 
     public void handleHome(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/home.fxml"));
         Scene scene = new Scene(loader.load());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

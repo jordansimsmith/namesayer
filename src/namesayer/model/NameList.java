@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.model;
 
 import java.util.List;
 

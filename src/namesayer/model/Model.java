@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.model;
 
 import java.io.File;
 import java.util.List;
@@ -10,7 +10,6 @@ public interface Model {
      * This method records a name as having bad quality. It is written to a file in the project folder.
      *
      * @param name: the Name object that is of low quality.
-     * @throws IllegalArgumentException: When the input is a name group not a name version.
      */
     void lowQualityName(NameList name);
 
@@ -20,7 +19,6 @@ public interface Model {
      *
      * @param names: NameVersion object that is being recorded against.
      * @return a PracticeWorker object for concurrent execution.
-     * @throws IllegalArgumentException: The input must be a NameVersion object, not a Name object.
      */
     PracticeWorker getPracticeWorker(NameList names, boolean practiceMode);
 
@@ -30,7 +28,6 @@ public interface Model {
      * @param names:     List of Name objects that should be played.
      * @param recording: Optional user recording to be played after the names. Pass null if not required.
      * @return the process of the audio playback so it can be cancelled or the process state can be queried.
-     * @throws IllegalArgumentException: The input must be a list of NameVersions not Names.
      */
     void playAudio(NameList names, NameVersion recording);
 
@@ -70,6 +67,7 @@ public interface Model {
 
     /**
      * Sets the current volume that the audio should be played by
+     *
      * @param volume integer between 0 (min) and 100 (max)
      */
     void setVolume(double volume);

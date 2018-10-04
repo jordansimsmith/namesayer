@@ -5,12 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import namesayer.model.ModelImpl;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("controller/home.fxml"));
         primaryStage.setTitle("NameSayer");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();

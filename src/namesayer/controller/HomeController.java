@@ -1,15 +1,12 @@
-package namesayer;
+package namesayer.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class HomeController {
@@ -18,7 +15,7 @@ public class HomeController {
     @FXML
     public void handleSearch(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/searchScene.fxml"));
         Scene scene = new Scene(loader.load());
         window.setScene(scene);
         window.setTitle("Search");
@@ -27,7 +24,7 @@ public class HomeController {
     @FXML
     public void handlePrac(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/sample.fxml"));
         Scene scene = new Scene(loader.load());
         window.setScene(scene);
         window.setTitle("Practice");
@@ -49,7 +46,7 @@ public class HomeController {
 
     public void handleUpload(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("uploadScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/uploadScene.fxml"));
         Scene scene = new Scene(loader.load());
         window.setScene(scene);
 

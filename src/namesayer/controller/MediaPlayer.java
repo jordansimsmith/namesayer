@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import namesayer.model.Model;
+import namesayer.model.ModelImpl;
+import namesayer.model.NameList;
+import namesayer.model.PracticeWorker;
 
 import java.io.IOException;
 import java.net.URL;
@@ -143,7 +147,7 @@ public class MediaPlayer implements Initializable {
         window.setOnCloseRequest(event1 -> controller.cleanUp());
 
         // set controller and fxml
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("micTest.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/micTest.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
 
@@ -166,7 +170,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handleHome(ActionEvent event) throws IOException {
 
-        Parent viewParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent viewParent = FXMLLoader.load(getClass().getResource("/namesayer/controller/home.fxml"));
         Scene viewScene = new Scene(viewParent);
 
         // get stage info
@@ -174,7 +178,7 @@ public class MediaPlayer implements Initializable {
 
         // change scene
         window.setScene(viewScene);
-        window.setTitle("Name Sayer");
+        window.setTitle("NameSayer");
         window.setResizable(false);
         window.setResizable(true);
         window.show();

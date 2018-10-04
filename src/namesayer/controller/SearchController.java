@@ -1,4 +1,4 @@
-package namesayer;
+package namesayer.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +12,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import namesayer.model.Model;
+import namesayer.model.ModelImpl;
+import namesayer.model.NameList;
 
 import java.io.IOException;
 import java.net.URL;

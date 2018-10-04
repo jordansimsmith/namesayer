@@ -1,7 +1,6 @@
-package namesayer;
+package namesayer.controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +10,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import namesayer.model.Model;
+import namesayer.model.ModelImpl;
+import namesayer.model.NameList;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class UploadSceneController {
