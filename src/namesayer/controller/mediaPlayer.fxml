@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.media.MediaView?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
+
 <GridPane fx:id="mediaPlayer" alignment="CENTER" hgap="20" prefHeight="720.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
 
-    <ProgressBar fx:id="recordPB" prefHeight="20.0" prefWidth="628.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <ProgressBar fx:id="recordPB" prefHeight="20.0" prefWidth="628.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
     <Label fx:id="status" text="" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
 
 
-    <Text fx:id="infoPlay" text="Name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+    <Label wrapText="true" alignment="CENTER" maxWidth="600" fx:id="infoPlay" text="Name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
         <font>
-            <Font size="50.0" />
+            <Font size="36.0" />
         </font>
         <GridPane.margin>
             <Insets top="30.0" />
         </GridPane.margin>
-    </Text>
+    </Label>
     <MediaView fx:id="mediaViewer" fitHeight="180" fitWidth="650" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
@@ -72,7 +81,7 @@
         </font>
     </Button>
 
-    <Button disable="true" fx:id="stopRecButton" mnemonicParsing="false" onAction="#stopRecording" prefHeight="50.0" prefWidth="160.0" text="Stop Recording" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+    <Button fx:id="stopRecButton" disable="true" mnemonicParsing="false" onAction="#stopRecording" prefHeight="50.0" prefWidth="160.0" text="Stop Recording" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
       <font>
          <Font size="18.0" />
       </font></Button>
@@ -80,5 +89,6 @@
     <padding>
         <Insets bottom="10" left="25" right="25" top="25" />
     </padding>
+
 
 </GridPane>

@@ -50,7 +50,7 @@ public class MediaPlayer implements Initializable {
     private CheckBox handleMode;
 
     @FXML
-    private Text infoPlay;
+    private Label infoPlay;
 
     @FXML
     private Button playButton;
