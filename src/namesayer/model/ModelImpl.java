@@ -333,18 +333,19 @@ public class ModelImpl implements Model {
 
         // iterate through all provided names
         for (String string : strings) {
+            if (!string.equals("")) {
+                // capitalise key
+                String key = Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
 
-            // capitalise key
-            String key = Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+                // get name
+                Name name = map.get(key);
 
-            // get name
-            Name name = map.get(key);
-
-            // if name is found, add it to the list
-            if (name != null) {
-                found.add(name);
-            } else {
-                notFound.add(key);
+                // if name is found, add it to the list
+                if (name != null) {
+                    found.add(name);
+                } else {
+                    notFound.add(key);
+                }
             }
         }
 

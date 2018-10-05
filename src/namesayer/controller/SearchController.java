@@ -49,7 +49,7 @@ public class SearchController implements Initializable {
 
     public void handleSearch(ActionEvent event) {
 
-        if (userInput.getText().equals(new String(""))) {
+        if ("".equals(userInput.getText())) {
             showAlert();
             return;
         }
@@ -80,7 +80,7 @@ public class SearchController implements Initializable {
     public void handlePrac(ActionEvent event) throws IOException {
 
         // cannot play an empty list
-        if (searchResult == null) {
+        if (searchResult == null || searchResult.getText().equals("")) {
             showAlert();
             return;
         }
