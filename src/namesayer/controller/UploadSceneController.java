@@ -35,8 +35,7 @@ public class UploadSceneController {
 
     public void handleUpload(ActionEvent event) throws IOException {
 
-        namesNotFound.clear();
-        nameList.clear();
+
 
         // open file explorer in a new window
         Stage stage = new Stage();
@@ -113,6 +112,8 @@ public class UploadSceneController {
     }
 
     public void handleClear(ActionEvent event) {
+        namesNotFound.clear();
+        nameList.clear();
         notFoundList.getItems().clear();
         uploadList.getItems().clear();
     }
