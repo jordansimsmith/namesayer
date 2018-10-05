@@ -63,7 +63,7 @@
     <ListView fx:id="playList" prefHeight="450.0" prefWidth="340.0" GridPane.rowIndex="1"/>
 
     <Button mnemonicParsing="false" onAction="#handleMicTest" prefHeight="49.0" prefWidth="117.0" text="Test Mic"
-            textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+            textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4">
         <font>
             <Font size="18.0"/>
         </font>
@@ -85,14 +85,14 @@
     </Button>
 
     <Button mnemonicParsing="false" onAction="#handleBadQuality" prefHeight="50.0" prefWidth="158.0"
-            text="Bad Recording" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            text="Bad Recording" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
         <font>
             <Font size="18.0"/>
         </font>
     </Button>
 
     <Button fx:id="stopRecButton" disable="true" mnemonicParsing="false" onAction="#stopRecording" prefHeight="50.0"
-            prefWidth="160.0" text="Stop Recording" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+            prefWidth="160.0" text="Stop Recording" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
             GridPane.rowIndex="4" GridPane.valignment="CENTER">
         <font>
             <Font size="18.0"/>
