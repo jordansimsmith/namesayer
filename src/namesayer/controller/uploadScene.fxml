@@ -10,65 +10,71 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="namesayer.controller.UploadSceneController">
+<GridPane alignment="CENTER" hgap="10" prefHeight="720.0" prefWidth="1280.0" vgap="10"
+          xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="namesayer.controller.UploadSceneController">
     <Label text="Upload custom name list" GridPane.rowIndex="0">
         <font>
-            <Font size="72.0" />
+            <Font size="72.0"/>
         </font>
         <GridPane.margin>
-            <Insets bottom="50.0" />
+            <Insets bottom="50.0"/>
         </GridPane.margin>
     </Label>
 
     <HBox maxWidth="600" GridPane.halignment="CENTER" GridPane.rowIndex="4">
         <Button alignment="CENTER" onAction="#handleUpload" prefHeight="50" prefWidth="300" text="Upload">
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
-         <HBox.margin>
-            <Insets right="10.0" />
-         </HBox.margin>
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
         </Button>
         <Button alignment="CENTER" onAction="#handleClear" prefHeight="50" prefWidth="300" text="Clear">
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
 
         </Button>
         <Button alignment="CENTER" onAction="#handlePrac" prefHeight="50" prefWidth="300" text="Play">
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
-         <HBox.margin>
-            <Insets left="10.0" />
-         </HBox.margin>
+            <HBox.margin>
+                <Insets left="10.0"/>
+            </HBox.margin>
         </Button>
     </HBox>
 
-    <Button alignment="CENTER" onAction="#handleHome" prefHeight="50" prefWidth="300" text="Home" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+    <Button alignment="CENTER" onAction="#handleHome" prefHeight="50" prefWidth="300" text="Home"
+            GridPane.halignment="CENTER" GridPane.rowIndex="6">
         <font>
-            <Font size="20.0" />
+            <Font size="20.0"/>
         </font>
     </Button>
-<HBox GridPane.rowIndex="1">
-    <Label text="Names Found">
-         <font>
-            <Font size="15.0" />
-         </font></Label>
-    <Label text="Unavailable names">
-         <HBox.margin>
-            <Insets left="540.0" />
-         </HBox.margin>
-         <font>
-            <Font size="15.0" />
-         </font></Label>
-</HBox>
+    <HBox GridPane.rowIndex="1">
+        <Label text="Names Found">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <Label text="Unavailable names">
+            <HBox.margin>
+                <Insets left="540.0"/>
+            </HBox.margin>
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+    </HBox>
     <HBox prefHeight="300" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-        <ListView fx:id="uploadList" prefWidth="634.0" />
+        <ListView fx:id="uploadList" prefWidth="634.0"/>
         <ListView fx:id="notFoundList" prefWidth="200.0">
-         <HBox.margin>
-            <Insets left="5.0" />
-         </HBox.margin></ListView>
+            <HBox.margin>
+                <Insets left="5.0"/>
+            </HBox.margin>
+        </ListView>
     </HBox>
 
 </GridPane>

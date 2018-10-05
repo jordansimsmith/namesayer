@@ -221,7 +221,7 @@ public class ModelImpl implements Model {
         }
 
         // execute ffplay command
-        String command = "for f in " + files.toString() + "; do ffplay -af volume=" + volume/100 + " -autoexit -nodisp \"$f\"; done";
+        String command = "for f in " + files.toString() + "; do ffplay -af volume=" + volume / 100 + " -autoexit -nodisp \"$f\"; done";
         ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
         try {
             processBuilder.start().waitFor();
@@ -401,7 +401,7 @@ public class ModelImpl implements Model {
         }
 
         // iterate through all attempt files
-        for (File file: files) {
+        for (File file : files) {
             String name = parseFileName(file).replaceAll("-", " ");
             names.add(new NameVersion(name, file));
         }
