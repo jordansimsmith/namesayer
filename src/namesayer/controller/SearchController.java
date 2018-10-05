@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import namesayer.model.Model;
 import namesayer.model.ModelImpl;
@@ -113,10 +114,7 @@ public class SearchController implements Initializable {
                     //[^\d]
                     userInput.setText(newValue.replaceAll("[\\d$&~#@*+%?{}<>\\[\\]|\"!^,./\"|=_()]", ""));
                 }
-                if (userInput.getText().length() > 51) {
-                    String s = userInput.getText().substring(0, 49);
-                    userInput.setText(s);
-                }
+
             }
         });
 
@@ -131,4 +129,11 @@ public class SearchController implements Initializable {
     }
 
 
+    public void handleKeyPressed(KeyEvent keyEvent) {
+        if (userInput.getText().length() > 49) {
+            String s = userInput.getText(0, 49);
+            userInput.setText(s);
+            userInput.positionCaret(49);
+        }
+    }
 }
