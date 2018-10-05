@@ -31,6 +31,9 @@ public class SearchController implements Initializable {
     @FXML
     private Label searchResult;
 
+    @FXML
+    private Label searchNotFound;
+
     private Model model;
 
     private NameList nameList;
@@ -46,13 +49,21 @@ public class SearchController implements Initializable {
 
     public void handleSearch(ActionEvent event) {
 
+        if (userInput.getText().equals(new String(""))) {
+            showAlert();
+            return;
+        }
         // get entered search text and search database
         SearchResult result = model.nameSearch(userInput.getText());
         nameList = result.getNameList();
 
         // TODO: display names not found
         System.out.println(result.getNamesNotFound());
-
+        if (!result.getNamesNotFound().isEmpty()) {
+            searchNotFound.setText(result.getNamesNotFound().toString());
+        } else {
+            searchNotFound.setText("");
+        }
 
         // no names found
         if (nameList == null) {

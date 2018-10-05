@@ -20,12 +20,16 @@
             <Font size="18.0" />
         </font>
     </TextField>
-
-    <Label fx:id="searchResult" prefHeight="100" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+<VBox  GridPane.halignment="CENTER" GridPane.rowIndex="2" alignment="CENTER">
+    <Label fx:id="searchResult" prefHeight="50">
       <font>
          <Font size="24.0" />
       </font></Label>
-
+    <Label fx:id="searchNotFound" prefHeight="50"  textFill="firebrick" >
+        <font>
+            <Font size="24.0" />
+        </font></Label>
+</VBox>
     <Button onAction="#handleSearch" prefHeight="50" prefWidth="400" text="Search" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="24.0" />
