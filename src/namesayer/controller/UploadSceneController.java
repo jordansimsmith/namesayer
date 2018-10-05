@@ -25,11 +25,18 @@ public class UploadSceneController {
 
     private Model model = ModelImpl.getInstance();
     private List<NameList> nameList = new ArrayList<>();
+    private List<String> namesNotFound = new ArrayList<>();
 
     @FXML
     private ListView uploadList;
 
+    @FXML
+    private ListView notFoundList;
+
     public void handleUpload(ActionEvent event) throws IOException {
+
+        namesNotFound.clear();
+        nameList.clear();
 
         // open file explorer in a new window
         Stage stage = new Stage();
@@ -52,15 +59,25 @@ public class UploadSceneController {
                 }
 
                 // TODO: display names not found
-                System.out.println(result.getNamesNotFound());
+
+                // System.out.println(result.getNamesNotFound());
+                for (String notFound: result.getNamesNotFound()) {
+                    if (!namesNotFound.contains(notFound)) {
+                        namesNotFound.add(notFound);
+                    }
+                }
 
             }
 
             // not empty
-            if (!nameList.isEmpty()) {
+            //if (!nameList.isEmpty()) {
                 // set list view with parsed names
                 uploadList.setItems(FXCollections.observableArrayList(nameList));
-            }
+           // }
+
+            //if (!namesNotFound.isEmpty()) {
+                notFoundList.setItems(FXCollections.observableArrayList(namesNotFound));
+            //}
         }
 
     }
@@ -93,5 +110,10 @@ public class UploadSceneController {
         window.setScene(scene);
         window.setTitle("Practice");
         window.show();
+    }
+
+    public void handleClear(ActionEvent event) {
+        notFoundList.getItems().clear();
+        uploadList.getItems().clear();
     }
 }

@@ -23,6 +23,12 @@
             <Insets right="10.0" />
          </HBox.margin>
         </Button>
+        <Button alignment="CENTER" onAction="#handleClear" prefHeight="50" prefWidth="300" text="Clear">
+            <font>
+                <Font size="20.0" />
+            </font>
+
+        </Button>
         <Button alignment="CENTER" onAction="#handlePrac" prefHeight="50" prefWidth="300" text="Play">
             <font>
                 <Font size="20.0" />
@@ -39,8 +45,9 @@
         </font>
     </Button>
 
-
-    <ListView fx:id="uploadList" prefHeight="300.0" prefWidth="200.0" GridPane.rowIndex="2" />
-
+    <VBox GridPane.rowIndex="2" alignment="CENTER" GridPane.valignment="CENTER" GridPane.halignment="CENTER">
+        <ListView fx:id="uploadList" prefHeight="200.0" prefWidth="200.0"  />
+        <ListView fx:id="notFoundList" prefHeight="200.0" prefWidth="200.0" />
+    </VBox>
 
 </GridPane>
