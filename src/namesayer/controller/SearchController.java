@@ -58,10 +58,17 @@ public class SearchController implements Initializable {
         SearchResult result = model.nameSearch(userInput.getText());
         nameList = result.getNameList();
 
-        // TODO: display names not found
-        System.out.println(result.getNamesNotFound());
+        // display names that are not found
         if (!result.getNamesNotFound().isEmpty()) {
-            searchNotFound.setText(result.getNamesNotFound().toString());
+
+            StringBuilder notFoundNames = new StringBuilder();
+            notFoundNames.append("Names not found:");
+
+            for (String name : result.getNamesNotFound()) {
+                notFoundNames.append(" ").append(name);
+            }
+
+            searchNotFound.setText(notFoundNames.toString());
         } else {
             searchNotFound.setText("");
         }
@@ -73,7 +80,7 @@ public class SearchController implements Initializable {
         }
 
         // show found names in the list view
-        searchResult.setText(nameList.toString());
+        searchResult.setText("Names found: " + nameList.toString());
 
     }
 
