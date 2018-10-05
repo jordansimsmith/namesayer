@@ -33,8 +33,7 @@ public class UploadSceneController {
     @FXML
     private ListView notFoundList;
 
-    public void handleUpload(ActionEvent event) throws IOException {
-
+    public void handleUpload(ActionEvent event) {
 
 
         // open file explorer in a new window
@@ -50,17 +49,15 @@ public class UploadSceneController {
             // parse text file
             List<SearchResult> results = model.parseFile(file);
 
-            for (SearchResult result: results) {
+            for (SearchResult result : results) {
 
                 // only add if there are names to play
                 if (!result.getNameList().getNames().isEmpty()) {
                     nameList.add(result.getNameList());
                 }
 
-                // TODO: display names not found
-
-                // System.out.println(result.getNamesNotFound());
-                for (String notFound: result.getNamesNotFound()) {
+                // add to name not found list if not already present
+                for (String notFound : result.getNamesNotFound()) {
                     if (!namesNotFound.contains(notFound)) {
                         namesNotFound.add(notFound);
                     }
@@ -68,15 +65,10 @@ public class UploadSceneController {
 
             }
 
-            // not empty
-            //if (!nameList.isEmpty()) {
-                // set list view with parsed names
-                uploadList.setItems(FXCollections.observableArrayList(nameList));
-           // }
+            // update lists
+            uploadList.setItems(FXCollections.observableArrayList(nameList));
+            notFoundList.setItems(FXCollections.observableArrayList(namesNotFound));
 
-            //if (!namesNotFound.isEmpty()) {
-                notFoundList.setItems(FXCollections.observableArrayList(namesNotFound));
-            //}
         }
 
     }
