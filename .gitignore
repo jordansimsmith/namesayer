@@ -37,3 +37,4 @@ src/test
 src/META-INF
 
 temp/
+build/
