@@ -32,6 +32,25 @@ public class HomeController {
 
     }
 
+
+
+    public void handleUpload(ActionEvent event) throws IOException {
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/uploadScene.fxml"));
+        Scene scene = new Scene(loader.load());
+        window.setScene(scene);
+        window.show();
+    }
+
+    public void handleExistingAttempts(ActionEvent event) throws IOException {
+        // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("viewExAttempt.fxml"));
+        Scene scene = new Scene(loader.load());
+        window.setScene(scene);
+        window.show();
+    }
+
     @FXML
     public void handleQuit(ActionEvent event) {
         /**
@@ -41,14 +60,6 @@ public class HomeController {
         // Get the current stage and close it.
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
-
-    }
-
-    public void handleUpload(ActionEvent event) throws IOException {
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/uploadScene.fxml"));
-        Scene scene = new Scene(loader.load());
-        window.setScene(scene);
 
     }
 }
