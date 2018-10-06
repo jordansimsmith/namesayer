@@ -1,6 +1,7 @@
 package namesayer.controller;
 
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,13 +41,13 @@ public class ViewController implements Initializable {
 
     private List<NameVersion> names;
 
-    private PracticeWorker worker;
-
     private NameVersion currentName;
 
     private int currentIndex;
 
     private Model model;
+
+    private double volume = 100;
 
 
     public void handleClose(ActionEvent event) {
@@ -63,29 +64,34 @@ public class ViewController implements Initializable {
     }
 
     public void handlePlay(ActionEvent event) {
+        System.out.println(currentName);
+
+        Task task = new Task() {
+
+            @Override
+            protected Void call() throws Exception {
+
+                // play and wait for the audio to stop
+                String command = "ffplay -af volume=" + volume/100 + " -autoexit -nodisp " + currentName.getFile().getPath();
+                new ProcessBuilder("/bin/bash", "-c", command).start().waitFor();
+
+                return null;
+            }
+        };
+
         prevBtn.setDisable(true);
         playBtn.setDisable(true);
         nextBtn.setDisable(true);
         closeBtn.setDisable(true);
 
-        List<Name> list = new ArrayList<>();
-
-        list.add(new Name(currentName.getName()));
-
-        worker = model.getPracticeWorker(new NameList(list), true);
-
-        new Thread(worker).start();
-
-
-        worker.setOnSucceeded(e -> {
+        task.setOnSucceeded(e -> {
             prevBtn.setDisable(false);
             playBtn.setDisable(false);
             nextBtn.setDisable(false);
             closeBtn.setDisable(false);
-            worker = null;
         });
 
-
+        new Thread(task).start();
     }
 
     public void handleNext(ActionEvent event) {
@@ -112,10 +118,10 @@ public class ViewController implements Initializable {
         model = ModelImpl.getInstance();
 
 
-        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> model.setVolume(newValue.doubleValue()));
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> this.volume = newValue.doubleValue());
         names = model.getAttempts();
 
-        if (names.isEmpty() || names.size() == 0) {
+        if (names.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No Existing Attempts");
