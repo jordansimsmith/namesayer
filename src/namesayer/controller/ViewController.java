@@ -28,22 +28,13 @@ public class ViewController implements Initializable {
     private Slider volumeSlider;
 
     @FXML
-    public Button prevBtn;
-
-    @FXML
     public Button playBtn;
-
-    @FXML
-    public Button nextBtn;
 
     @FXML
     public Button closeBtn;
 
     private List<NameVersion> names;
 
-    private NameVersion currentName;
-
-    private int currentIndex;
 
     private Model model;
 
@@ -55,61 +46,42 @@ public class ViewController implements Initializable {
         window.close();
     }
 
-    public void handlePrevious(ActionEvent event) {
-        if (currentIndex < names.size() - 1) {
-            setCurrentName(currentIndex + 1);
-        } else {
-            setCurrentName(0);
-        }
-    }
-
     public void handlePlay(ActionEvent event) {
-        System.out.println(currentName);
 
+        NameVersion selected = (NameVersion) attemptsList.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Nothing Selected");
+            alert.setContentText("Please select a name to play it.");
+            alert.showAndWait();
+            return;
+        }
+
+        // construct task to play back audio
         Task task = new Task() {
 
             @Override
             protected Void call() throws Exception {
 
                 // play and wait for the audio to stop
-                String command = "ffplay -af volume=" + volume/100 + " -autoexit -nodisp " + currentName.getFile().getPath();
+                String command = "ffplay -af volume=" + volume / 100 + " -autoexit -nodisp " + selected.getFile().getPath();
                 new ProcessBuilder("/bin/bash", "-c", command).start().waitFor();
 
                 return null;
             }
         };
 
-        prevBtn.setDisable(true);
         playBtn.setDisable(true);
-        nextBtn.setDisable(true);
         closeBtn.setDisable(true);
 
         task.setOnSucceeded(e -> {
-            prevBtn.setDisable(false);
             playBtn.setDisable(false);
-            nextBtn.setDisable(false);
             closeBtn.setDisable(false);
         });
 
         new Thread(task).start();
-    }
-
-    public void handleNext(ActionEvent event) {
-        if (currentIndex > 0) {
-            setCurrentName(currentIndex - 1);
-        } else {
-            setCurrentName(names.size() - 1);
-        }
-    }
-
-    private void setCurrentName(int index) {
-
-        // safe to cast
-        currentName = names.get(index);
-
-        // set current index
-        currentIndex = index;
-
     }
 
     @Override
@@ -117,7 +89,7 @@ public class ViewController implements Initializable {
 
         model = ModelImpl.getInstance();
 
-
+        // listen for volume changes
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> this.volume = newValue.doubleValue());
         names = model.getAttempts();
 
@@ -130,12 +102,9 @@ public class ViewController implements Initializable {
             Stage window = (Stage) attemptsList.getScene().getWindow();
             window.close();
         } else {
+            // populate list view
             attemptsList.setItems(FXCollections.observableArrayList(names));
-            setCurrentName(0);
         }
-
-
-
 
     }
 }
