@@ -114,9 +114,8 @@ public class ViewController implements Initializable {
 
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> model.setVolume(newValue.doubleValue()));
         names = model.getAttempts();
-        attemptsList.setItems(FXCollections.observableArrayList(names));
 
-        if (attemptsList.getItems().isEmpty()) {
+        if (names.isEmpty() || names.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("No Existing Attempts");
@@ -124,9 +123,12 @@ public class ViewController implements Initializable {
             alert.showAndWait();
             Stage window = (Stage) attemptsList.getScene().getWindow();
             window.close();
+        } else {
+            attemptsList.setItems(FXCollections.observableArrayList(names));
+            setCurrentName(0);
         }
 
-        setCurrentName(0);
+
 
 
     }
