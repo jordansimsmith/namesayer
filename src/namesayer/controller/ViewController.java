@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -107,16 +108,26 @@ public class ViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         model = ModelImpl.getInstance();
 
-        // listener updates model of volume
+
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> model.setVolume(newValue.doubleValue()));
+        names = model.getAttempts();
+        attemptsList.setItems(FXCollections.observableArrayList(names));
 
-        if (new File("recordings").exists()){
-            attemptsList.setItems(FXCollections.observableArrayList(model.getAttempts()));
-            setCurrentName(0);
-
+        if (attemptsList.getItems().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No Existing Attempts");
+            alert.setContentText("Please return and select another option");
+            alert.showAndWait();
+            Stage window = (Stage) attemptsList.getScene().getWindow();
+            window.close();
         }
+
+        setCurrentName(0);
+
 
     }
 }

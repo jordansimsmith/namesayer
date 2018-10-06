@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class HomeController {
@@ -44,11 +46,22 @@ public class HomeController {
 
     public void handleExistingAttempts(ActionEvent event) throws IOException {
         // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Stage window = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("viewExAttempt.fxml"));
-        Scene scene = new Scene(loader.load());
-        window.setScene(scene);
-        window.show();
+        if (new File("recordings").exists()){
+            Stage window = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("viewExAttempt.fxml"));
+            Scene scene = new Scene(loader.load());
+            window.setScene(scene);
+            window.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No Existing Attempts");
+            alert.setContentText("Please select another option");
+            alert.showAndWait();
+            return;
+        }
+
+
     }
 
     @FXML
