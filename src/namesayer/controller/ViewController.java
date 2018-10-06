@@ -16,6 +16,7 @@ import namesayer.model.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -91,7 +92,10 @@ public class ViewController implements Initializable {
 
         // listen for volume changes
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> this.volume = newValue.doubleValue());
+
+        // get and sort names from model
         names = model.getAttempts();
+        names.sort(Comparator.comparing(NameVersion::toString));
 
         if (names.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
