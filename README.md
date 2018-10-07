@@ -3,6 +3,10 @@ Final iteration of the NameSayer application. This application allows a user to 
 
 This application is developed using the Model View Controller (MVC) design pattern with JavaFX. Scene builder has been used to create the UI layout.
 
+## Target Audience
+The target user for this project is the Dean of Engineering. The Dean will use this application to practice students' names before
+the graduation ceremony. 
+
 ## How to run
 1. Place the names database in a folder called "names/" on the same level as the jar.
 2. Run `java -jar namesayer-part03.jar` on Terminal.
