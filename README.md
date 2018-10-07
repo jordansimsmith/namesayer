@@ -21,7 +21,7 @@ This application is developed using the Model View Controller (MVC) design patte
 1. The practice scene contains a list on the left containing all of the selected names in order that they
 will be practised.
 2. **Previous** and **Next** buttons can be used to navigate through the list of names.
-3. The **Listen only** checkbox can be selected so that the names can be listened to without being 
+3. The **Practice Mode** checkbox can be selected so that the names can be listened to without being 
 attempted by the user.
 4. The **Play** button plays the selected name, and if **Listen only** is unselected, then it will prompt the 
 user to record their attempt at the name. A comparision between the recording and the user attempt will
@@ -32,3 +32,21 @@ These ratings are stored in a file called *badnames.txt* in the same location as
 6. The **Test Mic** button can be used to test the volume of the user's microphone.
 7. The **Return** button can be used to return to the previous screen where the user can select more names to 
 practice or replay their past attempts.
+
+
+### Search Database
+1. Users can enter a string of Names they would like to listen/practise with.
+2. Once the user is satisfied with their search they can click the **Search** button to commence name search.
+3. The application will return the names that exist in the database. Name Sayer will also show names not found in red.
+4. If the user is content with the search results, they can click the **Practice** button to go to the Practice Scene.
+
+### Upload
+1. Users can select a text file with pre-selected names using the **Upload*** button.
+2. Name Sayer will show the all of names found in the database on a list on the left. Similarly, names not found will be shown on a list by the right hand side of the window.
+3. If the user wish add more names, they can do so using the **Upload** button again.
+4. If the user is ready to practise, they can do so using the **Play** button.
+5. To clear the both lists, users can select the **Clear** button.
+6. To return to the main menu, select the **Home** button.
+
+### Exiting Name Sayer
+1. Users can exit Name Sayer by selecting the **Quit** button on the home screen.
