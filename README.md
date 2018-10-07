@@ -42,7 +42,7 @@ attempted by the user.
 9. The **Play** button plays the selected name, and if **Listen only** is unselected, then it will prompt the 
 user to record their attempt at the name. A comparision between the recording and the user attempt will
 be played after. The user can then choose to save this creation for future access or to discard it.
-10. The volume slider on the right allows users to select their preferrable playback volume.
+10. The volume slider on the right allows users to select their preferable playback volume.
 11. The **Bad Recording** button allows the user to indicate that a database recording is of low quality.
 The user should select which of the names is of bad quality.
 These ratings are stored in a file called *badnames.txt* in the same location as the runnable jar.
