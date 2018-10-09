@@ -65,6 +65,10 @@ public class Name {
         return lastPlayed;
     }
 
+    public void setLastPlayed(NameVersion name) {
+        this.lastPlayed = name;
+    }
+
     public String getName() {
         return name;
     }

@@ -11,12 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.media.MediaView;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import namesayer.model.Model;
-import namesayer.model.ModelImpl;
-import namesayer.model.NameList;
-import namesayer.model.PracticeWorker;
+import namesayer.model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -169,6 +165,13 @@ public class MediaPlayer implements Initializable {
 
     @FXML
     public void handleHome(ActionEvent event) throws IOException {
+
+        // cleanup name cache
+        for (NameList list: names) {
+            for (Name name: list.getNames()) {
+                name.setLastPlayed(null);
+            }
+        }
 
         Parent viewParent = FXMLLoader.load(getClass().getResource("/namesayer/controller/home.fxml"));
         Scene viewScene = new Scene(viewParent);
