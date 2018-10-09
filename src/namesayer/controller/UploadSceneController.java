@@ -7,9 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import namesayer.model.Model;
 import namesayer.model.ModelImpl;
 import namesayer.model.NameList;
@@ -69,9 +72,36 @@ public class UploadSceneController {
             uploadList.setItems(FXCollections.observableArrayList(nameList));
             notFoundList.setItems(FXCollections.observableArrayList(namesNotFound));
 
+            // Set the colour of the list
+            notFoundList.setCellFactory(new Callback<ListView<String>, ColorCell>() {
+                @Override
+                public ColorCell call(ListView<String> param) {
+                    return new ColorCell();
+                }
+            });
+
+
         }
 
     }
+
+    // Class for setting cell colours
+    static class ColorCell extends ListCell<String> {
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if(item == null || empty) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                setText(item);
+                this.setTextFill(Color.FIREBRICK);
+
+            }
+        }
+    }
+
 
     public void handleHome(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
