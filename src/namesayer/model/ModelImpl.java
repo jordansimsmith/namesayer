@@ -196,7 +196,13 @@ public class ModelImpl implements Model {
 
         // get all files to be played
         for (Name name : nameList.getNames()) {
-            filesToAdjust.add(name.pickVersion().getFile());
+
+            // when comparing the users recording
+            if (recording != null && name.getLastPlayed().getFile() != null) {
+                filesToAdjust.add(name.getLastPlayed().getFile());
+            } else {
+                filesToAdjust.add(name.pickVersion().getFile());
+            }
         }
 
         // audio manipulation
