@@ -16,10 +16,13 @@ import namesayer.model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MediaPlayer implements Initializable {
+
+    private static final Integer[] REPEAT_OPTIONS = new Integer[]{1, 2, 3, 4, 5};
 
     private List<NameList> names;
     private Model model;
@@ -40,7 +43,7 @@ public class MediaPlayer implements Initializable {
     private MediaView mediaViewer;
 
     @FXML
-    private ListView playList;
+    private ListView<NameList> playList;
 
     @FXML
     private CheckBox handleMode;
@@ -68,6 +71,9 @@ public class MediaPlayer implements Initializable {
 
     @FXML
     private Slider volumeSlider;
+
+    @FXML
+    private ChoiceBox<Integer> repeatCount;
 
     @FXML
     public void handleNext(ActionEvent event) {
@@ -167,8 +173,8 @@ public class MediaPlayer implements Initializable {
     public void handleHome(ActionEvent event) throws IOException {
 
         // cleanup name cache
-        for (NameList list: names) {
-            for (Name name: list.getNames()) {
+        for (NameList list : names) {
+            for (Name name : list.getNames()) {
                 name.setLastPlayed(null);
             }
         }
@@ -202,6 +208,9 @@ public class MediaPlayer implements Initializable {
 
         setCurrentName(0);
 
+        // set options to repeat comparisons
+        repeatCount.setItems(FXCollections.observableList(Arrays.asList(REPEAT_OPTIONS)));
+        repeatCount.setValue(1);
     }
 
     private void setCurrentName(int index) {

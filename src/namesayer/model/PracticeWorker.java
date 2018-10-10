@@ -58,6 +58,7 @@ public class PracticeWorker extends Task<Void> {
         updateMessage("Recording");
 
         // record user name
+        stop = false;
         NameVersion recording = record();
 
         // reset progress
