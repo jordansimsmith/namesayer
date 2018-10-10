@@ -98,7 +98,7 @@ public class MediaPlayer implements Initializable {
     @FXML
     public void handlePlay(ActionEvent event) {
 
-        worker = model.getPracticeWorker(currentName, handleMode.isSelected());
+        worker = new PracticeWorker(currentName, handleMode.isSelected(), repeatCount.getValue());
 
         status.textProperty().bind(worker.messageProperty());
 

@@ -14,15 +14,6 @@ public interface Model {
     void lowQualityName(NameList name);
 
     /**
-     * This method returns a PracticeWorker (task) object that can be bound to a progress indicator and executed on a new
-     * thread to record audio in the background.
-     *
-     * @param names: NameVersion object that is being recorded against.
-     * @return a PracticeWorker object for concurrent execution.
-     */
-    PracticeWorker getPracticeWorker(NameList names, boolean practiceMode);
-
-    /**
      * This method utilises the ffplay command to play one or more recordings consecutively.
      *
      * @param names:     List of Name objects that should be played.

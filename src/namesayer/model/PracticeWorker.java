@@ -15,13 +15,15 @@ public class PracticeWorker extends Task<Void> {
 
     private NameList names;
     private boolean practiceMode;
+    private int repeatCount;
     private Model model;
 
     private boolean stop = false;
 
-    public PracticeWorker(NameList names, boolean practiceMode) {
+    public PracticeWorker(NameList names, boolean practiceMode, int repeatCount) {
         this.names = names;
         this.practiceMode = practiceMode;
+        this.repeatCount = repeatCount;
 
         this.model = ModelImpl.getInstance();
     }
@@ -66,8 +68,11 @@ public class PracticeWorker extends Task<Void> {
 
         updateMessage("Comparing names");
 
-        // play both names
-        play(names, recording);
+        // play both names as many times as the user requests
+        for (int i = 0; i < repeatCount; i++) {
+            play(names, recording);
+        }
+
 
         // ask user if they want to keep the name
         Platform.runLater(() -> {

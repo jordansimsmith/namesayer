@@ -181,13 +181,6 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public PracticeWorker getPracticeWorker(NameList name, boolean practiceMode) {
-
-
-        return new PracticeWorker(name, practiceMode);
-    }
-
-    @Override
     public void playAudio(NameList nameList, NameVersion recording) {
 
         StringBuilder files = new StringBuilder();
