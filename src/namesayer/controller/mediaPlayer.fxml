@@ -98,5 +98,5 @@
     <padding>
         <Insets bottom="10" left="25" right="25" top="25" />
     </padding>
-  
+
 </GridPane>
