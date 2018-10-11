@@ -58,6 +58,15 @@ public class Main extends Application {
 
                 if ((dateFromFile.getYear() == today.getYear() && (dateFromFile.getMonth() == today.getMonth())) && (today.getDay() == dateFromFile.getDay()+1)) {
                     streak++;
+                    
+                    // Pop up for streaks
+                    if (streak >= 3) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Congratulations");
+                        alert.setHeaderText("Streak!");
+                        alert.setContentText("You have been practising names for " + streak + " days in a row!");
+                        alert.showAndWait();
+                    }
                 } else if ((dateFromFile.getYear() == today.getYear() && (dateFromFile.getMonth() == today.getMonth())) && (today.getDay() == dateFromFile.getDay())) {
                     // same day
                 } else {
@@ -80,15 +89,6 @@ public class Main extends Application {
             ioe.printStackTrace();
         }
 
-
-        // Pop up for streaks
-        if (streak >= 3) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Congratulations");
-            alert.setHeaderText("Streak!");
-            alert.setContentText("You have been practising names for " + streak + " days in a row!");
-            alert.showAndWait();
-        }
 
     }
 
