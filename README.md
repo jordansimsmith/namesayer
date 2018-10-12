@@ -77,6 +77,6 @@ This application also contains several advanced features to increase usability a
   This allows users to seperate names into relevant categories and can practise one or all categories together.
  
 - Live search validation
-  When search for names in the database, the textfield automatically rejects any illegal characters.
-  Thus, improving usability and robustness.
+  - When search for names in the database, the textfield automatically rejects any illegal characters.
+  - Thus, improving usability and robustness.
   
