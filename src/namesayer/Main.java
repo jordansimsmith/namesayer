@@ -44,7 +44,7 @@ public class Main extends Application {
     }
 
     private void streak() {
-        int streak = 0;
+        int streak = 1;
 
         // Get current date
         LocalDate today = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -83,12 +83,12 @@ public class Main extends Application {
                 // increment streak
                 streak++;
             } else {
-                streak = 0;
+                streak = 1;
             }
         }
 
         // pop up for streaks
-        if (streak > 0) {
+        if (streak > 1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Congratulations");
             alert.setHeaderText("Streak!");
