@@ -63,7 +63,7 @@ This application also contains several advanced features to increase usability a
 
 - Streak system
   - NameSayer provides a system that increases user incentives to use the application more often.
-  - When the application has been used for more than two days in a row, the system will compliemnt users' effort via a pop up.
+  - When the application has been used for more than two days in a row, the system will acknowledge users' effort via a pop up.
 
 - Rating system
   - When practising full names, users can choose to mark which particular part of the name as of low quality. Hence, providing administrators a better perspective on the quality of the database.
