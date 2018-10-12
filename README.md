@@ -74,5 +74,5 @@ This application also contains several advanced features to increase usability a
   - Users can upload more than one text file, expanding the usability. This allows users to seperate names into relevant categories and can practise one or all categories together.
  
 - Live search validation
-  - When search for names in the database, the textfield automatically rejects any illegal characters.
+  - When searching for names in the database, the textfield automatically rejects any illegal characters.
   
