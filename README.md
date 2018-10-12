@@ -57,3 +57,26 @@ practice or replay their past attempts.
  
 ### Exiting Name Sayer
 1. Users can exit Name Sayer by selecting the **Quit** button on the home screen.
+
+## Speial Features
+This application also contains several advanced features to increase usability and overall robustness.
+
+- Streak system
+  NameSayer provides a system that increases user incentives to use the application more often.
+  When the application has been used for more than two days in a row, the system will compliemnt users' effort via a pop up.
+
+- Rating system
+  Inevitably, the provided database will contain recordings of poor quality. 
+  When practising full names, users can choose to mark which particular part of the name as of low quality.
+  Hence, providing administrators a better perspective on the quality of the database.
+  
+- Upload system
+  As part of NameSayer, users can upload a custom text file containing all the names they would like to practise.
+  The application provides immediate feedback regarding whether the supplied name/s are found.
+  In addition to live validation, users can upload more than one text file, expanding the usability.
+  This allows users to seperate names into relevant categories and can practise one or all categories together.
+ 
+- Live search validation
+  When search for names in the database, the textfield automatically rejects any illegal characters.
+  Thus, improving usability and robustness.
+  
