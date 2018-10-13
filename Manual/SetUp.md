@@ -27,7 +27,7 @@ computer has either an internal or external microphone that is turned on. The us
 has audio playback capability (speakers) and that they are turned on.
 
 ## Launching NameSayer
-Before launching NameSayer, the names database folder must be placed in a folder called `names` in the same directory as 
+Before launching NameSayer, the names database must be placed in a folder called `names` in the same directory as 
 the executable jar.
 
 ```
