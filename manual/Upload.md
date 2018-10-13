@@ -4,7 +4,7 @@ Please make sure NameSayer is properly [set up](https://github.com/jordansimsmit
 ## File format
 NameSayer is calibrated to read names from text files in the following format:
 ```
-Name Name Name Name ...
+FirstName- ... -FirstName MiddleName- ... -MiddleName LastName- ... -LastName
 ```
 Each full name should be in a seperate line entry. Each name should be seperated by either a space "␣", or a hyphen "-".
 
