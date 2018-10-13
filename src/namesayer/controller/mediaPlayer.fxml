@@ -65,7 +65,7 @@
         </font>
     </Button>
 
-    <CheckBox fx:id="handleMode" mnemonicParsing="false" prefHeight="50.0" prefWidth="194.0" text="Practice mode" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <CheckBox fx:id="handleMode" mnemonicParsing="false" prefHeight="50.0" prefWidth="194.0" text="Listen Only" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="18.0" />
         </font>
