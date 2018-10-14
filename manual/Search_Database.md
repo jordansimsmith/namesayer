@@ -5,7 +5,7 @@ Please ensure NameSayer is properly [set up](https://github.com/jordansimsmith/n
 
 1. Search for the desired name using the textfield
 2. Select the *Search* button when the user is content with the input
-3. The application will return a string of name/s found in the database and another string in red representing name/s unavailable 
+3. The application will return a string of name/s found in the database and another string in red representing name/s that are unavailable 
 4. The user can select the *Practise* once sattisfied with the results. This will take the user to the [practise scene](https://github.com/jordansimsmith/namesayer-part03/blob/master/manual/practice.md)
 5. Users may choose to return to the main menu at any time via the *Return* button
 
