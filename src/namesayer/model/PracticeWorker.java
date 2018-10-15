@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PracticeWorker extends Task<Void> {
 
@@ -45,17 +46,31 @@ public class PracticeWorker extends Task<Void> {
 
         // ask user if they are ready to record
         final CountDownLatch latch = new CountDownLatch(1);
+        final AtomicBoolean record = new AtomicBoolean(true);
         Platform.runLater(() -> {
+            // show alert
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Recording");
             alert.setHeaderText("Are you ready to record?");
             alert.setContentText("Press OK to start recording");
             alert.showAndWait();
+
+            // query user response
+            if (alert.getResult() != ButtonType.OK) {
+                record.set(false);
+            }
+
+            // resume worker thread
             latch.countDown();
         });
 
         // wait for record confirmation
         latch.await();
+
+        // exit if user did not want to record
+        if (!record.get()) {
+            return null;
+        }
 
         updateMessage("Recording");
 
