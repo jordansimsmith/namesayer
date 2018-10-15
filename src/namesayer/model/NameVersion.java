@@ -28,7 +28,7 @@ public class NameVersion {
 
         String dateString = fileName.substring(fileName.indexOf("_") + 1, fileName.lastIndexOf("_"));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy_HH-mm-ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 
 
         try {

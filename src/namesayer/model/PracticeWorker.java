@@ -120,7 +120,7 @@ public class PracticeWorker extends Task<Void> {
         new ProcessBuilder("/bin/bash", "-c", "rm recordings/*_" + namesListName + ".wav").start().waitFor();
 
         // get current time
-        String timeStamp = new SimpleDateFormat("dd-mm-yyyy_HH-mm-ss").format(Calendar.getInstance().getTime());
+        String timeStamp = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(Calendar.getInstance().getTime());
 
         // capture audio from microphone
         String filename = "user_" + timeStamp + "_" + namesListName + ".wav";
