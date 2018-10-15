@@ -35,7 +35,7 @@ public class ModelImpl implements Model {
 
     @Override
     public List<Name> getNamesList() {
-        return list;
+        return new ArrayList<>(list);
     }
 
     @Override

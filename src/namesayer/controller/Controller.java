@@ -46,9 +46,17 @@ public class Controller implements Initializable {
 
     @FXML
     public void handleAdd(ActionEvent e) {
-        NameList names = new NameList(new ArrayList<>(currentSelection));
-        selectedList.getItems().add(names);
+        // add selection to the play list
+        NameList namesToPlay = new NameList(new ArrayList<>(currentSelection));
+        selectedList.getItems().add(namesToPlay);
 
+        // clear selection
+        namesList.getItems().clear();
+        ObservableList<Name> names = FXCollections.observableList(model.getNamesList());
+        namesList.setItems(names);
+
+        currentSelection.clear();
+        updateNameBuilder();
     }
 
     @FXML
@@ -102,6 +110,7 @@ public class Controller implements Initializable {
         model = ModelImpl.getInstance();
 
         // initialise names database list
+
         ObservableList<Name> names = FXCollections.observableList(model.getNamesList());
 
         // set up listener for checkboxes
