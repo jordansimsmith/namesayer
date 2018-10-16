@@ -113,11 +113,19 @@ public class ModelImpl implements Model {
             map.put(button, name);
         }
 
+        // add a cancel button
+        buttons.add(ButtonType.CANCEL);
+
         // construct and show alert box asking for which name was bad
         Alert alert = new Alert(Alert.AlertType.NONE, "Please select the name that you wish to report.", buttons.toArray(new ButtonType[]{}));
         alert.setHeaderText("Which name would you like to report?");
         alert.setTitle("Bad Recording");
         alert.showAndWait();
+
+        // check for cancel
+        if (alert.getResult() == ButtonType.CANCEL) {
+            return;
+        }
 
         // get the name the user picked
         NameVersion badName = map.get(alert.getResult()).getLastPlayed();
