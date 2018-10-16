@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import namesayer.model.ModelImpl;
 
@@ -92,6 +94,10 @@ public class Main extends Application {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Congratulations");
             alert.setHeaderText("Streak!");
+//            Label label = new Label("You have been practising names for " + streak + " days in a row!");
+//            label.setWrapText(true);
+//            alert.getDialogPane().setContent(label);
+            alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
             alert.setContentText("You have been practising names for " + streak + " days in a row!");
             alert.showAndWait();
         }
