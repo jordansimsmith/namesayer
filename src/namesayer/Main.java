@@ -94,11 +94,10 @@ public class Main extends Application {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Congratulations");
             alert.setHeaderText("Streak!");
-//            Label label = new Label("You have been practising names for " + streak + " days in a row!");
-//            label.setWrapText(true);
-//            alert.getDialogPane().setContent(label);
+            Label label = new Label("You have been practising names for " + streak + " days in a row!");
+            label.setWrapText(true);
+            alert.getDialogPane().setContent(label);
             alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
-            alert.setContentText("You have been practising names for " + streak + " days in a row!");
             alert.showAndWait();
         }
 
