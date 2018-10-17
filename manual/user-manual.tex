@@ -70,9 +70,37 @@ $ java -jar namesayer.jar
 \section{Search the Database}
 
 \section{Upload a Custom List}
+The Upload screen allows a user to upload a custom list of names so that they can be practised in NameSayer. 
+NameSayer will scan through the names in the file, and create a play list of the names found. This playlist can then be taken to the practice scene and be practised.
+
+\subsection{Upload Instructions}
+
+\begin{enumerate}
+	\item Select the \textbf{Upload} button. NameSayer will prompt the user to select a text file. Please note, the file browser is set to show .txt files only.
+
+	\item After selecting the desired file, NameSayer search for every entry in the file. Names available to be practised will be displayed in black and those unavailable in red. 
+
+	\item Users can then choose to upload further text files using the \textbf{Upload} button.
+
+	\item Select the \textbf{Practise} button to start practising. This will take the user to the Practice screen.
+
+\end{enumerate}
+
+\subsection{File Format}
+Files uploaded to NameSayer must be a plain text file (.txt format). 
+Multiple names that are to be practised together should be on the 
+same line. These names should be separated by either a space or a hyphen. Names that are to be practised separately should be on different lines. \\
+
+Here is an example of a correctly structured file.
+\begin{minted}{bash}
+Jami-Lee Ross
+Jacinda Adern
+David Seymour
+John Key
+\end{minted}
 
 \section{Name Practice}
-The Practice screen is central to the application and most likely what the user will spend the most time on. The practice
+The Practice screen is central to the application and most likely where the user will spend the majority of their time. The practice
 scene allows the user to hear, record and compare their attempts to selected names from the database. The names available 
 in the practice screen are selected previously in the upload/ search or view screens. 
 
