@@ -38,3 +38,5 @@ src/META-INF
 
 temp/
 build/
+
+manual/build/
