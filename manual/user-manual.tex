@@ -1,5 +1,9 @@
 \documentclass{article}
 
+\usepackage{minted}
+
+\setlength{\parindent}{0pt}
+
 \begin{document}
 
 \title{NameSayer User Manual}
@@ -19,6 +23,45 @@
 \clearpage
 
 \section{Setup}
+
+This page describes the system requirements to run NameSayer, and will guide the user through system setup and the launch of the 
+NameSayer application.
+
+\subsection{Required Software}
+
+NameSayer has been designed to run on a Linux based Operating System, relying on bash system calls. To run NameSayer, please
+ensure that you are running a Linux distribution with a Graphical User Interface. \\
+
+NameSayer also requires a \textbf{Java Runtime Environment} to run in and the \textbf{ffmpeg} program used for audio manipulation. \\
+
+Using a terminal, Java 8 can be installed as follows:
+\begin{minted}{bash}
+$ sudo add-apt-repository ppa:webupd8team/java
+$ sudo apt update
+$ sudo apt install oracle-java8-installer
+\end{minted}
+
+Similarly, ffmpeg can be installed as follows:
+\begin{minted}{bash}
+$ sudo apt update
+$ sudo apt install ffmpeg
+\end{minted}
+
+\subsection{Required Hardware}
+The NameSayer application involves the recording and playback of audio. Therefore, NameSayer requires that the user's
+computer has either an internal or external microphone that is turned on. The user should ensure that their computer
+has audio playback capability (speakers) and that they are turned on.
+
+\subsection{Launching NameSayer}
+Before launching NameSayer, the names database must be placed in a folder called \textbf{names} in the same directory as 
+the executable jar. \\
+
+NameSayer must be run from the command line. The user must first navigate into the NameSayer folder. Then the application
+can be launched as follows: 
+
+\begin{minted}{bash}
+$ java -jar namesayer.jar
+\end{minted}
 
 \section{Home Screen}
 

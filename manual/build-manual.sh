@@ -8,9 +8,14 @@ rm -rf build/
 # make new build folder
 mkdir build/
 
+# copy source
+cp user-manual.tex build/
+
+cd build/
+
 # compile latex file
-pdflatex -output-directory build/ user-manual.tex
-pdflatex -output-directory build/ user-manual.tex
+pdflatex -shell-escape user-manual.tex
+pdflatex -shell-escape user-manual.tex
 
 # open pdf
-xdg-open build/user-manual.pdf
+xdg-open user-manual.pdf
