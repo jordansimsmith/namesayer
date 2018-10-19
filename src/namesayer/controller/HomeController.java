@@ -67,9 +67,6 @@ public class HomeController {
 
     @FXML
     public void handleQuit(ActionEvent event) {
-        /**
-         * First delete the temp files
-         */
 
         // Get the current stage and close it.
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -79,6 +76,12 @@ public class HomeController {
 
     @FXML
     public void handleHelp(ActionEvent event) {
-        
+
+        // open the user manual
+        try {
+            new ProcessBuilder("/bin/bash", "-c", "xdg-open user-manual.pdf").start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
