@@ -10,6 +10,7 @@ mkdir build/
 
 # copy source
 cp user-manual.tex build/
+cp -r images/ build/
 
 cd build/
 

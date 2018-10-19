@@ -1,7 +1,11 @@
 \documentclass{article}
 
+\usepackage[left=3cm, right=3cm]{geometry}
+
 \usepackage{minted}
 \usepackage{dirtree}
+\usepackage{graphicx}
+\usepackage{float}
 
 \setlength{\parindent}{0pt}
 
@@ -25,15 +29,17 @@
 
 \section{Setup}
 
-This page describes the system requirements to run NameSayer, and will guide the user through system setup and the launch of the
-NameSayer application.
+This page describes the system requirements to run NameSayer, and will guide the
+user through system setup and the launch of the NameSayer application.
 
 \subsection{Required Software}
 
-NameSayer has been designed to run on a Linux based Operating System, relying on bash system calls. To run NameSayer, please
-ensure that you are running a Linux distribution with a Graphical User Interface. \\
+NameSayer has been designed to run on a Linux based Operating System, relying on
+bash system calls. To run NameSayer, please ensure that you are running a Linux
+distribution with a Graphical User Interface. \\
 
-NameSayer also requires a \textbf{Java Runtime Environment} to run in and the \textbf{ffmpeg} program used for audio manipulation. \\
+NameSayer also requires a \textbf{Java Runtime Environment} to run in and the
+\textbf{ffmpeg} program used for audio manipulation. \\
 
 Using a terminal, Java 8 can be installed as follows:
 \begin{minted}{bash}
@@ -74,6 +80,12 @@ $ java -jar namesayer.jar
 \end{minted}
 
 \section{Home Screen}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/1_home.jpg}
+	\caption{The home screen of NameSayer.}
+	\label{home}
+\end{figure}
 
 \section{View the Database}
 The Database View allows the user to view all the names that are  featured in
@@ -118,6 +130,20 @@ database.
 
 \end{enumerate}
 
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/2_view_build.jpg}
+	\caption{Building a name to practice on the view screen.}
+	\label{viewbuild}
+\end{figure}
+
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/3_view_play.jpg}
+	\caption{Practice the built playlist on the view screen.}
+	\label{viewplay}
+\end{figure}
+
+
 \section{Search the Database}
 The Search Screen allows a user to search for one or more names in the NameSayer
 database. Using this feature, the user can request a specific name without
@@ -142,6 +168,12 @@ parts of the requested name are unavailable.
 	can be practised.
 
 \end{enumerate}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/4_search.jpg}
+	\caption{Searching for a name on the search screen.}
+	\label{search}
+\end{figure}
 
 \section{Upload a Custom List}
 The Upload screen allows a user to upload a custom list of names so that they
@@ -181,6 +213,24 @@ Jacinda Adern
 David Seymour
 John Key
 \end{minted}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/5_upload_empty.jpg}
+	\caption{Uploading a custom text file of names.}
+	\label{uploadempty}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/6_upload_filesystem.jpg}
+	\caption{Searching for a .txt file to upload.}
+	\label{uploadfilesystem}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/7_upload_populated.jpg}
+	\caption{Playlist has been created from the uploaded file.}
+	\label{uploadpopulated}
+\end{figure}
 
 \section{Name Practice}
 The Practice screen is central to the application and most likely where the user
@@ -238,6 +288,18 @@ search or view screens.
 
 \end{itemize}
 
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/8_practice_nav.jpg}
+	\caption{Basic features of the play screen.}
+	\label{practicenav}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/9_practice_play.jpg}
+	\caption{Playing the current name from the play screen.}
+	\label{practiceplay}
+\end{figure}
+
 \subsection{Advanced Features}
 
 \begin{itemize}
@@ -276,6 +338,18 @@ search or view screens.
 	comparison to be looped over up to 5 times.
 
 \end{itemize}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/10_practice_adv.jpg}
+	\caption{Advanced features of the play screen.}
+	\label{practiceadv}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{images/12_practice_config.jpg}
+	\caption{Configuration for the play screen.}
+	\label{practiceconfig}
+\end{figure}
 
 \section{View Past Attempts}
 
@@ -326,6 +400,12 @@ Upon opening the NameSayer application, if a streak is present, the user will be
 congratulated on their consistent efforts. A pop up window will appear, with an
 affirmation as well as the length of the streak (number of days).
 
+\begin{figure}[H]
+	\centerline{\includegraphics[width=\textwidth/2]{images/15_streak.jpg}}
+	\caption{Streak pop up upon NameSayer launch.}
+	\label{streak}
+\end{figure}
+
 \subsection{Selective Rating}
 NameSayer offers the option to either practice a name individually or amongst a
 group of other names, for example, practising a persons's first and last name
@@ -337,6 +417,12 @@ When practising more than one name at once, the user may require that one or
 more of the played names be flagged as low quality. The \textbf{Bad Recording}
 button prompts the user to select the name that they would like to flag, instead
 of flagging the whole selection or none of it.
+
+\begin{figure}[H]
+	\centerline{\includegraphics[width=\textwidth/2]{images/11_bad_recording.png}}
+	\caption{Selecting which name to rate.}
+	\label{badrecording}
+\end{figure}
 
 \subsection{Multiple File Upload}
 One of the features of NameSayer is that a user can upload a text file
