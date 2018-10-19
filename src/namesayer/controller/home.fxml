@@ -14,7 +14,7 @@
             <Font size="72.0" />
         </font>
         <GridPane.margin>
-            <Insets bottom="50.0" />
+            <Insets bottom="40.0" />
         </GridPane.margin>
     </Label>
     <Button onAction="#handleSearch" prefHeight="80" prefWidth="400" text="Search Database" GridPane.halignment="CENTER" GridPane.rowIndex="2">
@@ -38,7 +38,12 @@
             <Font size="24.0" />
         </font>
     </Button>
-    <Button onAction="#handleQuit" prefHeight="80" prefWidth="400" text="Quit" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+    <Button onAction="#handleHelp" prefHeight="80" prefWidth="400" text="Help" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Button>
+    <Button onAction="#handleQuit" prefHeight="80" prefWidth="400" text="Quit" GridPane.halignment="CENTER" GridPane.rowIndex="7">
         <font>
             <Font size="24.0" />
         </font>

@@ -36,7 +36,7 @@ public class HomeController {
 
     }
 
-
+    @FXML
     public void handleUpload(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/uploadScene.fxml"));
@@ -45,6 +45,7 @@ public class HomeController {
         window.show();
     }
 
+    @FXML
     public void handleExistingAttempts(ActionEvent event) throws IOException {
         // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         if (!ModelImpl.getInstance().getAttempts().isEmpty()) {
@@ -74,5 +75,10 @@ public class HomeController {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
 
+    }
+
+    @FXML
+    public void handleHelp(ActionEvent event) {
+        
     }
 }
