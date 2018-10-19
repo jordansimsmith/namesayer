@@ -103,8 +103,6 @@ public class ViewController implements Initializable {
             alert.setHeaderText("No Existing Attempts");
             alert.setContentText("Please return and select another option");
             alert.showAndWait();
-            Stage window = (Stage) attemptsList.getScene().getWindow();
-            window.close();
         } else {
             // populate list view
             attemptsList.setItems(FXCollections.observableArrayList(names));

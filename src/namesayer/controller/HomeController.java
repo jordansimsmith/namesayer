@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import namesayer.model.ModelImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class HomeController {
         window.setTitle("Search");
         window.show();
     }
+
     @FXML
     public void handlePrac(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -35,7 +37,6 @@ public class HomeController {
     }
 
 
-
     public void handleUpload(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/namesayer/controller/uploadScene.fxml"));
@@ -46,7 +47,7 @@ public class HomeController {
 
     public void handleExistingAttempts(ActionEvent event) throws IOException {
         // Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        if (new File("recordings").exists()){
+        if (!ModelImpl.getInstance().getAttempts().isEmpty()) {
             Stage window = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("viewExAttempt.fxml"));
             Scene scene = new Scene(loader.load());
@@ -58,7 +59,6 @@ public class HomeController {
             alert.setHeaderText("No Existing Attempts");
             alert.setContentText("Please select another option");
             alert.showAndWait();
-            return;
         }
 
 
